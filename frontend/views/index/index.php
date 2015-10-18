@@ -80,12 +80,3 @@ $this->title = '首页';
     </div>
     <p>购物消费、发布商品买卖交易都可以让您从其他人那里得到及时资源，从而减少繁琐的操作，及时将资源转化为收益。平台还会默默地为计算每一份收益哦。</p>
 </div>
-<div class="decoration"></div>
-
-<div class="content-footer">
-    <p class="copyright-content"> 版权 © 2015 寻想网络科技 .</p>
-    <a href="#" class="go-up-footer"></a>
-    <a href="#" class="facebook-footer"></a>
-    <a href="#" class="twitter-footer"></a>
-    <div class="clear"></div>
-</div>

@@ -13,7 +13,8 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	
+	var contentheight=$(window).height();
+        $("#content").css("min-height",contentheight+"px");
 	var snapper = new Snap({
 	  element: document.getElementById('content')
 	});

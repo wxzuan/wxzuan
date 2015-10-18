@@ -2,14 +2,14 @@
 
 namespace app\modules\member;
 
-class Member extends \yii\base\Module
-{
+class MemberModule extends \yii\base\Module {
+
     public $controllerNamespace = 'app\modules\member\controllers';
 
-    public function init()
-    {
+    public function init() {
         parent::init();
-
+        $this->defaultRoute='member';
         // custom initialization code goes here
     }
+
 }

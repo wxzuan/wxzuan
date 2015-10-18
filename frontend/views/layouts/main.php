@@ -26,7 +26,7 @@ AppAsset::register($this);
         <link rel="apple-touch-startup-image" sizes="1536x2008" href="/images/splash/splash-screen-ipad-portrait-retina.png"   media="(device-width: 768px)	and (orientation: portrait)	and (-webkit-device-pixel-ratio: 2)"/>
         <link rel="apple-touch-startup-image" sizes="1496x2048" href="/images/splash/splash-screen-ipad-landscape-retina.png"   media="(device-width: 768px)	and (orientation: landscape)	and (-webkit-device-pixel-ratio: 2)"/>
 
-        <title><?= Html::encode($this->title.'|'.Yii::$app->name) ?></title>
+        <title><?= Html::encode($this->title . '|' . Yii::$app->name) ?></title>
         <?php $this->head() ?>
     </head>
     <body>
@@ -40,7 +40,7 @@ AppAsset::register($this);
             </div>
         </div>
         <div class="all-elements">
-            <?=  $this->render('sider') ?>
+            <?= $this->render('sider') ?>
             <div id="content" class="page-content">
                 <div class="page-header">
                     <a href="#" class="deploy-sidebar"></a>
@@ -54,6 +54,15 @@ AppAsset::register($this);
                 </div>
                 <div class="content">
                     <?= $content ?>
+                    <div class="decoration"></div>
+
+                    <div class="content-footer">
+                        <p class="copyright-content"> 版权 © 2015 寻想网络科技 .</p>
+                        <a href="#" class="go-up-footer"></a>
+                        <a href="#" class="facebook-footer"></a>
+                        <a href="#" class="twitter-footer"></a>
+                        <div class="clear"></div>
+                    </div>
                 </div>                
             </div>  
         </div>

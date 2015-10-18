@@ -16,7 +16,7 @@ use yii\filters\AccessControl;
 /**
  * Site controller
  */
-class SiteController extends Controller
+class IndexController extends Controller
 {
     /**
      * @inheritdoc
