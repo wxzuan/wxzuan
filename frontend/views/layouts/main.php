@@ -50,7 +50,6 @@ AppAsset::register($this);
                 <div class="content-header">
                     <a href="<?= Url::toRoute('index') ?>" class="content-logo"></a>
                     <a href="../../../../www.facebook.com/enabled.labs" class="facebook-content"></a>
-                    <a href="../../../../https@twitter.com/iEnabled" class="twitter-content"></a>
                 </div>
                 <div class="content">
                     <?= $content ?>
@@ -60,7 +59,6 @@ AppAsset::register($this);
                         <p class="copyright-content"> 版权 © 2015 寻想网络科技 .</p>
                         <a href="#" class="go-up-footer"></a>
                         <a href="#" class="facebook-footer"></a>
-                        <a href="#" class="twitter-footer"></a>
                         <div class="clear"></div>
                     </div>
                 </div>                

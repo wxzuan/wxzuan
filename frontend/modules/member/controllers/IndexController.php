@@ -4,7 +4,7 @@ namespace app\modules\member\controllers;
 
 use yii\web\Controller;
 
-class MemberController extends Controller
+class IndexController extends Controller
 {
     public function actionIndex()
     {

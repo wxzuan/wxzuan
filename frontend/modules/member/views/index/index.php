@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '商品列表';
+$this->title = '会员中心';
 use frontend\services\ProductService;
 use app\models\Product;
 use yii\helpers\Url;

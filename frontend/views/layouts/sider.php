@@ -26,7 +26,7 @@ use yii\helpers\Url;
                 <a href="<?= Url::toRoute('/help/contact') ?>" class="features-nav">联系我们<em class="go-right"></em></a>
             </div>
             <div class="nav-item">
-                <a href="contact.html" class="member-nav">会员中心<em class="go-right"></em></a>
+                <a href="<?= Url::toRoute('/member/index') ?>" class="member-nav">会员中心<em class="go-right"></em></a>
             </div>
             <div class="nav-item">
                 <a href="#" class="close-nav">关闭导航<em class="unselected-nav"></em></a>

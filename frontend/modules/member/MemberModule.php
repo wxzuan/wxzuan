@@ -8,7 +8,6 @@ class MemberModule extends \yii\base\Module {
 
     public function init() {
         parent::init();
-        $this->defaultRoute='member';
         // custom initialization code goes here
     }
 

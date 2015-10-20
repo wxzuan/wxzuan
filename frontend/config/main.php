@@ -15,6 +15,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'loginUrl'=>['public/nologin'],
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -41,6 +42,7 @@ return [
     'modules' => [
         'member' => [
             'class' => 'app\modules\member\MemberModule',
+            'defaultRoute'=>'index',
         ],
     ],
     'params' => $params,
