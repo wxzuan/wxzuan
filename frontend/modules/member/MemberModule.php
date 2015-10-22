@@ -8,6 +8,7 @@ class MemberModule extends \yii\base\Module {
 
     public function init() {
         parent::init();
+        $this->layout="l_member";
         // custom initialization code goes here
     }
 

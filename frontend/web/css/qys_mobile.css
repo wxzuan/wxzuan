@@ -1,0 +1,17 @@
+.p_member_t{
+    height: 70px;
+    line-height: 100px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+.p_member_m{  
+    text-align: center;
+    font-size: 30px;
+    height: 60px;
+    line-height: 30px;
+    margin-bottom: 0px;
+    font-weight: 600;
+    font-family: monospace;
+    color: #f3163a;
+}
+.qys_member_center{text-align: center;}

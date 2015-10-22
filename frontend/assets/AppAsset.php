@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle {
         'css/owl.carousel.css',
         'css/swipebox.css',
         'css/colorbox.css',
+        'css/qys_mobile.css',
     ];
     public $js = [
         'js/jqueryui.js',
