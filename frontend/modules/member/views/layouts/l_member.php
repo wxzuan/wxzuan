@@ -44,7 +44,7 @@ AppAsset::register($this);
                 <div class="page-header-m">
                     <a href="#" class="deploy-options"></a>
                     <p class="bread-crumb"><?= Html::encode($this->title) ?></p>
-                    <a href="<?= Url::toRoute('member/index') ?>" class="deploy-member" style="background-size: 30px 30px;background-position: 10px 10px;background-image:url(/images/wechat/huodong/product.jpg);"><img src="/images/misc/avatercopy.png" /></a>
+                    <a href="<?= Url::toRoute('/member/index') ?>" class="deploy-member" style="background-size: 30px 30px;background-position: 10px 10px;background-image:url(/images/wechat/huodong/product.jpg);"><img src="/images/misc/avatercopy.png" /></a>
                 </div>
                 <div class="content-m">
                     <?= $content ?>

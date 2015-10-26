@@ -233,7 +233,9 @@ a{
 .container{
     margin-bottom:20px;
 }
-
+.container-b{
+    padding:10px;
+}
 .no-bottom{
     margin-bottom:0px;
 }
@@ -560,13 +562,21 @@ a{
 
 .button-orange{			  background-color:#e67e22;	}
 .button-orange:active{	   background-color:#b76217;	}
-
+.button-w {font-size: 12px;color: #1a1a1a;border: 1px solid #efefef;padding: 5px 7px;}
 
 /*/////////////*/
 /*Buttons Icons*/
 /*/////////////*/
 
 .icon-home{background-image:url(../images/misc/icons/cog2.png);}
+.icon-sharp {background-image: url(../images/misc/icons/icon_sharp.png);}
+.icon-baseinfo {background-image: url(../images/misc/icons/icon_baseinfo.png);}
+.icon-bankcard {background-image: url(../images/misc/icons/icon_bankcard.png);}
+.icon-proaddress {background-image: url(../images/misc/icons/icon_proaddress.png);}
+.icon-account {background-image: url(../images/misc/icons/icon_account.png);}
+.icon-alreadybuy {background-image: url(../images/misc/icons/icon_alreadybuy.png);}
+.icon-proproess {background-image: url(../images/misc/icons/icon_pro_proess.png);}
+.icon-myproduct {background-image: url(../images/misc/icons/icon_myproduct.png);}
 .icon-setting{background-image:url(../images/icons/settings/cog4.png);}
 .icon-mail{background-image:url(../images/icons/misc/mail.png);}
 
