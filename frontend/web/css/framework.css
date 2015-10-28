@@ -303,7 +303,9 @@ a{
     display:block;
     clear:both;
 }
-
+.color-bule{
+    color:blueviolet;
+}
 /*//////////////*/
 /*Data Preloader*/
 /*//////////////*/
@@ -1829,7 +1831,9 @@ table tr:hover td{
     font-style:normal;	
     color:#666;
 }
-
+.padding10{
+    padding:10px;
+}
 
 
 

@@ -4,41 +4,55 @@ $this->title = '基本信息';
 
 use frontend\services\ProductService;
 use app\models\Product;
+use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use yii\helpers\Html;
 ?>
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
 </div>
-<div class="container no-bottom container-b">
-    <div class="section-title">
-        <h4>分享与收益</h4>
-        <em>分享只可获得相应收益</em>
+<?php
+$form = ActiveForm::begin([
+            'action' => ['/member/index/userinfo'],
+            'method' => 'post',
+        ]);
+?>
+<div class="container">
+    <div class="toggle-1">
+        <a href="#" class="deploy-toggle-1 toggle-1-active">真实姓名<span class="float-right color-bule">增加</span></a>
+        <div class="toggle-content padding10" style="overflow: hidden;">
+            <?= $form->field($model, 'realname', ['labelOptions' => ['label' => '真实姓名<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
+        </div>
     </div>
-    <p>
-        收益分享计划的主旨就是通过让员工参与从而提高公司的绩效，它可以被看成是一种管理系统或者是一种管理哲学。因为通过参与，员工可以更了解公司的实际情况，正所谓“离实际越近的人，越清楚问题所在”，这样就可以找出解决方案，使员工自身和公司都获得利益。
-    </p>
 </div>
-<div class="decoration"></div>
-<div class="container no-bottom container-b">
-    <div class="section-title">
-        <h4>二维码分享</h4>
-        <em>将二维码分享给好友就有收益哦</em>
+<div class="container">
+    <div class="toggle-1">
+        <a href="#" class="deploy-toggle-1 toggle-1-active">证件号码<span class="float-right color-bule">增加</span></a>
+        <div class="toggle-content padding10" style="overflow: hidden;">
+            <?= $form->field($model, 'card_id', ['enableAjaxValidation' => true, 'labelOptions' => ['label' => '证件号码<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
+        </div>
     </div>
-    <p>
-        我从来都不会告诉你我就是告分享致富的。
-    </p>
 </div>
-<div class="decoration"></div>
-<div class="container no-bottom container-b">
-    <div class="section-title">
-        <h4>为什么分享给好友</h4>
-        <em>有好东西就要分享不是么</em>
+<div class="container">
+    <div class="toggle-1">
+        <a href="#" class="deploy-toggle-1 toggle-1-active">手机号码<span class="float-right color-bule">增加</span></a>
+        <div class="toggle-content padding10" style="overflow: hidden;">
+            <?= $form->field($model, 'phone', ['enableAjaxValidation' => true, 'labelOptions' => ['label' => '手机号码<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
+        </div>
     </div>
-    <p>
-        如果你是一个百万富翁，你旁边有100个朋友是穷光蛋，他们1人借你一万块，你就成了个穷光蛋。如果你是个穷光蛋，你身边有100个百万富翁，那么他们一人借你一万元，你就是一个百万富翁。
-    </p>
 </div>
-<div class="decoration"></div>
+<div class="container">
+    <div class="toggle-1">
+        <a href="#" class="deploy-toggle-1 toggle-1-active">邮件地址<span class="float-right color-bule">增加</span></a>
+        <div class="toggle-content padding10" style="overflow: hidden;">
+            <?= $form->field($model, 'email', ['enableAjaxValidation' => true, 'labelOptions' => ['label' => '邮件地址<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
+        </div>
+    </div>
+</div>
+<div class="container no-bottom container-b">
+    <?= Html::submitButton('修改信息', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
+</div>
+<?php ActiveForm::end(); ?>
 <div class="container no-bottom" style="text-align: center;">
     <a href="<?= Url::toRoute('/index') ?>" class="button button-w button-white">返回首页</a>
     <a href="<?= Url::toRoute('/product/index') ?>" class="button button-w button-white">商品中心</a>
