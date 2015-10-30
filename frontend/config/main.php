@@ -6,25 +6,26 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'language' =>'zh-CN',  //增加此行，默认使用中文
+    'language' => 'zh-CN', //增加此行，默认使用中文
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'defaultRoute'=>'index',
+    'defaultRoute' => 'index',
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
-            'loginUrl'=>['public/nologin'],
+            'loginUrl' => ['public/nologin'],
         ],
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'enablePrettyUrl' => TRUE,
+            'showScriptName' => FALSE,
             'enableStrictParsing' => FALSE,
             'suffix' => '.html',
-            //'rules' => [
-            //    '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-            //],
+            'rules' => [
+                'public/<action:\w+>/<id:\d+>/<stoken:\w+>' => 'public/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -42,7 +43,7 @@ return [
     'modules' => [
         'member' => [
             'class' => 'app\modules\member\MemberModule',
-            'defaultRoute'=>'index',
+            'defaultRoute' => 'index',
         ],
     ],
     'params' => $params,

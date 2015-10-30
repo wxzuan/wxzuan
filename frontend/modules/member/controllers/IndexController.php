@@ -7,8 +7,35 @@ use frontend\models\forms\UserBaseInfoForm;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 use Yii;
+use common\models\Bankcard;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class IndexController extends Controller {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['userinfo', 'index', 'sharp', 'bank'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex() {
         return $this->render('index');
@@ -28,20 +55,79 @@ class IndexController extends Controller {
      */
     public function actionUserinfo() {
         $model = new UserBaseInfoForm();
+        $user_id = Yii::$app->user->getId();
+        $thisUser = User::find()->where("user_id=" . $user_id)->one();
+
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            //if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            //} else {
-            //   Yii::$app->session->setFlash('error', 'There was an error sending email.');
-            //}
+            if ($thisUser->real_status != 1) {
+                $thisUser->setAttribute('realname', $model->realname);
+                $thisUser->setAttribute('card_id', $model->card_id);
+                $thisUser->setAttribute('real_status', 1);
+            }
+            if ($thisUser->phone != $model->phone) {
+                $thisUser->setAttribute('phone', $model->phone);
+                $thisUser->setAttribute('phone_status', 0);
+            }
+            if ($thisUser->email != $model->email) {
+                $thisUser->setAttribute('email', $model->email);
+                $thisUser->setAttribute('email_status', 0);
+            }
+            if ($thisUser->update()) {
+                $this->refresh();
+                Yii::$app->session->setFlash('success', '更新成功');
+                $this->redirect('/public/notices.html');
+                Yii::$app->end();
+            }
 
             return $this->refresh();
         } else {
+            $model->setAttributes($thisUser->attributes);
             return $this->render('userinfo', ['model' => $model]);
+        }
+    }
+
+    /**
+     * 我的银行
+     */
+    public function actionBank() {
+        $model = new Bankcard();
+        $user_id = Yii::$app->user->getId();
+        $thisUser = Bankcard::find()->where("user_id=" . $user_id)->one();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            echo 11;exit;
+//            if ($thisUser->real_status != 1) {
+//                $thisUser->setAttribute('realname', $model->realname);
+//                $thisUser->setAttribute('card_id', $model->card_id);
+//                $thisUser->setAttribute('real_status', 1);
+//            }
+//            if ($thisUser->phone != $model->phone) {
+//                $thisUser->setAttribute('phone', $model->phone);
+//                $thisUser->setAttribute('phone_status', 0);
+//            }
+//            if ($thisUser->email != $model->email) {
+//                $thisUser->setAttribute('email', $model->email);
+//                $thisUser->setAttribute('email_status', 0);
+//            }
+//            if ($thisUser->update()) {
+//                $this->refresh();
+//                Yii::$app->session->setFlash('success', '更新成功');
+//                $this->redirect('/public/notices.html');
+//                Yii::$app->end();
+//            }
+//
+//            return $this->refresh();
+        } else {
+            $model->setAttributes($thisUser->attributes);
+            return $this->render('bank', ['model' => $model]);
         }
     }
 

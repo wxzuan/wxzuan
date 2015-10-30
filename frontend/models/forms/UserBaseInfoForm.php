@@ -4,6 +4,7 @@ namespace frontend\models\forms;
 
 use Yii;
 use yii\base\Model;
+use common\models\User;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -14,6 +15,15 @@ class UserBaseInfoForm extends Model {
     public $card_id;
     public $phone;
     public $email;
+    public $phone_status;
+    public $email_status;
+    public $real_status;
+    public $user_id;
+
+    function __construct($config = array()) {
+        parent::__construct($config);
+        $this->user_id = Yii::$app->user->getId();
+    }
 
     /**
      * @inheritdoc
@@ -29,6 +39,7 @@ class UserBaseInfoForm extends Model {
             ['card_id', 'oneCardId'],
             ['phone', 'onePhone'],
             ['email', 'oneEmail'],
+            [['real_status', 'phone_status', 'email_status'], 'in', 'range' => [0, 1]],
         ];
     }
 
@@ -40,7 +51,10 @@ class UserBaseInfoForm extends Model {
             'realname' => '真实姓名',
             'card_id' => '证件号码',
             'phone' => '手机号码',
-            'email' => '电子邮箱'
+            'email' => '电子邮箱',
+            'phone_status' => '手机状态',
+            'email_status' => '邮箱状态',
+            'real_status' => '实名状态'
         ];
     }
 
@@ -112,16 +126,24 @@ class UserBaseInfoForm extends Model {
     }
 
     function oneCardId() {
-        $this->addError('card_id', '身份证已经被占用');
+        $countone = User::find()->where("card_id=:card_id AND user_id!=:user_id", [':card_id' => $this->card_id, ':user_id' => $this->user_id])->count();
+        if ($countone > 0) {
+            $this->addError('card_id', '身份证已经被占用');
+        }
     }
 
     function oneEmail() {
-
-        return false;
+        $countone = User::find()->where("email=:email AND email_status=1 AND user_id!=:user_id", [':email' => $this->email, ':user_id' => $this->user_id])->count();
+        if ($countone > 0) {
+            return false;
+        }
     }
 
     public function onePhone() {
-        $this->addError('phone', '手机号码已经被占用');
+        $countone = User::find()->where("phone=:phone AND phone_status=1 AND user_id!=:user_id", [':phone' => $this->phone, ':user_id' => $this->user_id])->count();
+        if ($countone > 0) {
+            $this->addError('phone', '手机号码已经被占用');
+        }
     }
 
 }

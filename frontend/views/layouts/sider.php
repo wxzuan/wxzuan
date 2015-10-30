@@ -29,7 +29,7 @@ use yii\helpers\Url;
                 <a href="<?= Url::toRoute('/member/index') ?>" class="member-nav">会员中心<em class="go-right"></em></a>
             </div>
             <div class="nav-item">
-                <a href="#" class="close-nav">关闭导航<em class="unselected-nav"></em></a>
+                <a href="<?= Url::toRoute('/public/logout') ?>">退出登录<em class="unselected-nav"></em></a>
             </div> 
             <div class="sidebar-decoration"></div>
         </div>
