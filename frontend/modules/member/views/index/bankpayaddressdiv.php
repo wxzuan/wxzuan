@@ -3,7 +3,7 @@
 use common\models\Payarea;
 ?>
 <div id="qys_address_show" style="display: none;">
-    <select name="province" class="qys_common_pay_provice form-control">
+    <select name="province" class="qys_common_pay_provice contactField requiredField">
         <?php
         #获得所有省份列表
         #先从缓冲获得数据
@@ -34,7 +34,7 @@ use common\models\Payarea;
             $city_list_fit = '';
             foreach ($city_list as $value) {
                 if ($value->p_code !== $i) {
-                    $city_list_fit.='</select><select name="city" class="qys_common_pay_city_' . $value->p_code . ' form-control">';
+                    $city_list_fit.='</select><select name="city" class="qys_common_pay_city_' . $value->p_code . ' contactField requiredField">';
                     $i = $value->p_code;
                 }
                 $city_list_fit.='<option value="' . $value->a_code . '">' . $value->name . '</option>';

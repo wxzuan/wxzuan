@@ -45,7 +45,7 @@ $form = ActiveForm::begin([
     <div class="toggle-1">
         <a href="#" class="deploy-toggle-1 toggle-1-active">银行卡号<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
-            <?= $form->field($model, 'account', [ 'labelOptions' => ['label' => '银行卡号<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['disabled' => true, 'class' => 'contactField requiredField']]) ?>  
+            <?= $form->field($model, 'account', ['labelOptions' => ['label' => '银行卡号<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>
     </div>
 </div>
@@ -53,8 +53,8 @@ $form = ActiveForm::begin([
     <div class="toggle-1">
         <a href="#" class="deploy-toggle-1 toggle-1-active">银行所在地<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
-            <div class="one-half">
-                <select class="contactField requiredField" id="province_div">
+            <div class="one-half" id="province_div">
+                <select class="contactField requiredField">
                     <option>省份</option>
                     <option>2</option>
                     <option>3</option>
@@ -62,8 +62,8 @@ $form = ActiveForm::begin([
                     <option>5</option>
                 </select>
             </div>
-            <div class="two-half last-column">
-                <select name="city_code" class="form-control" id="city_div">
+            <div class="two-half last-column" id="city_div">
+                <select name="city_code" class="contactField requiredField">
                     <option value="10">北京市</option>
                 </select>
             </div>
@@ -74,17 +74,17 @@ $form = ActiveForm::begin([
     <div class="toggle-1">
         <a href="#" class="deploy-toggle-1 toggle-1-active">支行名称<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
-            <?= $form->field($model, 'branch', ['labelOptions' => ['label' => '支行名称<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['disabled' => true, 'class' => 'contactField requiredField']]) ?>  
+            <?= $form->field($model, 'branch', ['labelOptions' => ['label' => '支行名称<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>
     </div>
 </div>
 <div class="container no-bottom container-b">
     <?= Html::submitButton('修改银行卡', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
 </div>
+<?php ActiveForm::end(); ?>
 <?php
 echo $this->render('bankpayaddressdiv');
 ?>
-<?php ActiveForm::end(); ?>
 <script type="text/javascript">
     $(document).ready(function () {
 <?php
@@ -105,11 +105,10 @@ if ($bankCard->city) {
 <?php } ?>
         $("#city_div").html(newcity);
         $(".qys_common_pay_provice").bind('change', function () {
-            var province = $(".qys_common_pay_provice").find("option").not(function () {
-                return !this.selected;
-            }).val();
+            var province = $(".qys_common_pay_provice").val();
             $("#qys_address_show").append(newcity);
             newcity = $(".qys_common_pay_city_" + province);
+            $("#city_div").children().remove();
             $("#city_div").html(newcity);
         });
     });

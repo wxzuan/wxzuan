@@ -15,6 +15,7 @@ class BankForm extends Model {
     public $realname;
     public $account;
     public $branch;
+    public $user_id;
 
     function __construct($config = array()) {
         parent::__construct($config);
@@ -29,7 +30,7 @@ class BankForm extends Model {
             [['bank', 'bank_type', 'realname', 'account', 'branch'], 'filter', 'filter' => 'trim'],
             [['realname', 'account', 'branch'], 'required', 'message' => '{attribute}不能空'],
             ['realname', 'string', 'min' => 2, 'max' => 100, 'message' => '{attribute}在2至100个字符之间'],
-            ['account', 'string', 'min' => 20, 'max' => 50, 'message' => '{attribute}在20至50个字符之间'],
+            ['account', 'string', 'min' => 8, 'max' => 50, 'message' => '{attribute}在20至50个字符之间'],
             ['branch', 'string', 'min' => 4, 'max' => 100, 'message' => '{attribute}在4至100个字符之间']
         ];
     }

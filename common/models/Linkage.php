@@ -38,7 +38,7 @@ class Linkage extends \yii\db\ActiveRecord {
             }
         } else {
             //$result = Linkage::model()->find("type_id=:type_id AND cvalue=:cvalue", array(":type_id" => $questid->id, ":cvalue" => $value));
-            $result = Linkage::find()->where("type_id=:type_id AND cvalue=:cvalue", [":type_id" => $questid->id, ":cvalue" => $value]);
+            $result = Linkage::find()->where("type_id=:type_id AND cvalue=:cvalue", [":type_id" => $questid->id, ":cvalue" => $value])->one();
             if (!$result) {
                 return '';
             } else {

@@ -21,21 +21,19 @@ use Yii;
  * @property integer $addtime
  * @property string $addip
  */
-class Bankcard extends \yii\db\ActiveRecord
-{
+class Bankcard extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'web_bankcard';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['user_id', 'realname', 'account', 'bank', 'bank_name', 'branch', 'province', 'city', 'area', 'addtime', 'addip'], 'required'],
             [['user_id', 'bank_type', 'province', 'city', 'area', 'addtime'], 'integer'],
@@ -47,8 +45,7 @@ class Bankcard extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
@@ -65,4 +62,15 @@ class Bankcard extends \yii\db\ActiveRecord
             'addip' => 'Addip',
         ];
     }
+
+    public function beforeSave($insert) {
+        if ($this->isNewRecord) {
+            $this->addtime = time();
+            $this->area = 0;
+            $this->addip = \Yii::$app->request->userIP;
+        }
+        return parent::beforeSave($insert);
+        
+    }
+
 }
