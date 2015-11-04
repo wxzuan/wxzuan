@@ -35,7 +35,7 @@ use yii\helpers\Url;
     <a href="<?= Url::toRoute('/member/index/sharp') ?>" style="width:100%;" class="button-big-icon-colse icon-sharp button-white">快速分享<em class="go-right-member"></em></a>
     <a href="<?= Url::toRoute('/member/index/userinfo') ?>" style="width:100%;" class="button-big-icon-colse icon-baseinfo button-white">基本信息<em class="go-right-member"></em></a>
     <a href="<?= Url::toRoute('/member/index/bank') ?>" style="width:100%;" class="button-big-icon-colse icon-bankcard button-white">我的银行<em class="go-right-member"></em></a>
-    <a href="#" style="width:100%;" class="button-big-icon-colse icon-proaddress button-white">收货地址<em class="go-right-member"></em></a>
+    <a href="<?= Url::toRoute('/member/index/shippingaddress') ?>" style="width:100%;" class="button-big-icon-colse icon-proaddress button-white">收货地址<em class="go-right-member"></em></a>
     <a href="#" style="width:100%;" class="button-big-icon-colse icon-account button-white">资金明细<em class="go-right-member"></em></a>
 </div>
 <div class="decoration"></div>

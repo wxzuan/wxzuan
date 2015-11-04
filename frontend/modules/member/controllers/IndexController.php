@@ -2,19 +2,20 @@
 
 namespace app\modules\member\controllers;
 
-use yii\web\Controller;
 use frontend\models\forms\UserBaseInfoForm;
 use \frontend\models\forms\BankForm;
+use frontend\models\forms\UserProductAddressForm;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 use Yii;
 use common\models\Bankcard;
+use common\models\UserProductAddress;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use common\models\Linkage;
 use common\models\User;
 
-class IndexController extends Controller {
+class IndexController extends \common\controllers\BaseController {
 
     /**
      * @inheritdoc
@@ -25,7 +26,7 @@ class IndexController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['userinfo', 'index', 'sharp', 'bank'],
+                        'actions' => ['userinfo', 'index', 'sharp', 'bank', 'shippingaddress'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -120,6 +121,39 @@ class IndexController extends Controller {
         } else {
             $model->setAttributes($thisBank->attributes);
             return $this->render('bank', ['model' => $model]);
+        }
+    }
+
+    /**
+     * 我的银行
+     */
+    public function actionShippingaddress() {
+        $model = new UserProductAddressForm();
+        $user_id = Yii::$app->user->getId();
+        $thisuserpa = UserProductAddress::find()->where("user_id=" . $user_id)->one();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $thisuserpa->setAttributes($model->attributes);
+            $thisuserpa->setAttribute('province', $_POST['province']);
+            $thisuserpa->setAttribute('city', $_POST['city']);
+            $thisuserpa->setAttribute('area', $_POST['area']);
+            $address = Yii::$app->cache->get('sys_address');
+            $sysaddress = $address['province'][$_POST['province']] . $address['city'][$_POST['city']] . $address['area'][$_POST['area']];
+            $thisuserpa->setAttribute('sysaddress', $sysaddress);
+            $resultR = $thisuserpa->save();
+            $this->refresh();
+            if ($resultR) {
+                Yii::$app->session->setFlash('success', '更新成功');
+                $this->redirect('/public/notices.html');
+                Yii::$app->end();
+            }
+        } else {
+            $model->setAttributes($thisuserpa->attributes);
+            return $this->render('shippingaddress', ['model' => $model]);
         }
     }
 
