@@ -16,7 +16,7 @@ class ProductController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'buyed', 'rate'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -36,7 +36,7 @@ class ProductController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionIndex() {
-        return $this->render('account_index');
+        return $this->render('product_index');
     }
 
     /**
@@ -44,7 +44,7 @@ class ProductController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionBuyed() {
-        return $this->render('account_index');
+        return $this->render('product_buyed');
     }
 
     /**
@@ -52,7 +52,7 @@ class ProductController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionRate() {
-        return $this->render('account_index');
+        return $this->render('account_rate');
     }
 
 }

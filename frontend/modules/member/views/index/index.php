@@ -2,8 +2,6 @@
 /* @var $this yii\web\View */
 $this->title = '会员中心';
 
-use frontend\services\ProductService;
-use app\models\Product;
 use yii\helpers\Url;
 ?>
 <div class="container no-bottom" style="background-color: #fae0ca;">              
