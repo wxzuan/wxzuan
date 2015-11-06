@@ -40,9 +40,9 @@ use yii\helpers\Url;
 </div>
 <div class="decoration"></div>
 <div class="container no-bottom">
-    <a href="#" style="width:100%;" class="button-big-icon-colse icon-alreadybuy button-white">已购商品<em class="go-right-member"></em></a>
-    <a href="#" style="width:100%;" class="button-big-icon-colse icon-myproduct button-white">我的商品<em class="go-right-member"></em></a>
-    <a href="#" style="width:100%;" class="button-big-icon-colse icon-proproess button-white">物流进度<em class="go-right-member"></em></a>
+    <a href="<?= Url::toRoute('/member/product/buyed') ?>" style="width:100%;" class="button-big-icon-colse icon-alreadybuy button-white">已购商品<em class="go-right-member"></em></a>
+    <a href="<?= Url::toRoute('/member/product/index') ?>" style="width:100%;" class="button-big-icon-colse icon-myproduct button-white">我的商品<em class="go-right-member"></em></a>
+    <a href="<?= Url::toRoute('/member/product/rate') ?>" style="width:100%;" class="button-big-icon-colse icon-proproess button-white">物流进度<em class="go-right-member"></em></a>
 </div>
 <div class="decoration"></div>
 <div class="container no-bottom" style="text-align: center;">
