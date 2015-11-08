@@ -2,8 +2,10 @@
 
 namespace app\modules\member\controllers;
 
+use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use frontend\models\forms\SearchProcessForm;
 
 class ProductController extends \common\controllers\BaseController {
 
@@ -52,7 +54,24 @@ class ProductController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionRate() {
-        return $this->render('account_rate');
+
+        $model = new SearchProcessForm();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $this->refresh();
+            if ($resultR) {
+                Yii::$app->session->setFlash('success', '更新成功');
+                $this->redirect('/public/notices.html');
+                Yii::$app->end();
+            }
+        } else {
+            return $this->render('product_rate', ['model' => $model]);
+        }
     }
 
 }

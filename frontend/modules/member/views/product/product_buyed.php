@@ -1,99 +1,37 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '资金明细';
+$this->title = '已购商品';
 
-use frontend\services\ProductService;
-use app\models\Product;
+use frontend\services\OrderService;
 use yii\helpers\Url;
+
+$user_id = Yii::$app->user->getId();
+$data = ['user_id' => $user_id, 'limit' => 10];
+$productorders = OrderService::findProductOrder($data);
 ?>
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
 </div>
-<div class="one-half-responsive last-column">
-    <div class="container">
-        <div class="toggle-1">
-            <a href="#" class="deploy-toggle-1">
-                2015年01月22日12时23分35秒 <span style="color:red;">入帐</span> 1800.00 元
-            </a>
-            <div class="toggle-content">
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled specimen book.
+<div class="container no-bottom" style="padding:0px 10px;">
+    <?php
+    if ($productorders):
+        foreach ($productorders as $oneproductorder):
+            ?>
+            <div class="one-half-responsive">
+                <p class="quote-item">
+                    <img src="<?= $oneproductorder->product->product_s_img; ?>" alt="img">
+                    商品名称：<?= $oneproductorder->product->product_name ?> 支付：<?= $oneproductorder->order_pay_price ?> 元 状态：<?= $oneproductorder->getOrderStatus() ?>
+                    <em>送货地址：<?= $oneproductorder->address ?></em>
                 </p>
             </div>
+            <?php
+        endforeach;
+    else:
+        ?>
+        <div class="container" style="min-height: 350px;">
+            <p>暂时没有资金记录</p>
         </div>
-    </div>
-    <div class="container">
-        <div class="toggle-1">
-            <a href="#" class="deploy-toggle-1">
-                2015年01月22日12时23分35秒 <span style="color:red;">入帐</span> 1800.00 元
-            </a>
-            <div class="toggle-content">
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled specimen book.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="toggle-1">
-            <a href="#" class="deploy-toggle-1">
-                2015年01月22日12时23分35秒 <span style="color:red;">入帐</span> 1800.00 元
-            </a>
-            <div class="toggle-content">
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled specimen book.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="toggle-1">
-            <a href="#" class="deploy-toggle-1">
-                2015年01月22日12时23分35秒 <span style="color:red;">入帐</span> 1800.00 元
-            </a>
-            <div class="toggle-content">
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled specimen book.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="toggle-1">
-            <a href="#" class="deploy-toggle-1">
-                2015年01月22日12时23分35秒 <span style="color:red;">入帐</span> 1800.00 元
-            </a>
-            <div class="toggle-content">
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled specimen book.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="toggle-1">
-            <a href="#" class="deploy-toggle-1">
-                2015年01月22日12时23分35秒 <span style="color:red;">入帐</span> 1800.00 元
-            </a>
-            <div class="toggle-content">
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled specimen book.
-                </p>
-            </div>
-        </div>
-    </div>
+    <?php endif; ?>
 </div>
 <div class="decoration"></div>
 <div class="container no-bottom" style="text-align: center;">

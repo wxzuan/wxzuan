@@ -3,13 +3,16 @@
 $this->title = '会员中心';
 
 use yii\helpers\Url;
+use common\models\Account;
+$user_id=Yii::$app->user->getId();
+$thisuserAccount=  Account::find()->where(":user_id=user_id",[':user_id'=>$user_id])->one();
 ?>
 <div class="container no-bottom" style="background-color: #fae0ca;">              
     <p class="p_member_t">
         可用资金（元）    
     </p>
     <p class="p_member_m">
-        100.00    
+        <?= $thisuserAccount->use_money; ?>   
     </p>
     <div class="one-half">
         <p class="qys_member_center">
