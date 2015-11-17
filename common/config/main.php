@@ -7,8 +7,5 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'aliases' => [
-            '@xxkejinet/wxzuanpay' => '@common/extensions/wxzuanpay',
-        ],
     ],
 ];
