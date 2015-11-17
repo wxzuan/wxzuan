@@ -7,7 +7,7 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = '出错啦～';
 ?>
 <div class="site-error">
 
@@ -18,10 +18,10 @@ $this->title = $name;
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
+        怎么办?当前页面飞到火星去了。
     </p>
     <p>
-        Please contact us if you think this is a server error. Thank you.
+        没事啦，程序员正在造飞船。
     </p>
 
 </div>

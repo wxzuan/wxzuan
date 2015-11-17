@@ -14,39 +14,39 @@ $user_id = Yii::$app->user->getId();
     <ul class="gallery square-thumb">
         <li>
             <a class="swipebox" href="images/gallery/full/1.jpg" title="An image caption!">
-                <img src="/images/general-nature/1s.jpg" alt="img"></a>
+                <img src="/images/yuan10.gif" alt="img"></a>
         </li>
         <li>
             <a class="swipebox" href="images/gallery/full/2.jpg" title="It can change!">
-                <img src="/images/general-nature/2s.jpg" alt="img"></a>
+                <img src="/images/yuan20.gif" alt="img"></a>
         </li>
         <li>
             <a class="swipebox" href="images/gallery/full/3.jpg" title="To be whatever you want!">
-                <img src="/images/general-nature/3s.jpg" alt="img"></a>
+                <img src="/images/yuan50.gif" alt="img"></a>
         </li>
         <li>
-            <a class="swipebox" href="images/gallery/full/1.jpg" title="It's connected to the href!">
-                <img src="/images/general-nature/4s.jpg" alt="img"></a>
+            <a href="images/gallery/full/1.jpg" title="It's connected to the href!">
+                <img src="/images/yuan100.gif" alt="img"></a>
         </li>
         <li>
-            <a class="swipebox" href="images/gallery/full/2.jpg" title="Easy to change and edit!">
-                <img src="/images/general-nature/5s.jpg" alt="img"></a>
+            <a href="images/gallery/full/2.jpg" title="Easy to change and edit!">
+                <img src="/images/yuan200.gif" alt="img"></a>
         </li>
         <li>
-            <a class="swipebox" href="images/gallery/full/3.jpg" title="What an awesome gallery!">
-                <img src="/images/general-nature/6s.jpg" alt="img"></a>
+            <a href="images/gallery/full/3.jpg" title="What an awesome gallery!">
+                <img src="/images/yuan500.gif" alt="img"></a>
         </li>
         <li>
-            <a class="swipebox" href="images/gallery/full/1.jpg" title="It's connected to the href!">
-                <img src="/images/general-nature/4s.jpg" alt="img"></a>
+            <a href="images/gallery/full/1.jpg" title="It's connected to the href!">
+                <img src="/images/yuan1000.gif" alt="img"></a>
         </li>
         <li>
-            <a class="swipebox" href="images/gallery/full/2.jpg" title="Easy to change and edit!">
-                <img src="/images/general-nature/5s.jpg" alt="img"></a>
+            <a href="images/gallery/full/2.jpg" title="Easy to change and edit!">
+                <img src="/images/yuan5000.gif" alt="img"></a>
         </li>
         <li>
-            <a class="swipebox" href="images/gallery/full/3.jpg" title="What an awesome gallery!">
-                <img src="/images/general-nature/6s.jpg" alt="img"></a>
+            <a href="images/gallery/full/3.jpg" title="What an awesome gallery!">
+                <img src="/images/yuan10000.gif" alt="img"></a>
         </li>
     </ul>   
 </div>
