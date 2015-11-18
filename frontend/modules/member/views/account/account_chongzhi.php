@@ -3,7 +3,7 @@
 $this->title = '充值';
 
 use yii\helpers\Url;
-use frontend\services\AccountService;
+use extensions\wxzuanpay\widgets\FooterPayJS;
 
 $user_id = Yii::$app->user->getId();
 ?>
@@ -51,6 +51,12 @@ $user_id = Yii::$app->user->getId();
     </ul>   
 </div>
 <div class="decoration"></div>
+<div class="container no-bottom">
+    <div align="center">
+        <button style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" onclick="callpay()" >立即支付</button>
+    </div>
+</div>
+<?= FooterPayJS::widget(); ?>
 <div class="container no-bottom" style="text-align: center;">
     <a href="<?= Url::toRoute('/index') ?>" class="button button-w button-white">返回首页</a>
     <a href="<?= Url::toRoute('/product/index') ?>" class="button button-w button-white">商品中心</a>

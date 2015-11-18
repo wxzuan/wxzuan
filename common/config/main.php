@@ -7,5 +7,9 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'smser' => [
+            // 微信支付
+            'class' => 'extensions\wxzuanpay\Wxzuanpay',
+        ]
     ],
 ];
