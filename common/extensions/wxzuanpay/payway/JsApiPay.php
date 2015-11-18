@@ -104,10 +104,10 @@ class JsApiPay
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		if(WxPayConfig::CURL_PROXY_HOST != "0.0.0.0" 
-			&& WxPayConfig::CURL_PROXY_PORT != 0){
-			curl_setopt($ch,CURLOPT_PROXY, WxPayConfig::CURL_PROXY_HOST);
-			curl_setopt($ch,CURLOPT_PROXYPORT, WxPayConfig::CURL_PROXY_PORT);
+		if(WxPayConfig::$CURL_PROXY_HOST != "0.0.0.0" 
+			&& WxPayConfig::$CURL_PROXY_PORT != 0){
+			curl_setopt($ch,CURLOPT_PROXY, WxPayConfig::$CURL_PROXY_HOST);
+			curl_setopt($ch,CURLOPT_PROXYPORT, WxPayConfig::$CURL_PROXY_PORT);
 		}
 		//运行curl，结果以jason形式返回
 		$res = curl_exec($ch);
@@ -150,7 +150,7 @@ class JsApiPay
 	{	
 		$getData = $this->data;
 		$data = array();
-		$data["appid"] = WxPayConfig::APPID;
+		$data["appid"] = WxPayConfig::$APPID;
 		$data["url"] = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$time = time();
 		$data["timestamp"] = "$time";
@@ -164,7 +164,7 @@ class JsApiPay
 			"addrSign" => $addrSign,
 			"signType" => "sha1",
 			"scope" => "jsapi_address",
-			"appId" => WxPayConfig::APPID,
+			"appId" => WxPayConfig::$APPID,
 			"timeStamp" => $data["timestamp"],
 			"nonceStr" => $data["noncestr"]
 		);
@@ -181,7 +181,7 @@ class JsApiPay
 	 */
 	private function __CreateOauthUrlForCode($redirectUrl)
 	{
-		$urlObj["appid"] = WxPayConfig::APPID;
+		$urlObj["appid"] = WxPayConfig::$APPID;
 		$urlObj["redirect_uri"] = "$redirectUrl";
 		$urlObj["response_type"] = "code";
 		$urlObj["scope"] = "snsapi_base";
@@ -199,8 +199,8 @@ class JsApiPay
 	 */
 	private function __CreateOauthUrlForOpenid($code)
 	{
-		$urlObj["appid"] = WxPayConfig::APPID;
-		$urlObj["secret"] = WxPayConfig::APPSECRET;
+		$urlObj["appid"] = WxPayConfig::$APPID;
+		$urlObj["secret"] = WxPayConfig::$APPSECRET;
 		$urlObj["code"] = $code;
 		$urlObj["grant_type"] = "authorization_code";
 		$bizString = $this->ToUrlParams($urlObj);

@@ -4,7 +4,7 @@ namespace extensions\wxzuanpay;
 
 use Yii;
 use yii\helpers\FileHelper;
-
+use extensions\wxzuanpay\lib\WxPayConfig;
 /**
  * 短信发送基类
  *
@@ -12,6 +12,11 @@ use yii\helpers\FileHelper;
  */
 abstract class Wxzuanpay extends \yii\base\Component {
 
+    public function __construct() {
+        //初始化一个支付配置类更改默认数据
+        $this->payConfig= WxPayConfig::getInstance();
+    }
+   public $payConfig=null;
     /**
      * 请求地址
      *
