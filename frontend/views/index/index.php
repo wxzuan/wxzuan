@@ -6,7 +6,7 @@ $this->title = '首页';
 <div class="container">
     <div class="slider-controls" data-snap-ignore="true">                
         <div>
-            <img src="/images/general-nature/3.jpg" class="responsive-image" alt="img">
+            <img src="/images/wechat/huodong/sc_img_1.jpg" class="responsive-image" alt="img">
             <p class="title-slider-caption">
                 <strong>迎接美丽</strong>
                 <em>水质清丽，美丽可人。</em>
@@ -14,12 +14,19 @@ $this->title = '首页';
         </div>
 
         <div>
-            <img src="/images/general-nature/2.jpg" class="responsive-image" alt="img">
+            <img src="/images/wechat/huodong/sc_img_2.jpg" class="responsive-image" alt="img">
             <p class="small-slider-caption">享受你的财富之旅吧。</p>
         </div>
 
         <div>
-            <img src="/images/general-nature/1.jpg" class="responsive-image" alt="img">
+            <img src="/images/wechat/huodong/sc_img_3.jpg" class="responsive-image" alt="img">
+            <p class="title-slider-caption">
+                <strong>快乐买卖</strong>
+                <em>快捷方便，全民交易。</em>
+            </p>
+        </div>
+        <div>
+            <img src="/images/wechat/huodong/sc_img_4.jpg" class="responsive-image" alt="img">
             <p class="title-slider-caption">
                 <strong>快乐买卖</strong>
                 <em>快捷方便，全民交易。</em>
