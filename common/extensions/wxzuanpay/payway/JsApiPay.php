@@ -1,6 +1,7 @@
 <?php
 namespace extensions\wxzuanpay\payway;
 use extensions\wxzuanpay\lib\WxPayApi;
+use extensions\wxzuanpay\lib\WxPayConfig;
 /**
  * 
  * JSAPI支付实现类
@@ -12,7 +13,7 @@ use extensions\wxzuanpay\lib\WxPayApi;
  * @author widy
  *
  */
-class WxPayJsApiPay
+class JsApiPay
 {
 	/**
 	 * 
