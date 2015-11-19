@@ -11,21 +11,31 @@
  *
  * @author qinyangsheng
  */
+
 namespace frontend\services;
+
 use common\models\AccountLog;
+use yii\data\ActiveDataProvider;
 
 class AccountService {
 
-    //put your code here
+    /**
+     * 
+     * @param int $data
+     * @return \yii\data\ActiveDataProvider
+     */
     public static function findAccountlog($data = array()) {
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
-        $accountlogs = AccountLog::find()
-                ->Where('user_id=:user_id', [':user_id' => $data['user_id']])
-                ->limit($data['limit'])
-                ->all();
-        return $accountlogs;
+        $model = new AccountLog();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $model->find()->Where('user_id=:user_id', [':user_id' => $data['user_id']]),
+            'pagination' => [
+                'pagesize' => $data['limit'],
+            ]
+        ]);
+        return $dataProvider;
     }
 
 }

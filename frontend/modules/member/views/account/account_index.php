@@ -4,6 +4,8 @@ $this->title = '资金明细';
 
 use yii\helpers\Url;
 use frontend\services\AccountService;
+use yii\widgets\ListView;
+use frontend\extensions\scrollpager\ScrollPager;
 
 $user_id = Yii::$app->user->getId();
 ?>
@@ -14,24 +16,13 @@ $user_id = Yii::$app->user->getId();
     <?php
     $data = ['user_id' => $user_id, 'limit' => 10];
     $accountlogs = AccountService::findAccountlog($data);
-    if (!$accountlogs):
-        foreach ($accountlogs as $onaccountlog):
-            ?>
-            <div class="container">
-                <div class="toggle-1">
-                    <a href="#" class="deploy-toggle-1">
-                        <?= date('Y年m月d日H时i分s秒', $onaccountlog->addtime) ?> <?= $onaccountlog->getTypeRemark() ?> <?= $onaccountlog->money ?> 元
-                    </a>
-                    <div class="toggle-content">
-                        <p>
-                            可用余额：<?= $onaccountlog->use_money ?> 元<br/>
-                            备注：<?= $onaccountlog->remark ?>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <?php
-        endforeach;
+    if ($accountlogs):
+        echo ListView::widget([
+            'dataProvider' => $accountlogs,
+            'itemOptions' => ['class' => 'item'],
+            'itemView' => '_item_view',
+            'pager' => ['class' => ScrollPager::className()]
+        ]);
     else:
         ?>
 
