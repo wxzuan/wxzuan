@@ -13,6 +13,7 @@
  */
 namespace frontend\services;
 use app\models\Product;
+use yii\data\ActiveDataProvider;
 
 class ProductService {
 
@@ -21,11 +22,14 @@ class ProductService {
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
-        $products = Product::find()
-                ->Where('product_status=:status', [':status' => 0])
-                ->limit($data['limit'])
-                ->all();
-        return $products;
+        $model = new Product();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $model->find()->Where('product_status=:status', [':status' => 0])->limit($data['limit']),
+            'pagination' => [
+                'pagesize' => $data['limit'],
+            ]
+        ]);
+        return $dataProvider;
     }
 
 }

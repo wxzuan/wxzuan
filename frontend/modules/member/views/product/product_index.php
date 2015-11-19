@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '资金明细';
+$this->title = '我的商品';
 
 use frontend\services\ProductService;
 use app\models\Product;

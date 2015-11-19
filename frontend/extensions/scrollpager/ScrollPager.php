@@ -99,7 +99,7 @@ class ScrollPager extends Widget
     /**
      * @var string $triggerTemplate Allows you to override the trigger html template.
      */
-    public $triggerTemplate = '<div class="ias-trigger" style="text-align: center; cursor: pointer;"><a>{text}</a></div>';
+    public $triggerTemplate = '<div class="ias-trigger" style="text-align: center; cursor: pointer;"><a class="button button-w button-red">{text}</a></div>';
 
     /**
      * @var int $triggerOffset The number of pages which should load automatically.
@@ -229,11 +229,11 @@ class ScrollPager extends Widget
 
         // Register translations source
         Yii::$app->i18n->translations = ArrayHelper::merge(Yii::$app->i18n->translations, [
-            'kop\y2sp' => [
+            'frontend\extensions\extensions' => [
                 'class' => PhpMessageSource::className(),
-                'basePath' => '@vendor/kop/yii2-scroll-pager/messages',
+                'basePath' => '@app/extensions/extensions/messages',
                 'fileMap' => [
-                    'kop\y2sp' => 'general.php'
+                    'frontend\extensions\extensions' => 'general.php'
                 ]
             ]
         ]);
@@ -243,12 +243,12 @@ class ScrollPager extends Widget
 
         // Set default trigger text if not set
         if ($this->triggerText === null) {
-            $this->triggerText = Yii::t('kop\y2sp', 'Load more items');
+            $this->triggerText = Yii::t('frontend\extensions\extensions', '加载更多..');
         }
 
         // Set default "none left" message text if not set
         if ($this->noneLeftText === null) {
-            $this->noneLeftText = Yii::t('kop\y2sp', 'You reached the end');
+            $this->noneLeftText = Yii::t('frontend\extensions\extensions', '没有更多了');
         }
     }
 
