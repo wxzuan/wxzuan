@@ -11,13 +11,20 @@
  *
  * @author qinyangsheng
  */
+
 namespace frontend\services;
+
 use app\models\Product;
 use yii\data\ActiveDataProvider;
+use \Yii;
 
 class ProductService {
 
-    //put your code here
+    /**
+     * 
+     * @param int $data
+     * @return \yii\data\ActiveDataProvider
+     */
     public static function findProducts($data = array()) {
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
@@ -30,6 +37,34 @@ class ProductService {
             ]
         ]);
         return $dataProvider;
+    }
+
+    /**
+     * 
+     * @param int $data
+     * @return \yii\data\ActiveDataProvider
+     */
+    public static function findMyProducts($data = array()) {
+        $user_id = Yii::$app->user->getId();
+        if (!isset($data['limit'])) {
+            $data['limit'] = 10;
+        }
+        $model = new Product();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $model->find()->Where('product_user_id=:product_user_id', [':product_user_id' => $user_id])->limit($data['limit']),
+            'pagination' => [
+                'pagesize' => $data['limit'],
+            ]
+        ]);
+        $newfitarray = array();
+        foreach ($dataProvider->getModels() as $value) {
+            $newfitarray[] = [
+                'url' => $value->product_s_img,
+                'src' => $value->product_s_img,
+                'options' => array('title' => $value->product_name)
+            ];
+        }
+        return array_values($newfitarray);
     }
 
 }
