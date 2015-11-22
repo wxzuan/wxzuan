@@ -18,7 +18,7 @@ class ProductController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'buyed', 'rate'],
+                        'actions' => ['index', 'buyed', 'rate', 'look'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -71,6 +71,31 @@ class ProductController extends \common\controllers\BaseController {
             }
         } else {
             return $this->render('product_rate', ['model' => $model]);
+        }
+    }
+
+    /**
+     * 单个商品修改
+     * @return type
+     */
+    public function actionLook() {
+
+        $model = new SearchProcessForm();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $this->refresh();
+            if ($resultR) {
+                Yii::$app->session->setFlash('success', '更新成功');
+                $this->redirect('/public/notices.html');
+                Yii::$app->end();
+            }
+        } else {
+            return $this->render('product_look', ['model' => $model]);
         }
     }
 

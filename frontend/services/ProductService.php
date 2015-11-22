@@ -56,15 +56,7 @@ class ProductService {
                 'pagesize' => $data['limit'],
             ]
         ]);
-        $newfitarray = array();
-        foreach ($dataProvider->getModels() as $value) {
-            $newfitarray[] = [
-                'url' => $value->product_s_img,
-                'src' => $value->product_s_img,
-                'options' => array('title' => $value->product_name)
-            ];
-        }
-        return array_values($newfitarray);
+        return $dataProvider->getModels();
     }
 
 }

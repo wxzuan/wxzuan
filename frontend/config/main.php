@@ -33,7 +33,7 @@ return [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
-                    'maxFileSize'=>1024,
+                    'maxFileSize' => 1024,
                 ],
             ],
         ],
