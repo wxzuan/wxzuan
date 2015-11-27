@@ -57,4 +57,49 @@ return array (
       '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
   ),
+  'yiisoft/yii2-jui' => 
+  array (
+    'name' => 'yiisoft/yii2-jui',
+    'version' => '2.0.4.0',
+    'alias' => 
+    array (
+      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
+    ),
+  ),
+  'yii2mod/yii2-user' => 
+  array (
+    'name' => 'yii2mod/yii2-user',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/user' => $vendorDir . '/yii2mod/yii2-user',
+    ),
+  ),
+  'yii2mod/yii2-rbac' => 
+  array (
+    'name' => 'yii2mod/yii2-rbac',
+    'version' => '1.1.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/rbac' => $vendorDir . '/yii2mod/yii2-rbac',
+    ),
+  ),
+  '2amigos/yii2-date-picker-widget' => 
+  array (
+    'name' => '2amigos/yii2-date-picker-widget',
+    'version' => '1.0.5.0',
+    'alias' => 
+    array (
+      '@dosamigos/datepicker' => $vendorDir . '/2amigos/yii2-date-picker-widget/src',
+    ),
+  ),
+  'bupy7/yii2-widget-cropbox' => 
+  array (
+    'name' => 'bupy7/yii2-widget-cropbox',
+    'version' => '4.0.0.0',
+    'alias' => 
+    array (
+      '@bupy7/cropbox' => $vendorDir . '/bupy7/yii2-widget-cropbox',
+    ),
+  ),
 );
