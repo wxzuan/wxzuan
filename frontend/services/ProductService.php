@@ -14,7 +14,7 @@
 
 namespace frontend\services;
 
-use app\models\Product;
+use common\models\Product;
 use yii\data\ActiveDataProvider;
 use \Yii;
 
@@ -45,18 +45,17 @@ class ProductService {
      * @return \yii\data\ActiveDataProvider
      */
     public static function findMyProducts($data = array()) {
-        $user_id = Yii::$app->user->getId();
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
         $model = new Product();
         $dataProvider = new ActiveDataProvider([
-            'query' => $model->find()->Where('product_user_id=:product_user_id', [':product_user_id' => $user_id])->limit($data['limit']),
+            'query' => $model->find()->Where('product_user_id=:user_id', [':user_id' => $data['user_id']]),
             'pagination' => [
                 'pagesize' => $data['limit'],
             ]
         ]);
-        return $dataProvider->getModels();
+        return $dataProvider;
     }
 
 }

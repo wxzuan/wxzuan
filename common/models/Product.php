@@ -22,21 +22,30 @@ use Yii;
  * @property integer $product_addtime
  * @property string $product_addip
  */
-class Product extends \yii\db\ActiveRecord
-{
+class Product extends \yii\db\ActiveRecord {
+
+    /**
+     * return string
+     */
+    public function getProductStatus() {
+        if ($this->product_status == 1) {
+            return '销售中';
+        } else {
+            return '审核中';
+        }
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'web_product';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['product_user_id', 'product_type', 'product_num', 'product_status', 'product_addtime'], 'integer'],
             [['product_name'], 'required'],
@@ -52,8 +61,7 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'product_id' => 'Product ID',
             'product_user_id' => 'Product User ID',
@@ -71,4 +79,5 @@ class Product extends \yii\db\ActiveRecord
             'product_addip' => 'Product Addip',
         ];
     }
+
 }

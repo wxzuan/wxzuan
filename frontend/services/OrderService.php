@@ -11,8 +11,11 @@
  *
  * @author qinyangsheng
  */
+
 namespace frontend\services;
+
 use common\models\ProductOrder;
+use yii\data\ActiveDataProvider;
 
 class OrderService {
 
@@ -21,11 +24,14 @@ class OrderService {
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
-        $productorders = ProductOrder::find()
-                ->Where('user_id=:user_id', [':user_id' => $data['user_id']])
-                ->limit($data['limit'])
-                ->all();
-        return $productorders;
+        $model = new ProductOrder();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $model->find()->Where('user_id=:user_id', [':user_id' => $data['user_id']]),
+            'pagination' => [
+                'pagesize' => $data['limit'],
+            ]
+        ]);
+        return $dataProvider;
     }
 
 }

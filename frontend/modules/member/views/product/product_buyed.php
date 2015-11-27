@@ -3,6 +3,8 @@
 $this->title = '已购商品';
 
 use frontend\services\OrderService;
+use yii\widgets\ListView;
+use frontend\extensions\scrollpager\ScrollPager;
 use yii\helpers\Url;
 
 $user_id = Yii::$app->user->getId();
@@ -15,17 +17,12 @@ $productorders = OrderService::findProductOrder($data);
 <div class="container no-bottom" style="padding:0px 10px;">
     <?php
     if ($productorders):
-        foreach ($productorders as $oneproductorder):
-            ?>
-            <div class="one-half-responsive">
-                <p class="quote-item">
-                    <img src="<?= $oneproductorder->product->product_s_img; ?>" alt="img">
-                    商品名称：<?= $oneproductorder->product->product_name ?> 支付：<?= $oneproductorder->order_pay_price ?> 元 状态：<?= $oneproductorder->getOrderStatus() ?>
-                    <em>送货地址：<?= $oneproductorder->address ?></em>
-                </p>
-            </div>
-            <?php
-        endforeach;
+        echo ListView::widget([
+            'dataProvider' => $productorders,
+            'itemOptions' => ['class' => 'item'],
+            'itemView' => '_item_product_buyed_view',
+            'pager' => ['class' => ScrollPager::className()]
+        ]);
     else:
         ?>
         <div class="container" style="min-height: 350px;">
