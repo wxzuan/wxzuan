@@ -28,6 +28,7 @@ class ProductController extends \yii\web\Controller {
     public function actionAddproduct() {
         $model = new AddProductForm();
         $p_param = Yii::$app->request->get();
+        $oneProduct = '';
         if (isset($p_param['id'])) {
             $oneProduct = Product::find("product_id=:id", [':id' => $p_param['id']])->one();
             if ($oneProduct) {
@@ -35,7 +36,17 @@ class ProductController extends \yii\web\Controller {
             }
         }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->save()) {
+            if ($oneProduct) {
+                $oneProduct->setAttributes($model->attributes);
+                if ($oneProduct->update()) {
+                    $error = '更新成功';
+                    $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/product/addproduct/' . $oneProduct->prodcut_id), 'backtitle' => '返回');
+                } else {
+                    return $this->render('product_add', [
+                                'model' => $model,
+                    ]);
+                }
+            } else if ($model->save()) {
                 $error = '添加成功,请继续添加商品图片';
                 $pid = Yii::$app->db->getLastInsertID();
                 $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/product/changeimg' . $pid), 'backtitle' => '添加商品图片');

@@ -4,6 +4,7 @@ namespace frontend\models\forms;
 
 use Yii;
 use yii\base\Model;
+use common\models\Product;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -40,6 +41,22 @@ class AddProductForm extends Model {
             'product_description' => '商品简介',
             'product_info' => '商品详情'
         ];
+    }
+
+    /**
+     * 保存商品
+     */
+    public function save() {
+        $newProduct = new Product();
+        $newProduct->setAttributes($this->attributes);
+        return $newProduct->save();
+    }
+
+    /**
+     * 更新商品
+     */
+    public function update() {
+        
     }
 
 }

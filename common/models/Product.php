@@ -80,4 +80,20 @@ class Product extends \yii\db\ActiveRecord {
         ];
     }
 
+    /**
+     * 
+     * @param type $insert
+     * @return type
+     */
+    public function beforeSave($insert) {
+        if ($this->isNewRecord) {
+            $this->product_type = 0;
+            $this->product_user_id = Yii::$app->request->referrer;
+            $this->product_status = 0;
+            $this->product_addtime = time();
+            $this->product_addip = Yii::$app->request->getIP();
+        }
+        return parent::beforeSave($insert);
+    }
+
 }
