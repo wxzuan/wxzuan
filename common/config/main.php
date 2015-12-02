@@ -2,6 +2,7 @@
 
 return [
     'name' => '赚赚乐',
+    'timeZone'=>'Asia/Chongqing',
     'language'=>'zh-CN',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
