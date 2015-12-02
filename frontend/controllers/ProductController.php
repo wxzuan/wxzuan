@@ -27,14 +27,24 @@ class ProductController extends \yii\web\Controller {
      */
     public function actionAddproduct() {
         $model = new AddProductForm();
+        $p_param = Yii::$app->request->get();
+        if (isset($p_param['id'])) {
+            $oneProduct = Product::find("product_id=:id", [':id' => $p_param['id']])->one();
+            if ($oneProduct) {
+                $model->setAttributes($oneProduct->attributes);
+            }
+        }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            //if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            //} else {
-            //   Yii::$app->session->setFlash('error', 'There was an error sending email.');
-            //}
-
-            return $this->refresh();
+            if ($model->save()) {
+                $error = '添加成功,请继续添加商品图片';
+                $pid = Yii::$app->db->getLastInsertID();
+                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/product/changeimg' . $pid), 'backtitle' => '添加商品图片');
+                Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+            } else {
+                return $this->render('product_add', [
+                            'model' => $model,
+                ]);
+            }
         } else {
             return $this->render('product_add', [
                         'model' => $model,

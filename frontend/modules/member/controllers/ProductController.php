@@ -18,7 +18,7 @@ class ProductController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'buyed', 'rate', 'look'],
+                        'actions' => ['index', 'buyed', 'rate', 'changeimg'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -78,7 +78,7 @@ class ProductController extends \common\controllers\BaseController {
      * 单个商品修改
      * @return type
      */
-    public function actionLook() {
+    public function actionChangeimg() {
 
         $model = new SearchProcessForm();
 
