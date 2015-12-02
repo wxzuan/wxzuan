@@ -9,6 +9,8 @@ use yii\filters\VerbFilter;
 use common\models\UserProductAddress;
 use common\models\Product;
 use common\models\Account;
+use yii\helpers\Url;
+use \PDO;
 
 class ProductController extends \yii\web\Controller {
 
@@ -42,16 +44,17 @@ class ProductController extends \yii\web\Controller {
 
     public function actionBuy() {
 
-        $this->pageTitle = "购买商品";
+        $this->view->title = "购买商品";
         $error = "";
+        $backUrl = \Yii::$app->request->referrer;
         if (isset($_GET['id'])) {
             $pid = $_GET['id'];
-            $product = Product::find("product_id=:id",[':id'=>$pid])->one();
+            $product = Product::find("product_id=:id", [':id' => $pid])->one();
             if ($product) {
                 #获得用户的可用资金
                 $user_id = \Yii::$app->user->getId();
                 #判断用户是否已经填写了送货地址
-                $userAddress = UserProudctAddress::find("user_id=:user_id", array(":user_id" => $user_id))->one();
+                $userAddress = UserProductAddress::find("user_id=:user_id", array(":user_id" => $user_id))->one();
                 if ($userAddress) {
                     $userAccount = Account::find("user_id=:user_id", array(":user_id" => $user_id))->one();
                     if (!$userAccount->use_money < $product->product_price) {
@@ -78,25 +81,25 @@ class ProductController extends \yii\web\Controller {
                             $command->bindParam(":in_address", $in_address, PDO::PARAM_STR, 200);
                             $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
                             $command->execute();
-                            $result = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryRow(true);
+                            $result = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
                             if ($result['status'] == 1) {
                                 $error = '购买成功！';
                                 $notices = array(
                                     'type' => 3,
-                                    'msgtitle' => '错误信息',
+                                    'msgtitle' => '操作成功',
                                     'message' => $error,
-                                    'backurl' => \Yii::$app->request->urlReferrer,
+                                    'backurl' => $backUrl,
                                     'backtitle' => '返回',
-                                    'tourl' => \Yii::$app->createUrl('/wechat/member/myProduct'),
+                                    'tourl' => Url::toRoute('/member/product/buyed'),
                                     'totitle' => '查看订单'
                                 );
                             } else {
                                 $error = $result['remark'];
-                                $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => Yii::app()->request->urlReferrer, 'backtitle' => '返回');
+                                $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => $backUrl, 'backtitle' => '返回');
                             }
                         } catch (Exception $e) {
                             $error = '系统繁忙，暂时无法处理';
-                            $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => Yii::app()->request->urlReferrer, 'backtitle' => '返回');
+                            $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => $backUrl, 'backtitle' => '返回');
                         }
                     } else {
                         #跳转到充值页面
@@ -105,9 +108,9 @@ class ProductController extends \yii\web\Controller {
                             'type' => 3,
                             'msgtitle' => '错误信息',
                             'message' => $error,
-                            'backurl' => Yii::app()->request->urlReferrer,
+                            'backurl' => $backUrl,
                             'backtitle' => '返回',
-                            'tourl' => Yii::app()->createUrl('/wechat/member/addmoney'),
+                            'tourl' => Url::toRoute('/member/account/chongzhi'),
                             'totitle' => '前往充值'
                         );
                     }
@@ -118,24 +121,24 @@ class ProductController extends \yii\web\Controller {
                         'type' => 3,
                         'msgtitle' => '错误信息',
                         'message' => $error,
-                        'backurl' => Yii::app()->request->urlReferrer,
+                        'backurl' => $backUrl,
                         'backtitle' => '返回',
-                        'tourl' => Yii::app()->createUrl('/wechat/member/proAddress'),
+                        'tourl' => Url::toRoute('/public/notices'),
                         'totitle' => '完善送货地址'
                     );
                 }
             } else {
                 $error = "不存在此商品或者该商品已下架。";
-                $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => Yii::app()->request->urlReferrer, 'backtitle' => '返回');
+                $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => $backUrl, 'backtitle' => '返回');
             }
         } else {
             $error = "不存在此商品或者该商品已下架。";
-            $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => Yii::app()->request->urlReferrer, 'backtitle' => '返回');
+            $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => $backUrl, 'backtitle' => '返回');
         }
         #msg类型：type=1错误信息2指示跳转3返回跳转
 
-        Yii::app()->user->setFlash('wechat_fail', array($notices));
-        $this->redirect(Yii::app()->createUrl('wechat/notice/errors'));
+        Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+        $this->redirect(Url::toRoute('/public/notices'));
     }
 
     /**
@@ -145,7 +148,7 @@ class ProductController extends \yii\web\Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'addproduct','buy'],
+                'only' => ['index', 'addproduct', 'buy'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -153,7 +156,7 @@ class ProductController extends \yii\web\Controller {
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index', 'addproduct','buy'],
+                        'actions' => ['index', 'addproduct', 'buy'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

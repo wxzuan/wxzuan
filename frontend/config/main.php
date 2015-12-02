@@ -23,6 +23,7 @@ return [
             'enableStrictParsing' => FALSE,
             'suffix' => '.html',
             'rules' => [
+                'product/buy/<id:\d+>' => 'product/buy',
                 'member/product/look/<id:\d+>' => 'member/product/look',
                 'public/<action:\w+>/<id:\d+>/<stoken:\w+>' => 'public/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
