@@ -40,7 +40,8 @@ class ProductController extends \yii\web\Controller {
                 $oneProduct->setAttributes($model->attributes);
                 if ($oneProduct->update()) {
                     $error = '更新成功';
-                    $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/product/addproduct/' . $oneProduct->prodcut_id), 'backtitle' => '返回');
+                    $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/product/addproduct/' . $oneProduct->product_id), 'backtitle' => '返回');
+                    Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
                     $this->redirect(Url::toRoute('/public/notices'));
                 } else {
                     return $this->render('product_add', [

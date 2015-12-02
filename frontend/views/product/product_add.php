@@ -9,7 +9,6 @@ use yii\widgets\ActiveForm;
 <a href="<?= Url::toRoute('/product/index') ?>"  style="width:100%;" class="button-big button-red">商品列表</a>
 <?php
 $form = ActiveForm::begin([
-            'action' => ['product/addproduct'],
             'method' => 'post',
         ]);
 ?>
