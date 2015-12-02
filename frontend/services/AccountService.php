@@ -30,7 +30,7 @@ class AccountService {
         }
         $model = new AccountLog();
         $dataProvider = new ActiveDataProvider([
-            'query' => $model->find()->Where('user_id=:user_id', [':user_id' => $data['user_id']]),
+            'query' => $model->find()->Where('user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" addtime desc "),
             'pagination' => [
                 'pagesize' => $data['limit'],
             ]
