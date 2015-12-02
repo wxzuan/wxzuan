@@ -9,6 +9,7 @@ if (Yii::$app->session->hasFlash('wechat_fail')) {
     $msgs=$msgss[0];
     $error = $msgs['msgtitle'];
     $errordetail = $msgs['message'];
+    $this->title = $error;
 }
 ?>
 <div class="container no-bottom">
