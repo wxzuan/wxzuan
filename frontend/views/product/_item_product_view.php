@@ -3,7 +3,7 @@ use yii\helpers\Url;
 ?>
 <div class="decoration"></div>
 <div class="container no-bottom">
-    <img class="responsive-image" src="<?= $model->product_s_img ?>" alt="img">
+    <img class="responsive-image" src="<?= $model->product_s_img?$model->product_s_img:'/images/product_demo.jpg' ?>" alt="img">
 </div>
 <div class="section-title">
     <h4><?= $model->product_name ?><em>￥ <?= $model->product_price ?> 元</em></h4>

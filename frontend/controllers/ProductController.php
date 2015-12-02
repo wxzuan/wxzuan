@@ -41,6 +41,7 @@ class ProductController extends \yii\web\Controller {
                 if ($oneProduct->update()) {
                     $error = '更新成功';
                     $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/product/addproduct/' . $oneProduct->prodcut_id), 'backtitle' => '返回');
+                    $this->redirect(Url::toRoute('/public/notices'));
                 } else {
                     return $this->render('product_add', [
                                 'model' => $model,
@@ -51,6 +52,7 @@ class ProductController extends \yii\web\Controller {
                 $pid = Yii::$app->db->getLastInsertID();
                 $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/product/changeimg' . $pid), 'backtitle' => '添加商品图片');
                 Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+                $this->redirect(Url::toRoute('/public/notices'));
             } else {
                 return $this->render('product_add', [
                             'model' => $model,
