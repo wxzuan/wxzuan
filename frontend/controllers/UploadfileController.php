@@ -32,13 +32,13 @@ class UploadfileController extends \yii\web\Controller {
      * 上传商品图片
      */
     public function actionProductpic() {
-        $user_id=\Yii::$app->user->getId();
-        $p_params=Yii::$app->request->get();
+        $user_id = \Yii::$app->user->getId();
+        $p_params = Yii::$app->request->get();
         $product = Product::findOne($p_params['id']);
         if (!$product) {
             throw new NotFoundHttpException(Yii::t('app', 'Page not found'));
         }
-        
+
         $picture = new UploadForm();
         $picture->file = UploadedFile::getInstance($product, 'product_s_img');
         if ($picture->file !== null && $picture->validate()) {
@@ -52,23 +52,23 @@ class UploadfileController extends \yii\web\Controller {
                     'name' => $picture->file->name,
                     'type' => $picture->file->type,
                     'size' => $picture->file->size,
-                    'url' => $picture->getImageUrl(),
-                    'thumbnailUrl' => $picture->getSmallImageUrl(),
+                    'url' => '/' . $picture->getImageUrl(),
+                    'thumbnailUrl' => '/' . $picture->getOImageUrl(),
                     'deleteUrl' => Url::to(['/uploadfile/deletepropic', 'id' => $picture->getID()]),
                     'deleteType' => 'POST'
                 ];
             } else {
-                $response[] = ['error' => Yii::t('app', 'Unable to save picture')];
+                $response[] = ['error' => Yii::t('app', '上传错误')];
             }
             @unlink($picture->file->tempName);
         } else {
             if ($picture->hasErrors()) {
                 $response[] = ['error' => '上传错误'];
             } else {
-                throw new HttpException(500, Yii::t('app', 'Could not upload file.'));
+                throw new HttpException(500, Yii::t('app', '上传错误'));
             }
         }
-        return json_encode($response);
+        return $response;
     }
 
     /**

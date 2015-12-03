@@ -5,6 +5,7 @@ namespace common\models\forms;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use yii\image\drivers\Image;
+use common\models\Pic;
 
 /**
  * UploadForm is the model behind the upload form.
@@ -17,6 +18,7 @@ class UploadForm extends Model {
     public $file;
     private $m_img_url;
     private $s_img_url;
+    private $o_img_url;
     private $b_img_url;
     private $id;
 
@@ -34,11 +36,38 @@ class UploadForm extends Model {
      * return boolen
      */
     public function productSave() {
+        $user_id = \Yii::$app->user->getId();
         $baseimgurl = 'date/upload/wechat/product/';
-        $this->file->saveAs($baseimgurl . 'bababa.jpg');
-        $image = \Yii::$app->image->load($baseimgurl . 'bababa.jpg');
-        $image->resize(450,300,  Image::NONE);
-        $image->save($baseimgurl . 'bababawww.jpg');
+        //生成随机文件名
+        $basefilename = $user_id . '_' . time() . '_' . rand(1000, 9999);
+        $this->s_img_url = $sfilename = $baseimgurl . 's' . $basefilename . '.' . $this->file->extension;
+        $this->o_img_url = $ofilename = $baseimgurl . 'o' . $basefilename . '.' . $this->file->extension;
+        $this->m_img_url = $mfilename = $baseimgurl . 'm' . $basefilename . '.' . $this->file->extension;
+        $this->b_img_url = $bfilename = $baseimgurl . 'b' . $basefilename . '.' . $this->file->extension;
+        $this->file->saveAs($bfilename);
+        $image = \Yii::$app->image->load($bfilename);
+        //生成微略图
+        $image->resize(90, 60, Image::NONE);
+        $image->save($ofilename);
+        //生成小图片
+        $image->resize(450, 300, Image::NONE);
+        $image->save($sfilename);
+        //生成中图片
+        $image->resize(900, 600, Image::NONE);
+        $image->save($mfilename);
+        $newpic = new Pic();
+        $newpic->setAttributes([
+            'user_id' => $user_id,
+            'pic_type' => 0,
+            'pic_s_img' => $sfilename,
+            'pic_m_img' => $mfilename,
+            'pic_b_img' => $bfilename
+        ]);
+        if ($newpic->save()) {
+            $this->id = \Yii::$app->db->getLastInsertID();
+            return true;
+        }
+        return FALSE;
     }
 
     /**
@@ -49,6 +78,13 @@ class UploadForm extends Model {
         return $this->m_img_url;
     }
 
+    /**
+     * 获得缩略图
+     * @return  string
+     */
+    public function getOImageUrl() {
+        return $this->o_img_url;
+    }
     /**
      * 获得小图片
      * @return  string

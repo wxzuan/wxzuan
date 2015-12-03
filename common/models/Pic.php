@@ -16,21 +16,19 @@ use Yii;
  * @property integer $pic_addtime
  * @property string $pic_addip
  */
-class Pic extends \yii\db\ActiveRecord
-{
+class Pic extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'web_pic';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['user_id', 'pic_type', 'pic_addtime'], 'integer'],
             [['pic_s_img', 'pic_m_img', 'pic_b_img'], 'string', 'max' => 255],
@@ -41,8 +39,7 @@ class Pic extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
@@ -54,4 +51,13 @@ class Pic extends \yii\db\ActiveRecord
             'pic_addip' => 'Pic Addip',
         ];
     }
+
+    public function beforeSave($insert) {
+        if ($this->isNewRecord) {
+            $this->pic_addtime = time();
+            $this->pic_addip = Yii::$app->request->userIP;
+        }
+        return parent::beforeSave($insert);
+    }
+
 }
