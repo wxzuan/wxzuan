@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use frontend\models\forms\SearchProcessForm;
+use common\models\Product;
 
 class ProductController extends \common\controllers\BaseController {
 
@@ -79,24 +80,18 @@ class ProductController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionChangeimg() {
-
-        $model = new SearchProcessForm();
-
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
-            $this->refresh();
-            if ($resultR) {
-                Yii::$app->session->setFlash('success', '更新成功');
-                $this->redirect('/public/notices.html');
+        $p_param = Yii::$app->request->get();
+        if (isset($p_param['id'])) {
+            $oneProduct = Product::find("product_id=:id", [':id' => $p_param['id']])->one();
+            if ($oneProduct) {
+                return $this->render('product_changeimg', ['model' => $oneProduct]);
                 Yii::$app->end();
             }
-        } else {
-            return $this->render('product_look', ['model' => $model]);
         }
+        $error = '不存在此商品';
+        $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/product/index'), 'backtitle' => '返回');
+        Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+        $this->redirect(Url::toRoute('/public/notices'));
     }
 
 }

@@ -25,7 +25,7 @@ return [
             'rules' => [
                 'product/addproduct/<id:\d+>' => 'product/addproduct',
                 'product/buy/<id:\d+>' => 'product/buy',
-                'member/product/look/<id:\d+>' => 'member/product/look',
+                'member/product/changeimg/<id:\d+>' => 'member/product/changeimg',
                 'public/<action:\w+>/<id:\d+>/<stoken:\w+>' => 'public/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
