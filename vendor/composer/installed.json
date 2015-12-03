@@ -1755,5 +1755,50 @@
             }
         ],
         "description": "desc"
+    },
+    {
+        "name": "yurkinx/yii2-image",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yurkinx/yii2-image.git",
+            "reference": "0d6d261bf9c2dc35e9ad8c5cc56793580b74eefd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yurkinx/yii2-image/zipball/0d6d261bf9c2dc35e9ad8c5cc56793580b74eefd",
+            "reference": "0d6d261bf9c2dc35e9ad8c5cc56793580b74eefd",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "yiisoft/yii2": "*"
+        },
+        "time": "2015-06-24 13:41:22",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "yii\\image\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Yuri Kileev",
+                "email": "kileev@gmail.com"
+            }
+        ],
+        "description": "Yii2 extension for image manipulating using Kohana Image Library.",
+        "homepage": "https://github.com/yurkinx/yii2-image",
+        "keywords": [
+            "extension",
+            "image",
+            "yii2"
+        ]
     }
 ]

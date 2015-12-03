@@ -22,7 +22,8 @@
         "2amigos/yii2-date-picker-widget": "~1.0",
         "bupy7/yii2-widget-cropbox": "*",
         "2amigos/yii2-file-upload-widget": "~1.0",
-        "kucha/ueditor": "*"
+        "kucha/ueditor": "*",
+        "yurkinx/yii2-image": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

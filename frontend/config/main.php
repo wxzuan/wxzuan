@@ -12,6 +12,10 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => 'index',
     'components' => [
+        'image' => [
+            'class' => 'yii\image\ImageDriver',
+            'driver' => 'GD', //GD or Imagick
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

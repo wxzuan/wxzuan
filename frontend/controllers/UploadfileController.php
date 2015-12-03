@@ -13,6 +13,10 @@ use yii\helpers\Url;
 use \PDO;
 use yii\web\UploadedFile;
 use common\models\forms\UploadForm;
+use common\models\Pic;
+use yii\web\HttpException;
+use yii\helpers\Html;
+use yii\web\Response;
 
 class UploadfileController extends \yii\web\Controller {
 
@@ -28,15 +32,43 @@ class UploadfileController extends \yii\web\Controller {
      * 上传商品图片
      */
     public function actionProductpic() {
-        $model = new UploadForm();
-        echo json_encode(['abc'=>1,'my'=>2]);
-        if (Yii::$app->request->isPost) {
-            $model->file = UploadedFile::getInstance($model, 'file');
+        $user_id=\Yii::$app->user->getId();
+        $p_params=Yii::$app->request->get();
+        $product = Product::findOne($p_params['id']);
+        if (!$product) {
+            throw new NotFoundHttpException(Yii::t('app', 'Page not found'));
+        }
+        
+        $picture = new UploadForm();
+        $picture->file = UploadedFile::getInstance($product, 'product_s_img');
+        if ($picture->file !== null && $picture->validate()) {
+            Yii::$app->response->getHeaders()->set('Vary', 'Accept');
+            Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if ($model->file && $model->validate()) {
-                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+            $response = [];
+
+            if ($picture->productSave()) {
+                $response['files'][] = [
+                    'name' => $picture->file->name,
+                    'type' => $picture->file->type,
+                    'size' => $picture->file->size,
+                    'url' => $picture->getImageUrl(),
+                    'thumbnailUrl' => $picture->getSmallImageUrl(),
+                    'deleteUrl' => Url::to(['/uploadfile/deletepropic', 'id' => $picture->getID()]),
+                    'deleteType' => 'POST'
+                ];
+            } else {
+                $response[] = ['error' => Yii::t('app', 'Unable to save picture')];
+            }
+            @unlink($picture->file->tempName);
+        } else {
+            if ($picture->hasErrors()) {
+                $response[] = ['error' => '上传错误'];
+            } else {
+                throw new HttpException(500, Yii::t('app', 'Could not upload file.'));
             }
         }
+        return json_encode($response);
     }
 
     /**

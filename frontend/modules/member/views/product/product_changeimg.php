@@ -18,7 +18,7 @@ use dosamigos\fileupload\FileUploadUI;
         'model' => $model,
         'attribute' => 'product_s_img',
         'url' => ['/uploadfile/productpic', 'id' => $model->product_id],
-        'gallery' => false,
+        'gallery' => TRUE,
         'fieldOptions' => [
             'accept' => 'image/*'
         ],
@@ -28,10 +28,12 @@ use dosamigos\fileupload\FileUploadUI;
         // ...
         'clientEvents' => [
             'fileuploaddone' => 'function(e, data) {
-                alert(data);
+                console.log(e);
+                console.log(data);
                                 }',
             'fileuploadfail' => 'function(e, data) {
-                alert(data.my);
+                console.log(e);
+                console.log(data);
                                 }',
         ],
     ]);
