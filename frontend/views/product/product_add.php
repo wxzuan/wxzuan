@@ -18,7 +18,7 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'product_num', ['labelOptions' => ['label' => '商品数量<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>
 <?= $form->field($model, 'product_description', ['labelOptions' => ['label' => '商品简介<span>(必填)</span>', 'class' => 'field-title contactNameField']])->textArea(['class' => 'contactTextarea requiredField']) ?>
 <?= $form->field($model, 'product_info', ['labelOptions' => ['label' => '商品详情<span>(必填)</span>', 'class' => 'field-title contactNameField']])->textArea(['class' => 'contactTextarea requiredField']) ?>
-<?php if (isset($p_param['id'])): ?>
+<?php if (!isset($p_param['id'])): ?>
     <?= Html::submitButton('添加商品', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
 <?php else: ?>
     <?= Html::submitButton('修改商品', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
