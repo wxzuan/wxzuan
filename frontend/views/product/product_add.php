@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 ?>
 <a href="<?= Url::toRoute('/product/index') ?>"  style="width:100%;" class="button-big button-red">商品列表</a>
 <?php
+$p_param = Yii::$app->request->get();
 $form = ActiveForm::begin([
             'method' => 'post',
         ]);
@@ -17,5 +18,11 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'product_num', ['labelOptions' => ['label' => '商品数量<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>
 <?= $form->field($model, 'product_description', ['labelOptions' => ['label' => '商品简介<span>(必填)</span>', 'class' => 'field-title contactNameField']])->textArea(['class' => 'contactTextarea requiredField']) ?>
 <?= $form->field($model, 'product_info', ['labelOptions' => ['label' => '商品详情<span>(必填)</span>', 'class' => 'field-title contactNameField']])->textArea(['class' => 'contactTextarea requiredField']) ?>
-<?= Html::submitButton('添加商品', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
+<?php if (isset($p_param['id'])): ?>
+    <?= Html::submitButton('添加商品', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
+<?php else: ?>
+    <?= Html::submitButton('修改商品', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
+    <a href="<?= Url::toRoute('/member/product/changeimg/' . $p_param['id']) ?>"  style="width:100%;" class="button-big button-red">添加商品图片</a>
+<?php endif; ?>
+
 <?php ActiveForm::end(); ?>
