@@ -7,6 +7,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use common\models\Linkage;
 use dosamigos\fileupload\FileUploadUI;
+use yii\widgets\Pjax;
+use yii\widgets\LinkPager;
 ?>
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
@@ -29,32 +31,31 @@ use dosamigos\fileupload\FileUploadUI;
     </div>
 </div>
 <div class="container no-bottom" style="padding:0px 10px;">
-    <ul class="gallery square-thumb">
-        <li>
-            <a class="swipebox" href="/images/general-nature/1.jpg" title="An image caption!">
-                <img src="/images/general-nature/1s.jpg" alt="img"></a>
-        </li>
-        <li>
-            <a class="swipebox" href="/images/general-nature/2.jpg" title="It can change!">
-                <img src="/images/general-nature/2s.jpg" alt="img"></a>
-        </li>
-        <li>
-            <a class="swipebox" href="/images/general-nature/3.jpg" title="To be whatever you want!">
-                <img src="/images/general-nature/3s.jpg" alt="img"></a>
-        </li>
-        <li>
-            <a class="swipebox" href="/images/general-nature/1.jpg" title="It's connected to the href!">
-                <img src="/images/general-nature/4s.jpg" alt="img"></a>
-        </li>
-        <li>
-            <a class="swipebox" href="/images/general-nature/2.jpg" title="Easy to change and edit!">
-                <img src="/images/general-nature/5s.jpg" alt="img"></a>
-        </li>
-        <li>
-            <a class="swipebox" href="/images/general-nature/3.jpg" title="What an awesome gallery!">
-                <img src="/images/general-nature/6s.jpg" alt="img"></a>
-        </li>
-    </ul>   
+    <?php Pjax::begin(['id' => 'loadpajax']); ?>
+    <div>
+        <ul class="gallery square-thumb">
+            <?php
+            if ($models):
+                foreach ($models as $onepic) :
+                    ?>
+                    <li>
+                        <a class="swipebox" href="<?= $onepic->pic_s_img ?>" title="图片<?= $onepic->id ?>">
+                            <img src="<?= $onepic->pic_b_img ?>" alt="img"></a>
+                    </li>
+                    <?php
+                endforeach;
+            endif;
+            ?>
+        </ul>
+    </div>
+    <div>
+        <?php
+        if ($models):
+            echo LinkPager::widget(['pagination' => $pages]);
+        endif;
+        ?>
+    </div>
+    <?php Pjax::end() ?>
 </div>
 <div class="container no-bottom" style="text-align: center;">
     <a href="<?= Url::toRoute('/index') ?>" class="button button-w button-white">返回首页</a>

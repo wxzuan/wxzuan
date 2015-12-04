@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use frontend\models\forms\SearchProcessForm;
 use common\models\Product;
+use common\models\Pic;
 
 class ProductController extends \common\controllers\BaseController {
 
@@ -19,7 +20,7 @@ class ProductController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'buyed', 'rate', 'changeimg','selectimg'],
+                        'actions' => ['index', 'buyed', 'rate', 'changeimg', 'selectimg'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -81,10 +82,18 @@ class ProductController extends \common\controllers\BaseController {
      */
     public function actionSelectimg() {
         $p_param = Yii::$app->request->get();
+        $user_id = Yii::$app->user->getId();
         if (isset($p_param['id'])) {
+
             $oneProduct = Product::find("product_id=:id", [':id' => $p_param['id']])->one();
             if ($oneProduct) {
-                return $this->render('product_selectimg', ['model' => $oneProduct]);
+                $query = Pic::find()->where('user_id=:user_id',[':user_id' => $user_id]);
+                $countQuery = clone $query;
+                $pages = new Pagination(['totalCount' => $countQuery->count(),'pageSize' => '9']);
+                $models = $query->offset($pages->offset)
+                        ->limit($pages->limit)
+                        ->all();
+                return $this->render('product_selectimg', ['model' => $oneProduct,'models'=>$models,'pages'=>$pages]);
                 Yii::$app->end();
             }
         }
