@@ -30,6 +30,13 @@ use yii\widgets\LinkPager;
         <strong><a href="<?= Url::toRoute('/member/product/changeimg/' . $model->product_id) ?>"><img src="/images/misc/icons/addpic.png" width="20" alt="img"></a></strong>
     </div>
 </div>
+<?php
+$form = ActiveForm::begin([
+            'method' => 'post',
+            'fieldConfig' => ['template' => '{input}',]
+        ]);
+?>
+<? echo $form->field($model, 'product_s_img')->hiddenInput(['id' => 'selectimg']) ?>
 <div class="container no-bottom" style="padding:0px 10px;">
     <?php Pjax::begin(['id' => 'loadpajax']); ?>
     <div>
@@ -39,8 +46,9 @@ use yii\widgets\LinkPager;
                 foreach ($models as $onepic) :
                     ?>
                     <li>
-                        <a class="swipebox" data-pjax="0" href="<?= $onepic->pic_b_img ?>" title="图片<?= $onepic->id ?>">
-                            <img src="<?= $onepic->pic_s_img ?>" alt="img"></a>
+                        <a tval='<?= $onepic->id ?>' class="box_picselect" data-pjax="0" href="<?= $onepic->pic_b_img ?>" title="图片<?= $onepic->id ?>">
+                            <img src="<?= $onepic->pic_s_img ?>" alt="img">
+                        </a>
                     </li>
                     <?php
                 endforeach;
@@ -57,6 +65,16 @@ use yii\widgets\LinkPager;
     </div>
     <?php Pjax::end() ?>
 </div>
+<script type="text/javascript">
+    $(".box_picselect").bind('click', function() {
+        $(".box_picselect").css("border", "none");
+        $(this).css("border", "2px solid green");
+        $("#selectimg").val($(this).attr('tval'));
+        return false;
+    });
+</script>
+<?= Html::submitButton('确认图片', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
+<?php ActiveForm::end(); ?>
 <div class="container no-bottom" style="text-align: center;">
     <a href="<?= Url::toRoute('/index') ?>" class="button button-w button-white">返回首页</a>
     <a href="<?= Url::toRoute('/product/index') ?>" class="button button-w button-white">商品中心</a>

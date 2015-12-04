@@ -9,6 +9,7 @@ use frontend\models\forms\SearchProcessForm;
 use common\models\Product;
 use common\models\Pic;
 use yii\data\Pagination;
+use yii\helpers\Url;
 
 class ProductController extends \common\controllers\BaseController {
 
@@ -85,16 +86,35 @@ class ProductController extends \common\controllers\BaseController {
         $p_param = Yii::$app->request->get();
         $user_id = Yii::$app->user->getId();
         if (isset($p_param['id'])) {
-
             $oneProduct = Product::find("product_id=:id", [':id' => $p_param['id']])->one();
             if ($oneProduct) {
-                $query = Pic::find()->where('user_id=:user_id',[':user_id' => $user_id]);
+                //图片选择处理
+                if (isset($_POST['Product'])) {
+                    if (is_numeric($_POST['Product']['product_s_img'])) {
+                        #获得图片
+                        $selectpic = Pic::find('user_id=:user_id AND id=:id', [':user_id' => $user_id, ':id' => $_POST['Product']['product_s_img']])->one();
+                        if ($selectpic) {
+                            $oneProduct->setAttribute('product_s_img', $selectpic->pic_s_img);
+                            $oneProduct->setAttribute('product_m_img', $selectpic->pic_m_img);
+                            $oneProduct->setAttribute('product_b_img', $selectpic->pic_b_img);
+                            $sql = " update " . $oneProduct->tableName() . " set product_s_img=:s,product_m_img=:m,product_b_img=:b where product_id=:i";
+                            if (Yii::$app->db->createCommand($sql, [':s' => $selectpic->pic_s_img, ":m" => $selectpic->pic_m_img, ':b' => $selectpic->pic_b_img, ':i' => $user_id])->execute()) {
+                                $error = '更改成功';
+                                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/product/index'), 'backtitle' => '返回');
+                                Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+                                $this->redirect(Url::toRoute('/public/notices'));
+                                Yii::$app->end();
+                            }
+                        }
+                    }
+                }
+                $query = Pic::find()->where('user_id=:user_id', [':user_id' => $user_id]);
                 $countQuery = clone $query;
-                $pages = new Pagination(['totalCount' => $countQuery->count(),'pageSize' => '9']);
+                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => '9']);
                 $models = $query->offset($pages->offset)
                         ->limit($pages->limit)
                         ->all();
-                return $this->render('product_selectimg', ['model' => $oneProduct,'models'=>$models,'pages'=>$pages]);
+                return $this->render('product_selectimg', ['model' => $oneProduct, 'models' => $models, 'pages' => $pages]);
                 Yii::$app->end();
             }
         }
