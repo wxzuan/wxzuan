@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '我的商品';
+$this->title = '选择商品图片';
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
