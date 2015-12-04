@@ -30,7 +30,7 @@ class ProductController extends \yii\web\Controller {
         $p_param = Yii::$app->request->get();
         $oneProduct = '';
         if (isset($p_param['id'])) {
-            $oneProduct = Product::find("product_id=:id", [':id' => $p_param['id']])->one();
+            $oneProduct = Product::find()->where("product_id=:id", [':id' => $p_param['id']])->one();
             if ($oneProduct) {
                 $model->setAttributes($oneProduct->attributes);
             }
@@ -78,9 +78,9 @@ class ProductController extends \yii\web\Controller {
                 #获得用户的可用资金
                 $user_id = \Yii::$app->user->getId();
                 #判断用户是否已经填写了送货地址
-                $userAddress = UserProductAddress::find("user_id=:user_id", array(":user_id" => $user_id))->one();
+                $userAddress = UserProductAddress::find()->where("user_id=:user_id", [":user_id" => $user_id])->one();
                 if ($userAddress) {
-                    $userAccount = Account::find("user_id=:user_id", array(":user_id" => $user_id))->one();
+                    $userAccount = Account::find()->where("user_id=:user_id", [":user_id" => $user_id])->one();
                     if (!$userAccount->use_money < $product->product_price) {
                         #调有存储过程冻结资金并生成订单
                         try {

@@ -46,7 +46,7 @@ $form = ActiveForm::begin([
                 foreach ($models as $onepic) :
                     ?>
                     <li>
-                        <a tval='<?= $onepic->id ?>' class="box_picselect" data-pjax="0" href="javascript:js_method(this);" title="图片<?= $onepic->id ?>">
+                        <a id="selectimg<?= $onepic->id ?>" tval='<?= $onepic->id ?>' class="box_picselect" data-pjax="0" href="javascript:js_method(<?= $onepic->id ?>);" title="图片<?= $onepic->id ?>">
                             <img src="<?= $onepic->pic_s_img ?>" alt="img">
                         </a>
                     </li>
@@ -68,8 +68,8 @@ $form = ActiveForm::begin([
 <script type="text/javascript">
     function js_method(obj){
         $(".box_picselect").css("border", "none");
-        $(obj).css("border", "2px solid green");
-        $("#selectimg").val($(obj).attr('tval'));
+        $("#selectimg"+obj).css("border", "2px solid green");
+        $("#selectimg").val($("#selectimg"+obj).attr('tval'));
         return false;
     }
 </script>

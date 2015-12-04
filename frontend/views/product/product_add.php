@@ -1,10 +1,15 @@
+
 <?php
-/* @var $this yii\web\View */
-$this->title = '添加商品';
 
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+
+if (!isset($p_param['id'])):
+    $this->title = '添加商品';
+else:
+    $this->title = '修改商品';
+endif;
 ?>
 <a href="<?= Url::toRoute('/product/index') ?>"  style="width:100%;" class="button-big button-red">商品列表</a>
 <?php
