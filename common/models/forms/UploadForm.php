@@ -59,9 +59,9 @@ class UploadForm extends Model {
         $newpic->setAttributes([
             'user_id' => $user_id,
             'pic_type' => 0,
-            'pic_s_img' => $sfilename,
-            'pic_m_img' => $mfilename,
-            'pic_b_img' => $bfilename
+            'pic_s_img' => '/' . $sfilename,
+            'pic_m_img' => '/' . $mfilename,
+            'pic_b_img' => '/' . $bfilename
         ]);
         if ($newpic->save()) {
             $this->id = \Yii::$app->db->getLastInsertID();
@@ -85,6 +85,7 @@ class UploadForm extends Model {
     public function getOImageUrl() {
         return $this->o_img_url;
     }
+
     /**
      * 获得小图片
      * @return  string
