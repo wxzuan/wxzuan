@@ -19,7 +19,7 @@ class ProductController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'buyed', 'rate', 'changeimg'],
+                        'actions' => ['index', 'buyed', 'rate', 'changeimg','selectimg'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -73,6 +73,25 @@ class ProductController extends \common\controllers\BaseController {
         } else {
             return $this->render('product_rate', ['model' => $model]);
         }
+    }
+
+    /**
+     * 选择商品图片
+     * @return type
+     */
+    public function actionSelectimg() {
+        $p_param = Yii::$app->request->get();
+        if (isset($p_param['id'])) {
+            $oneProduct = Product::find("product_id=:id", [':id' => $p_param['id']])->one();
+            if ($oneProduct) {
+                return $this->render('product_selectimg', ['model' => $oneProduct]);
+                Yii::$app->end();
+            }
+        }
+        $error = '不存在此商品';
+        $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/product/index'), 'backtitle' => '返回');
+        Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+        $this->redirect(Url::toRoute('/public/notices'));
     }
 
     /**

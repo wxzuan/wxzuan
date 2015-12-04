@@ -22,7 +22,7 @@ $form = ActiveForm::begin([
     <?= Html::submitButton('添加商品', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
 <?php else: ?>
     <?= Html::submitButton('修改商品', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
-    <a href="<?= Url::toRoute('/member/product/changeimg/' . $p_param['id']) ?>"  style="width:100%;" class="button-big button-red">添加商品图片</a>
+    <a href="<?= Url::toRoute('/member/product/selectimg/' . $p_param['id']) ?>"  style="width:100%;" class="button-big button-red">选择商品图片</a>
 <?php endif; ?>
 
 <?php ActiveForm::end(); ?>
