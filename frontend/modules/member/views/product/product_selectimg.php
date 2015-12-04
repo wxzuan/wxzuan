@@ -36,7 +36,7 @@ $form = ActiveForm::begin([
             'fieldConfig' => ['template' => '{input}',]
         ]);
 ?>
-<? echo $form->field($model, 'product_s_img')->hiddenInput(['id' => 'selectimg']) ?>
+<?= $form->field($model, 'product_s_img')->hiddenInput(['id' => 'selectimg']) ?>
 <div class="container no-bottom" style="padding:0px 10px;">
     <?php Pjax::begin(['id' => 'loadpajax']); ?>
     <div>
