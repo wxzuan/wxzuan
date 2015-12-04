@@ -8,6 +8,7 @@ use yii\filters\VerbFilter;
 use frontend\models\forms\SearchProcessForm;
 use common\models\Product;
 use common\models\Pic;
+use yii\data\Pagination;
 
 class ProductController extends \common\controllers\BaseController {
 
