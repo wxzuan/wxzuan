@@ -48,7 +48,7 @@ use yii\widgets\LinkPager;
             ?>
         </ul>
     </div>
-    <div>
+    <div class="text-center">
         <?php
         if ($models):
             echo LinkPager::widget(['pagination' => $pages]);
