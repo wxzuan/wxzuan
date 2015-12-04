@@ -39,6 +39,7 @@ use dosamigos\fileupload\FileUploadUI;
     ]);
     ?>
 </div>
+<a href="<?= Url::toRoute('/member/product/selectimg'.$model->product_id) ?>"  style="width:100%;" class="button-big button-red">返回选择图片</a>
 <div class="container no-bottom" style="text-align: center;">
     <a href="<?= Url::toRoute('/index') ?>" class="button button-w button-white">返回首页</a>
     <a href="<?= Url::toRoute('/product/index') ?>" class="button button-w button-white">商品中心</a>
