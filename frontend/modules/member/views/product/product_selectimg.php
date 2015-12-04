@@ -39,8 +39,8 @@ use yii\widgets\LinkPager;
                 foreach ($models as $onepic) :
                     ?>
                     <li>
-                        <a class="swipebox" href="<?= $onepic->pic_s_img ?>" title="图片<?= $onepic->id ?>">
-                            <img src="<?= $onepic->pic_b_img ?>" alt="img"></a>
+                        <a class="swipebox" href="<?= $onepic->pic_b_img ?>" title="图片<?= $onepic->id ?>">
+                            <img src="<?= $onepic->pic_s_img ?>" alt="img"></a>
                     </li>
                     <?php
                 endforeach;
