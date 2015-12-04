@@ -12,22 +12,23 @@ use dosamigos\fileupload\FileUploadUI;
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
 </div>
 
-<div class="container no-bottom">
+<div class="container no-bottom" style="padding:0px 10px;">
     <div class="section-title">
         <h4><?= Html::encode($model->product_name) ?></h4>
+        <em>下面为当前商品已选择的图片</em>
     </div>
     <div class="section">
         <img class="responsive-image" src="<?= $model->product_s_img ? $model->product_s_img : '/images/product_demo.jpg'; ?>" alt="img">
     </div>
 </div>
-<div class="container no-bottom">
+<div class="container no-bottom" style="padding:0px 10px;">
     <div class="section-title">
         <h4>选择商品图片</h4>
         <em>如果没有理想图片，请从右边添加新图片。</em>
         <strong><a href="<?= Url::toRoute('/member/product/changeimg/' . $model->product_id) ?>"><img src="/images/misc/icons/addpic.png" width="20" alt="img"></a></strong>
     </div>
 </div>
-<div class="container no-bottom">
+<div class="container no-bottom" style="padding:0px 10px;">
     <ul class="gallery square-thumb">
         <li>
             <a class="swipebox" href="/images/general-nature/1.jpg" title="An image caption!">
