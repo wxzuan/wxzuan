@@ -18,8 +18,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Add files' => '添加图片',
-    'Start upload' => '开始上传',
+    'Add files' => '添加',
+    'Start upload' => '上传',
     'Cancel upload' => '取消',
     'Start' => '上传',
     'Cancel' => '取消',
