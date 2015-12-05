@@ -49,8 +49,10 @@ $this->title = '首页';
             <div>
                 <p class="quote-item">
                     <img src="<?= $oneproduct->product_s_img ?>" alt="img">
+                    <?= $oneproduct->product_name ?><br/>
+                    <em>价格：<?= $oneproduct->product_price ?> 元</em>
                     <?= $oneproduct->product_description ?>
-                    <em><?= $oneproduct->product_price ?> 元</em>
+
                 </p>
             </div>
             <?php
