@@ -99,7 +99,7 @@ class ScrollPager extends Widget
     /**
      * @var string $triggerTemplate Allows you to override the trigger html template.
      */
-    public $triggerTemplate = '<div class="ias-trigger" style="text-align: center; cursor: pointer;"><a class="button button-w button-red">{text}</a></div>';
+    public $triggerTemplate = '<div class="ias-trigger" style="text-align: center; cursor: pointer;margin-bottom:10px;"><a class="btn btn-success">{text}</a></div>';
 
     /**
      * @var int $triggerOffset The number of pages which should load automatically.

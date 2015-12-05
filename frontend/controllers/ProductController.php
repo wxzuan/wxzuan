@@ -73,7 +73,7 @@ class ProductController extends \yii\web\Controller {
         $backUrl = \Yii::$app->request->referrer;
         if (isset($_GET['id'])) {
             $pid = $_GET['id'];
-            $product = Product::find("product_id=:id", [':id' => $pid])->one();
+            $product = Product::find()->where("product_id=:id", [':id' => $pid])->one();
             if ($product) {
                 #获得用户的可用资金
                 $user_id = \Yii::$app->user->getId();
@@ -106,6 +106,7 @@ class ProductController extends \yii\web\Controller {
                             $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
                             $command->execute();
                             $result = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+                            //print_r($result);exit;
                             if ($result['status'] == 1) {
                                 $error = '购买成功！';
                                 $notices = array(

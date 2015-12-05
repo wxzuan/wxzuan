@@ -15,3 +15,8 @@
     color: #f3163a;
 }
 .qys_member_center{text-align: center;}
+.qys_my_product{
+    border-top: 1px solid #efefef;
+    margin-top: 10px;
+    padding: 10px 0px;
+}

@@ -46,15 +46,17 @@ class UploadForm extends Model {
         $this->b_img_url = $bfilename = $baseimgurl . 'b' . $basefilename . '.' . $this->file->extension;
         $this->file->saveAs($bfilename);
         $image = \Yii::$app->image->load($bfilename);
-        //生成微略图
-        $image->resize(90, 60, Image::NONE);
-        $image->save($ofilename);
-        //生成小图片
-        $image->resize(450, 300, Image::NONE);
-        $image->save($sfilename);
         //生成中图片
         $image->resize(900, 600, Image::NONE);
         $image->save($mfilename);
+        //生成小图片
+        $image->resize(450, 300, Image::NONE);
+        $image->save($sfilename);
+        //生成微略图
+        $image->resize(90, 60, Image::NONE);
+        $image->save($ofilename);
+
+
         $newpic = new Pic();
         $newpic->setAttributes([
             'user_id' => $user_id,

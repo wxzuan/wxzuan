@@ -107,7 +107,7 @@ class ProductController extends \common\controllers\BaseController {
                         }
                     }
                 }
-                $query = Pic::find()->where('user_id=:user_id', [':user_id' => $user_id]);
+                $query = Pic::find()->where('user_id=:user_id', [':user_id' => $user_id])->orderBy(" id desc ");
                 $countQuery = clone $query;
                 $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => '9']);
                 $models = $query->offset($pages->offset)
