@@ -1,6 +1,9 @@
 <?php
 /* @var $this yii\web\View */
 
+use frontend\services\ProductService;
+use yii\helpers\Url;
+
 $this->title = '首页';
 ?>
 <div class="container">
@@ -38,34 +41,23 @@ $this->title = '首页';
 </div>
 <div class="decoration"></div>
 <div class="container no-bottom">
-    <div class="one-half-responsive">
-        <p class="quote-item">
-            <img src="/images/general-nature/6s.jpg" alt="img">
-            Great product and awesome help to get for this! Many thanks mate!
-            <em>John Doe - ThemeForest Customer</em>
-        </p>
-    </div>
-    <div class="one-half-responsive last-column">
-        <p class="quote-item">
-            <img src="/images/general-nature/2s.jpg" alt="img">
-            Fast support, awesome file, good  docs, this rocks! Thank you for all!
-            <em>John Doe - ThemeForest Customer</em>
-        </p>                
-    </div>
-    <div class="one-half-responsive">
-        <p class="quote-item">
-            <img src="/images/general-nature/3s.jpg" alt="img">
-            Thanks for the awesome item, just what I was searching for all along!
-            <em>John Doe - ThemeForest Customer</em>
-        </p>
-    </div>
-    <div class="one-half-responsive last-column">
-        <p class="quote-item">
-            <img src="/images/general-nature/4s.jpg" alt="img">
-            Fast loading, great support, easy to use, everything I asked for!
-            <em>John Doe - ThemeForest Customer</em>
-        </p>                
-    </div>
+    <?php
+    $indexproductlists = ProductService::findIndexLists(5);
+    if ($indexproductlists):
+        foreach ($indexproductlists as $oneproduct) {
+            ?>
+            <div>
+                <p class="quote-item">
+                    <img src="<?= $oneproduct->product_s_img ?>" alt="img">
+                    <?= $oneproduct->product_description ?>
+                    <em><?= $oneproduct->product_price ?> 元</em>
+                </p>
+            </div>
+            <?php
+        }
+    endif;
+    ?>
+
 </div>  
 <div class="decoration"></div>
 

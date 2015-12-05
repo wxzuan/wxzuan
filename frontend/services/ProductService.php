@@ -57,5 +57,8 @@ class ProductService {
         ]);
         return $dataProvider;
     }
+    public static function findIndexLists($limit){
+        return Product::find()->limit($limit)->orderBy(" product_id desc ")->all();
+    }
 
 }
