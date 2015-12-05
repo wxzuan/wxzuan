@@ -59,9 +59,3 @@ if ($model->real_status == 1) {
     <?= Html::submitButton('修改信息', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
-<div class="container no-bottom" style="text-align: center;">
-    <a href="<?= Url::toRoute('/index') ?>" class="button button-w button-white">返回首页</a>
-    <a href="<?= Url::toRoute('/product/index') ?>" class="button button-w button-white">商品中心</a>
-    <a href="<?= Url::toRoute('/help/index') ?>" class="button button-w button-white">帮助中心</a>
-    <a href="<?= Url::toRoute('/help/contact') ?>" class="button button-w button-white">联系我们</a>
-</div>

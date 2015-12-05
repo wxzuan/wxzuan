@@ -34,4 +34,19 @@ class OrderService {
         return $dataProvider;
     }
 
+    //put your code here
+    public static function findBuyOrder($data = array()) {
+        if (!isset($data['limit'])) {
+            $data['limit'] = 10;
+        }
+        $model = new ProductOrder();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $model->find()->Where('p_user_id=:user_id', [':user_id' => $data['user_id']])->orderBy('addtime desc'),
+            'pagination' => [
+                'pagesize' => $data['limit'],
+            ]
+        ]);
+        return $dataProvider;
+    }
+
 }

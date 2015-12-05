@@ -22,7 +22,7 @@ class ProductController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'buyed', 'rate', 'changeimg', 'selectimg'],
+                        'actions' => ['index', 'buyed', 'rate', 'changeimg', 'selectimg', 'fititem'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -140,6 +140,13 @@ class ProductController extends \common\controllers\BaseController {
         $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/product/index'), 'backtitle' => '返回');
         Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
         $this->redirect(Url::toRoute('/public/notices'));
+    }
+
+    /**
+     * 处理货物
+     */
+    public function actionFititem() {
+         return $this->render("product_fititem");
     }
 
 }

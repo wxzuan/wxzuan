@@ -4,15 +4,16 @@ $this->title = '会员中心';
 
 use yii\helpers\Url;
 use common\models\Account;
-$user_id=Yii::$app->user->getId();
-$thisuserAccount=  Account::find()->where(":user_id=user_id",[':user_id'=>$user_id])->one();
+
+$user_id = Yii::$app->user->getId();
+$thisuserAccount = Account::find()->where(":user_id=user_id", [':user_id' => $user_id])->one();
 ?>
 <div class="container no-bottom" style="background-color: #fae0ca;">              
     <p class="p_member_t">
         可用资金（元）    
     </p>
     <p class="p_member_m">
-        <?= ceil($thisuserAccount->use_money*100)/100; ?>   
+<?= ceil($thisuserAccount->use_money * 100) / 100; ?>   
     </p>
     <div class="one-half">
         <p class="qys_member_center">
@@ -46,9 +47,7 @@ $thisuserAccount=  Account::find()->where(":user_id=user_id",[':user_id'=>$user_
     <a href="<?= Url::toRoute('/member/product/rate') ?>" style="width:100%;" class="button-big-icon-colse icon-proproess button-white">物流进度<em class="go-right-member"></em></a>
 </div>
 <div class="decoration"></div>
-<div class="container no-bottom" style="text-align: center;">
-    <a href="<?= Url::toRoute('/index') ?>" class="button button-w button-white">返回首页</a>
-    <a href="<?= Url::toRoute('/product/index') ?>" class="button button-w button-white">商品中心</a>
-    <a href="<?= Url::toRoute('/help/index') ?>" class="button button-w button-white">帮助中心</a>
-    <a href="<?= Url::toRoute('/help/contact') ?>" class="button button-w button-white">联系我们</a>
+<div class="container no-bottom">
+    <a href="<?= Url::toRoute('/member/product/fititem') ?>" style="width:100%;" class="button-big-icon-colse icon-proaddress button-white">处理货物<em class="go-right-member"></em></a>
 </div>
+<div class="decoration"></div>

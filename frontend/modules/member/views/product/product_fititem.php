@@ -1,25 +1,26 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '我的商品';
+$this->title = '已购商品';
 
-use frontend\services\ProductService;
+use frontend\services\OrderService;
 use yii\widgets\ListView;
 use frontend\extensions\scrollpager\ScrollPager;
 use yii\helpers\Url;
+
+$user_id = Yii::$app->user->getId();
+$data = ['user_id' => $user_id, 'limit' => 10];
+$productorders = OrderService::findBuyOrder($data);
 ?>
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
 </div>
 <div class="container no-bottom" style="padding:0px 10px;">
     <?php
-    $user_id = Yii::$app->user->getId();
-    $data = ['user_id' => $user_id, 'limit' => 10];
-    $productlists = ProductService::findMyProducts($data);
-    if ($productlists):
+    if ($productorders):
         echo ListView::widget([
-            'dataProvider' => $productlists,
+            'dataProvider' => $productorders,
             'itemOptions' => ['class' => 'item'],
-            'itemView' => '_item_product_index_view',
+            'itemView' => '_item_product_fititem_view',
             'pager' => ['class' => ScrollPager::className()]
         ]);
     else:
