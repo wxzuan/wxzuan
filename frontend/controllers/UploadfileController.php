@@ -85,9 +85,9 @@ class UploadfileController extends \yii\web\Controller {
         if ($delPic->delete()) {
             Yii::$app->response->getHeaders()->set('Vary', 'Accept');
             Yii::$app->response->format = Response::FORMAT_JSON;
-            @unlink(Yii::$app->getBasePath().$delPic->pic_s_img);
-            @unlink(Yii::$app->getBasePath().@web.$delPic->pic_m_img);
-            @unlink(Yii::$app->getBasePath().@web.$delPic->pic_b_img);
+            @unlink(Yii::$app->getBasePath() . '/web' . $delPic->pic_s_img);
+            @unlink(Yii::$app->getBasePath() . '/web' . $delPic->pic_m_img);
+            @unlink(Yii::$app->getBasePath() . '/web' . $delPic->pic_b_img);
             $response['files'][] = [
                 'name' => TRUE
             ];
