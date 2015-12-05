@@ -51,7 +51,7 @@ class ProductController extends \yii\web\Controller {
             } else if ($model->save()) {
                 $error = '添加成功,请继续添加商品图片';
                 $pid = Yii::$app->db->getLastInsertID();
-                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/product/selectimg' . $pid), 'backtitle' => '选择商品图片');
+                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/product/selectimg/' . $pid), 'backtitle' => '选择商品图片');
                 Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
                 $this->redirect(Url::toRoute('/public/notices'));
             } else {
