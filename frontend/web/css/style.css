@@ -131,6 +131,15 @@ body {
 }
 
 .facebook-content{
+    background-image:url(../images/misc/product-color.png);
+    background-size:17px 16px;
+    background-repeat:no-repeat;
+    position:absolute;
+    width:20px;
+    height:20px;
+    right:0px;
+}
+.product-content{
     background-image:url(../images/misc/add-color.png);
     background-size:17px 16px;
     background-repeat:no-repeat;
