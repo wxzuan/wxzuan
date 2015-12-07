@@ -240,7 +240,7 @@ body {
 
 .facebook-footer{
     float:right;
-    background-image:url(../images/misc/facebook-color.png);
+    background-image:url(../images/misc/membercenter-color.png);
     background-repeat:no-repeat;
     background-position:11px 13px;
     background-size:17px 16px;
@@ -250,7 +250,7 @@ body {
 
 .twitter-footer{
     float:right;
-    background-image:url(../images/misc/twitter-color.png);
+    background-image:url(../images/misc/backforward-color.png);
     background-repeat:no-repeat;
     background-position:11px 13px;
     background-size:17px 16px;
