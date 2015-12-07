@@ -131,7 +131,7 @@ body {
 }
 
 .facebook-content{
-    background-image:url(../images/misc/facebook-color.png);
+    background-image:url(../images/misc/add-color.png);
     background-size:17px 16px;
     background-repeat:no-repeat;
     position:absolute;
@@ -141,7 +141,7 @@ body {
 }
 
 .twitter-content{
-    background-image:url(../images/misc/twitter-color.png);
+    background-image:url(../images/misc/home-color.png);
     background-size:17px 16px;
     background-repeat:no-repeat;
     position:absolute;
