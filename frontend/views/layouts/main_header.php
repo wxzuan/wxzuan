@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 
-$defaultShowString = '<a href="' . Url::toRoute('/product/index') . '" class="facebook-content"></a><a href="' . Url::toRoute('/index') . '" class="twitter"></a>';
+$defaultShowString = '<a href="' . Url::toRoute('/product/index') . '" class="facebook-content"></a><a href="' . Url::toRoute('/index') . '" class="twitter-content"></a>';
 if (isset($icons)) {
     $defaultShowString = '';
     foreach ($icons as $key => $value) {
