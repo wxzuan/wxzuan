@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Url;
+?>
 <div class="decoration"></div>
 
 <div class="content-footer">
