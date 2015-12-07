@@ -47,19 +47,9 @@ AppAsset::register($this);
                     <p class="bread-crumb"><?= Html::encode($this->title) ?></p>
                     <a href="<?= Url::toRoute('member/index') ?>" class="deploy-member"></a>
                 </div>
-                <div class="content-header">
-                    <a href="<?= Url::toRoute('index') ?>" class="content-logo"></a>
-                </div>
-                <div class="content">
-                    <?= $content ?>
-                    <div class="decoration"></div>
 
-                    <div class="content-footer">
-                        <p class="copyright-content"> 版权 © 2015 寻想网络科技 .</p>
-                        <a href="#" class="go-up-footer"></a>
-                        <div class="clear"></div>
-                    </div>
-                </div>                
+                <?= $content ?>
+
             </div>  
         </div>
 
