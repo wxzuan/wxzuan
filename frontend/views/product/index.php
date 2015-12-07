@@ -8,7 +8,7 @@ use frontend\extensions\scrollpager\ScrollPager;
 use yii\widgets\ListView;
 ?>
 <?= $this->render('@app/views/layouts/main_header.php'); ?>
-<div class="one-half-responsive last-column">
+<div class="content">
     <div class="container">
         <div class="tabs">
             <a href="<?= Url::toRoute('/product/index') ?>" class="tab-but tab-but-1 tab-active">商品区</a>
@@ -16,7 +16,7 @@ use yii\widgets\ListView;
             <a href="<?= Url::toRoute('/product/index') ?>" class="tab-but tab-but-3">理财区</a>
             <a href="<?= Url::toRoute('/product/index') ?>" class="tab-but tab-but-4">吐槽区</a>     
         </div>     
-    </div>      
+    </div>
 </div>
 <div class="content">
     <?php
