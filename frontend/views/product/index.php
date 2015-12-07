@@ -7,7 +7,7 @@ use yii\helpers\Url;
 use frontend\extensions\scrollpager\ScrollPager;
 use yii\widgets\ListView;
 ?>
-<?= $this->render('@app/views/layouts/main_header.php', ['icons' => ['facebook_content' => Url::toRoute('/product/addproduct'), 'twitter-content' => Url::toRoute('/index')]]); ?>
+<?= $this->render('@app/views/layouts/main_header.php', ['icons' => ['facebook-content' => Url::toRoute('/product/addproduct'), 'twitter-content' => Url::toRoute('/index')]]); ?>
 <div class="content">
     <div class="container">
         <div class="tabs">
