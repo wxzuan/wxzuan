@@ -27,6 +27,7 @@ return [
             'enableStrictParsing' => FALSE,
             'suffix' => '.html',
             'rules' => [
+                'product/showmymoney/<id:\d+>' => 'product/showmymoney',
                 'product/addproduct/<id:\d+>' => 'product/addproduct',
                 'product/buy/<id:\d+>' => 'product/buy',
                 'member/product/selectimg/<id:\d+>' => 'member/product/selectimg',

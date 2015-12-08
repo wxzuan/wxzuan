@@ -74,8 +74,9 @@ class ProductController extends \yii\web\Controller {
         $this->view->title = "购买商品";
         $error = "";
         $backUrl = \Yii::$app->request->referrer;
-        if (isset($_GET['id'])) {
-            $pid = $_GET['id'];
+        $p_param = Yii::$app->request->get();
+        if (isset($p_param['id'])) {
+            $pid = $p_param['id'];
             $product = Product::find()->where("product_id=:id", [':id' => $pid])->one();
             if ($product) {
                 #获得用户的可用资金
@@ -178,11 +179,24 @@ class ProductController extends \yii\web\Controller {
      * 显示可用资金
      */
     public function actionShowmymoney() {
-        #获得用户的可用资金
-        
         $user_id = \Yii::$app->user->getId();
+        #获得用户的可用资金
+        $p_param = Yii::$app->request->get();
+        if (!isset($p_param['id'])) {
+            echo 1;
+            Yii::$app->end();
+        }
+        $product = Product::find()->where("product_id=:id", [':id' => $p_param['id']])->one();
+        if (!isset($product)) {
+            echo 1;
+            Yii::$app->end();
+        }
+        if ($user_id == $product->product_user_id) {
+            echo '<p>不允许购买自己的商品</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+            Yii::$app->end();
+        }
         $oneAccount = Account::find()->where("user_id=:user_id", [':user_id' => $user_id])->one();
-        return $this->renderAjax('showUserMoney', ['oneAccount' => $oneAccount]);
+        return $this->renderAjax('showUserMoney', ['oneAccount' => $oneAccount, 'product' => $product]);
     }
 
     /**
