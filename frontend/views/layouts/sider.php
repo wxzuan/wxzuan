@@ -26,6 +26,9 @@ use yii\helpers\Url;
                     <a href="<?= Url::toRoute('/product/index') ?>">物运区		  
                         <em class="unselected-sub-nav"></em>
                     </a>
+                    <a href="<?= Url::toRoute('/product/index') ?>">理财区		  
+                        <em class="unselected-sub-nav"></em>
+                    </a>
                     <a href="<?= Url::toRoute('/product/index') ?>">吐槽区			
                         <em class="unselected-sub-nav"></em>
                     </a>
