@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Url;
 ?>
 <div id="sidebar" class="page-sidebar">
@@ -9,16 +10,27 @@ use yii\helpers\Url;
         </div>
         <div class="sidebar-header">
             <a href="<?= Url::toRoute('/index') ?>" class="sidebar-logo"></a>
-            <a href="../../../../www.facebook.com/enabled.labs" class="facebook-sidebar"></a>
+            <a href="<?= Url::toRoute('/member/index/index') ?>" class="facebook-sidebar"></a>
         </div>
 
         <div class="navigation-items">
             <div class="nav-item">
                 <a href="<?= Url::toRoute('/index') ?>" class="home-nav">返回首页<em class="selected-nav"></em></a>
-            </div> 
+            </div>
             <div class="nav-item">
-                <a href="<?= Url::toRoute('/product/index') ?>" class="product-nav">商品中心<em class="go-right"></em></a>
-            </div> 
+                <a href="#" class="features-nav submenu-deploy">服务中心<em class="dropdown-nav"></em></a>
+                <div class="nav-item-submenu" style="overflow: hidden; display: none;">
+                    <a href="<?= Url::toRoute('/product/index') ?>">商品区	 
+                        <em class="unselected-sub-nav"></em>
+                    </a>
+                    <a href="<?= Url::toRoute('/product/index') ?>">物运区		  
+                        <em class="unselected-sub-nav"></em>
+                    </a>
+                    <a href="<?= Url::toRoute('/product/index') ?>">吐槽区			
+                        <em class="unselected-sub-nav"></em>
+                    </a>
+                </div>
+            </div>
             <div class="nav-item">
                 <a href="<?= Url::toRoute('/help/index') ?>" class="help-nav">帮助中心<em class="go-right"></em></a>
             </div> 
