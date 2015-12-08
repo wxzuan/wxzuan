@@ -66,6 +66,9 @@ class ProductController extends \yii\web\Controller {
         }
     }
 
+    /**
+     * 购买商品处理
+     */
     public function actionBuy() {
 
         $this->view->title = "购买商品";
@@ -172,13 +175,24 @@ class ProductController extends \yii\web\Controller {
     }
 
     /**
+     * 显示可用资金
+     */
+    public function actionShowmymoney() {
+        #获得用户的可用资金
+        
+        $user_id = \Yii::$app->user->getId();
+        $oneAccount = Account::find()->where("user_id=:user_id", [':user_id' => $user_id])->one();
+        return $this->renderAjax('showUserMoney', ['oneAccount' => $oneAccount]);
+    }
+
+    /**
      * @inheritdoc
      */
     public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'addproduct', 'buy'],
+                'only' => ['index', 'addproduct', 'buy', 'showmymoney'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -186,7 +200,7 @@ class ProductController extends \yii\web\Controller {
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index', 'addproduct', 'buy'],
+                        'actions' => ['index', 'addproduct', 'buy', 'showmymoney'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

@@ -28,6 +28,7 @@ class AppAsset extends AssetBundle {
         'css/qys_mobile.css',
     ];
     public $js = [
+        'js/ajax-modal-popup.js',
         'js/jqueryui.js',
         'js/owl.carousel.min.js',
         'js/jquery.swipebox.js',
