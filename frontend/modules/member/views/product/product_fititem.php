@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '已购商品';
+$this->title = '处理货物';
 
 use frontend\services\OrderService;
 use yii\widgets\ListView;
