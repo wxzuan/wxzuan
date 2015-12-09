@@ -24,7 +24,7 @@ class ProductController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'buyed', 'rate', 'changeimg', 'selectimg', 'fititem', 'suresellproduct', 'cancelsellproduct'],
+                        'actions' => ['index', 'buyed', 'rate', 'changeimg', 'selectimg', 'fititem', 'suresellproduct', 'cancelsellproduct', 'successbuy'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -60,7 +60,11 @@ class ProductController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionRate() {
-
+        $p_param = Yii::$app->request->get();
+        if (isset($p_param['id'])) {
+            echo '<p>该功能未开放</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+            Yii::$app->end();
+        }
         $model = new SearchProcessForm();
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
@@ -223,6 +227,46 @@ class ProductController extends \common\controllers\BaseController {
             $fit = [];
         }
         return $this->renderAjax('ajax_suresell', ['order' => $order, 'p_param' => $p_param, 'fit' => $fit]);
+    }
+
+    /**
+     * 单个商品修改
+     * @return type
+     */
+    public function actionSuccessbuy() {
+        $user_id = \Yii::$app->user->getId();
+        #获得用户的可用资金
+        $p_param = Yii::$app->request->get();
+        if (!isset($p_param['id'])) {
+            echo 1;
+            Yii::$app->end();
+        }
+        $order = ProductOrder::find()->where("order_id=:id AND user_id=:user_id ", [':id' => $p_param['id'], ':user_id' => $user_id])->one();
+        if (!isset($order)) {
+            echo 1;
+            Yii::$app->end();
+        }
+        if (isset($p_param['sure']) && $p_param['sure'] == 1) {
+
+            #调有存储过程冻结资金并生成订单
+            try {
+                $addip = \Yii::$app->request->userIP;
+                $in_p_user_id = $order->user_id;
+                $order_id = $order->order_id;
+                $conn = Yii::$app->db;
+                $command = $conn->createCommand('call p_success_Product_Order(:in_p_user_id,:order_id,:in_addip,@out_status,@out_remark)');
+                $command->bindParam(":in_p_user_id", $in_p_user_id, PDO::PARAM_INT);
+                $command->bindParam(":order_id", $order_id, PDO::PARAM_INT);
+                $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
+                $command->execute();
+                $fit = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+            } catch (Exception $e) {
+                $fit = ['remark' => '系统繁忙，暂时无法处理', 'status' => 0];
+            }
+        } else {
+            $fit = [];
+        }
+        return $this->renderAjax('ajax_successbuy', ['order' => $order, 'p_param' => $p_param, 'fit' => $fit]);
     }
 
     /**
