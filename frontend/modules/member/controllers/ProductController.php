@@ -11,6 +11,7 @@ use common\models\Pic;
 use yii\data\Pagination;
 use yii\helpers\Url;
 use common\models\ProductOrder;
+use \PDO;
 
 class ProductController extends \common\controllers\BaseController {
 

@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 <?php
@@ -9,7 +9,7 @@ if (!isset($p_param['sure'])):
         您确定要取消该笔订单吗？
     </p>
     <div class="modal-footer">
-        <a href="<?= Url::toRoute('/member/product/cancelsellproduct/' . $order->order_id) ?>?sure=1" type="button" class="btn btn-warning">确定取消</a>
+        <?= Html::a('确定取消', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/member/product/cancelsellproduct/' . $order->order_id).'?sure=1', 'class' => 'btn btn-warning showModalButton']); ?>
         <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
     </div>
     <?php
