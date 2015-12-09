@@ -7,4 +7,9 @@
         <br/>
         <span style="color:red;">送货地址：<?= $model->address ?></span>
     </p>
+    <p>
+        <span class="pull-right"  id="fit_order_<?= $model->order_id ?>">
+            <?= Html::a('确认收货', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/member/product/suresellproduct/' . $model->order_id), 'class' => 'btn btn-sm btn-warning showModalButton']); ?>
+        </span>
+    </p>
 </div>
