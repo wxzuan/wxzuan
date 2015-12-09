@@ -21,12 +21,17 @@ class OrderService {
 
     //put your code here
     public static function findProductOrder($data = array()) {
+        if (!isset($data['p_param']['status'])) {
+            $status = 0;
+        } else {
+            $status = intval($data['p_param']['status']);
+        }
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
         $model = new ProductOrder();
         $dataProvider = new ActiveDataProvider([
-            'query' => $model->find()->Where('user_id=:user_id', [':user_id' => $data['user_id']])->orderBy('addtime desc'),
+            'query' => $model->find()->Where('user_id=:user_id AND order_status=:status ', [':user_id' => $data['user_id'], ':status' => $status])->orderBy('addtime desc'),
             'pagination' => [
                 'pagesize' => $data['limit'],
             ]
