@@ -36,10 +36,10 @@ class OrderService {
 
     //put your code here
     public static function findBuyOrder($data = array()) {
-        if (!isset($p_param['status'])) {
+        if (!isset($data['status'])) {
             $status = 0;
         } else {
-            $status = intval($p_param['status']);
+            $status = intval($data['status']);
         }
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
