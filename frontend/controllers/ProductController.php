@@ -196,7 +196,7 @@ class ProductController extends \yii\web\Controller {
             Yii::$app->end();
         }
         $oneAccount = Account::find()->where("user_id=:user_id", [':user_id' => $user_id])->one();
-        return $this->renderAjax('showUserMoney', ['oneAccount' => $oneAccount, 'product' => $product]);
+        return $this->renderAjax('ajax_showUserMoney', ['oneAccount' => $oneAccount, 'product' => $product]);
     }
 
     /**

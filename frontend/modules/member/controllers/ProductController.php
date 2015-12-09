@@ -10,6 +10,7 @@ use common\models\Product;
 use common\models\Pic;
 use yii\data\Pagination;
 use yii\helpers\Url;
+use common\models\ProductOrder;
 
 class ProductController extends \common\controllers\BaseController {
 
@@ -143,10 +144,75 @@ class ProductController extends \common\controllers\BaseController {
     }
 
     /**
+     * 单个商品修改
+     * @return type
+     */
+    public function actionCancelsellproduct() {
+        $user_id = \Yii::$app->user->getId();
+        #获得用户的可用资金
+        $p_param = Yii::$app->request->get();
+        if (!isset($p_param['id'])) {
+            echo 1;
+            Yii::$app->end();
+        }
+        $order = ProductOrder::find()->where("order_id=:id AND p_user_id=:user_id ", [':id' => $p_param['id'], ':user_id' => $user_id])->one();
+        if (!isset($order)) {
+            echo 1;
+            Yii::$app->end();
+        }
+        if (isset($p_param['sure']) && $p_param['sure'] == 1) {
+
+            #调有存储过程冻结资金并生成订单
+            try {
+                $addip = \Yii::$app->request->userIP;
+                $in_p_user_id = $order->p_user_id;
+                $order_id = $order->order_id;
+                $conn = Yii::$app->db;
+                $command = $conn->createCommand('call p_cancel_Product_Order(:in_p_user_id,:order_id,:in_addip,@out_status,@out_remark)');
+                $command->bindParam(":in_p_user_id", $in_p_user_id, PDO::PARAM_INT);
+                $command->bindParam(":order_id", $order_id, PDO::PARAM_INT);
+                $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
+                $command->execute();
+                $fit = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+            } catch (Exception $e) {
+                $fit = ['remark' => '系统繁忙，暂时无法处理', 'status' => 0];
+            }
+        } else {
+            $fit = [];
+        }
+        return $this->renderAjax('ajax_cancelsell', ['order' => $order, 'p_param' => $p_param, 'fit' => $fit]);
+    }
+
+    /**
+     * 单个商品修改
+     * @return type
+     */
+    public function actionSuresellproduct() {
+        $user_id = \Yii::$app->user->getId();
+        #获得用户的可用资金
+        $p_param = Yii::$app->request->get();
+        if (!isset($p_param['id'])) {
+            echo 1;
+            Yii::$app->end();
+        }
+        $product = Product::find()->where("product_id=:id", [':id' => $p_param['id']])->one();
+        if (!isset($product)) {
+            echo 1;
+            Yii::$app->end();
+        }
+        if ($user_id == $product->product_user_id) {
+            echo '<p>不允许购买自己的商品</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+            Yii::$app->end();
+        }
+        $oneAccount = Account::find()->where("user_id=:user_id", [':user_id' => $user_id])->one();
+        return $this->renderAjax('ajax_showUserMoney', ['oneAccount' => $oneAccount, 'product' => $product]);
+    }
+
+    /**
      * 处理货物
      */
     public function actionFititem() {
-         return $this->render("product_fititem");
+        return $this->render("product_fititem");
     }
 
 }
