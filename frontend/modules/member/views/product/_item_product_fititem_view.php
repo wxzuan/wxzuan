@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
@@ -15,8 +16,30 @@ use yii\helpers\Url;
     </p>
     <p>
         <span class="pull-right"  id="fit_order_<?= $model->order_id ?>">
-            <?= Html::a('确认发货', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/member/product/suresellproduct/'.$model->order_id), 'class' => 'btn btn-sm btn-warning showModalButton']); ?>
-            <?= Html::a('取消订单', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/member/product/cancelsellproduct/'.$model->order_id), 'class' => 'btn btn-sm btn-danger showModalButton']); ?>
+            <?php
+            switch ($model->order_status) {
+                case 2:
+                    ?>
+                    <button class="btn btn-default btn-sm">已经取消</button>
+                    <?php
+                    break;
+                case 3:
+                    ?>
+                    <button class="btn btn-default btn-sm">已经销售</button>
+                    <?php
+                    break;
+                case 1:
+                    ?>
+                    <button class="btn btn-default btn-sm">已经发货</button>
+                    <?php
+                    break;
+                default :
+                    ?>
+                    <?= Html::a('确认发货', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/member/product/suresellproduct/' . $model->order_id), 'class' => 'btn btn-sm btn-warning showModalButton']); ?>
+                    <?= Html::a('取消订单', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/member/product/cancelsellproduct/' . $model->order_id), 'class' => 'btn btn-sm btn-danger showModalButton']); ?>
+                <?php
+            }
+            ?>
         </span>
     </p>
 </div>
