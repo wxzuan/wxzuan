@@ -23,7 +23,7 @@ class ProductController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'buyed', 'rate', 'changeimg', 'selectimg', 'fititem'],
+                        'actions' => ['index', 'buyed', 'rate', 'changeimg', 'selectimg', 'fititem', 'suresellproduct', 'cancelsellproduct'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
