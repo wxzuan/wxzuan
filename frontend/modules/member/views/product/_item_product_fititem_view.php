@@ -1,3 +1,7 @@
+<?php
+use yii\helpers\Html;
+use yii\helpers\Url;
+?>
 <div class="one-half-responsive">
     <p class="quote-item" style="line-height: 25px;">
         <img src="<?= $model->product->product_s_img; ?>" alt="img">
