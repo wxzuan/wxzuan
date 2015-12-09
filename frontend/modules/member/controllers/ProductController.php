@@ -195,17 +195,33 @@ class ProductController extends \common\controllers\BaseController {
             echo 1;
             Yii::$app->end();
         }
-        $product = Product::find()->where("product_id=:id", [':id' => $p_param['id']])->one();
-        if (!isset($product)) {
+        $order = ProductOrder::find()->where("order_id=:id AND p_user_id=:user_id ", [':id' => $p_param['id'], ':user_id' => $user_id])->one();
+        if (!isset($order)) {
             echo 1;
             Yii::$app->end();
         }
-        if ($user_id == $product->product_user_id) {
-            echo '<p>不允许购买自己的商品</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
-            Yii::$app->end();
+        if (isset($p_param['sure']) && $p_param['sure'] == 1) {
+            $in_p_user_id = $order->p_user_id;
+            $order_id = $order->order_id;
+            #调有存储过程冻结资金并生成订单
+            $conn = Yii::$app->db;
+            $trance = $conn->beginTransaction();
+            try {
+
+                $command = $conn->createCommand('update ' . ProductOrder::tableName() . ' set order_status=1 where p_user_id=:in_p_user_id AND order_id=:order_id');
+                $command->bindParam(":in_p_user_id", $in_p_user_id, PDO::PARAM_INT);
+                $command->bindParam(":order_id", $order_id, PDO::PARAM_INT);
+                $command->execute();
+                $trance->commit();
+                $fit = ['remark' => '发货成功', 'status' => 1];
+            } catch (Exception $e) {
+                $trance->rollBack();
+                $fit = ['remark' => '发货失败', 'status' => 0];
+            }
+        } else {
+            $fit = [];
         }
-        $oneAccount = Account::find()->where("user_id=:user_id", [':user_id' => $user_id])->one();
-        return $this->renderAjax('ajax_showUserMoney', ['oneAccount' => $oneAccount, 'product' => $product]);
+        return $this->renderAjax('ajax_suresell', ['order' => $order, 'p_param' => $p_param, 'fit' => $fit]);
     }
 
     /**
