@@ -165,6 +165,4 @@ $(document).ready(function() {
         $('.iphone-detected').hide();
         $('.android-detected').show();
     }
-
-
 });

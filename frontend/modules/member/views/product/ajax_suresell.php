@@ -10,7 +10,7 @@ if (!isset($p_param['sure'])):
         您确定要给该笔订单发货吗？
     </p>
     <div class="modal-footer">
-    <?= Html::a('确认发货', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/member/product/suresellproduct/' . $order->order_id) . '?sure=1', 'class' => 'btn btn-warning showModalButton']); ?>
+        <?= Html::a('确认发货', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/member/product/suresellproduct/' . $order->order_id) . '?sure=1', 'class' => 'btn btn-warning showModalButton']); ?>
         <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
     </div>
     <?php
@@ -19,7 +19,12 @@ else:
     <p>
         <?php
         if ($fit['status'] == 1) {
-            echo '取消成功';
+            echo '发货成功';
+            ?>
+            <script type="text/javascript">
+                $("#fit_order_<?= $order->order_id ?>").html('<button class="btn btn-default btn-sm">已经发货</button>');
+            </script>
+            <?php
         } else {
             echo $fit['remark'];
         }

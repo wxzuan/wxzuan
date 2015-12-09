@@ -26,7 +26,7 @@ $productorders = OrderService::findBuyOrder($data);
     else:
         ?>
         <div class="container" style="min-height: 350px;">
-            <p>暂时没有资金记录</p>
+            <p>暂时没有记录</p>
         </div>
     <?php endif; ?>
 </div>
