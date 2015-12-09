@@ -1,7 +1,7 @@
 <div class="one-half-responsive">
     <p class="quote-item" style="line-height: 25px;">
         <img src="<?= $model->product->product_s_img; ?>" alt="img">
-        商品名称：<h3><?= $model->product->product_name ?></h3><br/>
+        商品名称：<strong><?= $model->product->product_name ?></strong><br/>
     下单时间：<span style="color:red;"><?= date('Y-m-d H:i:s', $model->addtime) ?></span>
 </p>
 <p class="quote-item" style="line-height: 25px;">
