@@ -56,13 +56,13 @@ class AccountController extends \common\controllers\BaseController {
      */
     public function actionTixian() {
         $model = new CashForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
             #调有存储过程冻结资金并生成订单
             try {
                 $addip = \Yii::$app->request->userIP;
                 $user_id = \Yii::$app->user->getId();
                 $money = $model->money;
-                $conn = Yii::$app->db;
+                $conn = \Yii::$app->db;
                 $command = $conn->createCommand('call p_apply_Cash(:in_p_user_id,:money,:in_addip,@out_status,@out_remark)');
                 $command->bindParam(":in_p_user_id", $user_id, PDO::PARAM_INT);
                 $command->bindParam(":money", $money, PDO::PARAM_STR);
@@ -86,7 +86,7 @@ class AccountController extends \common\controllers\BaseController {
                 'tourl' => Url::toRoute('/member/account/index/index'),
                 'totitle' => '会员中心'
             );
-            Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+            \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
             $this->redirect(Url::toRoute('/public/notices'));
             \Yii::$app->end();
         } else {
