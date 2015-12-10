@@ -19,7 +19,7 @@ class AccountController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'chongzhi', 'tixian'],
+                        'actions' => ['index', 'chongzhi', 'tixian', 'tixianlog'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -92,6 +92,14 @@ class AccountController extends \common\controllers\BaseController {
         } else {
             return $this->render('account_tixian', ['model' => $model]);
         }
+    }
+
+    /**
+     * 提现记录
+     * @return type
+     */
+    public function actionTixianlog() {
+        return $this->render('account_tixianlog');
     }
 
 }

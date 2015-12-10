@@ -22,21 +22,19 @@ use Yii;
  * @property integer $checkid
  * @property integer $moneyactiontype
  */
-class AccountLog extends \yii\db\ActiveRecord
-{
+class AccountLog extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'web_account_log';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['user_id', 'to_user'], 'required'],
             [['user_id', 'to_user', 'addtime', 'checkid', 'moneyactiontype'], 'integer'],
@@ -49,8 +47,7 @@ class AccountLog extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
@@ -68,16 +65,24 @@ class AccountLog extends \yii\db\ActiveRecord
             'moneyactiontype' => 'Moneyactiontype',
         ];
     }
+
     /**
      * 资金类型处理
      * 所有类型暂时未分完
      * @return string
      */
-    function getTypeRemark(){
-        if($this->moneyactiontype==21322){
-            return '<span style="color:blue">冻结</span>';
-        }else{
-            return '<span style="color:green">冻结</span>';
+    function getTypeRemark() {
+        $resturnString = '';
+        switch ($this->moneyactiontype) {
+            case 21322:$resturnString = '<span style="color:blue">冻结</span>';
+                break;
+            case 23122:$resturnString = '<span style="color:red">解冻</span>';
+                break;
+            case 12122:$resturnString = '<span style="color:blue">支出</span>';
+                break;
+            case 33222:$resturnString = '<span style="color:blue">收入</span>';
+                break;
         }
     }
+
 }

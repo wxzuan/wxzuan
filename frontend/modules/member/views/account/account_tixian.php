@@ -16,6 +16,12 @@ $oneBank = Bankcard::find()->where('user_id=:user_id', [':user_id' => $user_id])
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
 </div>
+<div class="container">
+    <div class="tabs">
+        <a href="<?= Url::toRoute('/member/account/tixian') ?>" class="tab-but tab-but-1 tab-active">申请提现</a>
+        <a href="<?= Url::toRoute('/member/account/tixianlog') ?>" class="tab-but tab-but-2">提现记录</a>     
+    </div>     
+</div>
 <div class="container no-bottom">
     <a href="#" style="width:100%;padding-left:13px;" class="button-big-icon-colse button-white">所属银行：<span class="float-right"><?= $oneBank->bank_name ?></span></a>
     <a href="#" style="width:100%;padding-left:13px;" class="button-big-icon-colse button-white">银行帐号：<span class="float-right"><?= '***' . substr($oneBank->account, -4) ?></span></a>
