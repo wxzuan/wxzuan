@@ -24,20 +24,13 @@ $oneBank = Bankcard::find()->where('user_id=:user_id', [':user_id' => $user_id])
     <a href="#" style="width:100%;padding-left:13px;" class="button-big-icon-colse button-white">可用余额：<span class="float-right"><?= $oneuseraccount->use_money ?> 元</span></a>
 </div>
 <div class="decoration"></div>
-<?php
-$form = ActiveForm::begin([
-            'action' => ['/member/index/bank'],
-            'method' => 'post',
-        ]);
-?>
 <div class="container">
     <div class="toggle-1" style="background-color: #ffffff;">
         <div class="toggle-content padding10" style="overflow: hidden;display: block;">
-            <?= $form->field($model, 'orderno', [ 'labelOptions' => ['label' => '请输入提现金额<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
+            <?= $form->field($model, 'money', [ 'labelOptions' => ['label' => '请输入提现金额<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>
     </div>
 </div>
 <div class="container no-bottom container-b">
     <?= Html::submitButton('确定提现', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
 </div>
-<?php ActiveForm::end(); ?>
