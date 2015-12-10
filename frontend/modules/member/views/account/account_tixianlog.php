@@ -46,7 +46,7 @@ $accountlogs = AccountService::findCashlog($data);
                             <p>
                                 到帐资金：<?= $onelog->credited ?> 元 手续费：<?= $onelog->fee ?><br/>
                                 提现帐号：<?= '**' . substr($onelog->account, -4) ?>银行名称：<?= $onelog->bank_name ?>
-                                备注：<?= $onelog->remark ?>
+                                备注：<?= $onelog->verify_remark ?>
                             </p>
                         </div>
                     </div>
