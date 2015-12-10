@@ -83,6 +83,7 @@ class AccountLog extends \yii\db\ActiveRecord {
             case 33222:$resturnString = '<span style="color:blue">收入</span>';
                 break;
         }
+        return $resturnString;
     }
 
 }

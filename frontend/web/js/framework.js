@@ -90,11 +90,7 @@ $(document).ready(function() {
 
     //Toggles
 
-    $('.deploy-toggle-1').on('click', function() {
-        $(this).parent().find('.toggle-content').toggle(100);
-        $(this).toggleClass('toggle-1-active');
-        return false;
-    });
+
 
     $('.deploy-toggle-2').click(function() {
         $(this).parent().find('.toggle-content').toggle(100);

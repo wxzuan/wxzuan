@@ -52,7 +52,15 @@ $accountlogs = AccountService::findAccountlog($data);
             echo LinkPager::widget(['pagination' => $accountlogs['pages']]);
             ?>
         </div>
-        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.deploy-toggle-1').on('click', function() {
+                $(this).parent().find('.toggle-content').toggle(100);
+                $(this).toggleClass('toggle-1-active');
+                return false;
+            });
+            });
+        </script>
         <?php Pjax::end() ?>
     <?php else: ?>
 
