@@ -16,6 +16,7 @@ namespace frontend\services;
 
 use common\models\AccountLog;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 
 class AccountService {
 
@@ -28,14 +29,13 @@ class AccountService {
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
-        $model = new AccountLog();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $model->find()->Where('user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" addtime desc "),
-            'pagination' => [
-                'pagesize' => $data['limit'],
-            ]
-        ]);
-        return $dataProvider;
+        $query = AccountLog::find()->Where('user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" addtime desc ");
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $data['limit']]);
+        $models = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+        return ['models' => $models, 'pages' => $pages];
     }
 
 }

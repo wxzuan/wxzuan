@@ -36,7 +36,6 @@ class AppAsset extends AssetBundle {
         'js/snap.js',
         'js/contact.js',
         'js/custom.js',
-        'js/framework.js',
         'js/framework.launcher.js',
     ];
     public $depends = [

@@ -71,7 +71,7 @@ AppAsset::register($this);
     echo '<div id="modalContent"><div style="text-align:center">加载中...请稍侯</div></div>';
     yii\bootstrap\Modal::end();
     ?>
-    <?php $this->endBody() ?>
+    <?=Html::jsFile('@web/js/framework.js')?>
     <?php $this->endBody() ?>
 </html>
 <?php $this->endPage() ?>
