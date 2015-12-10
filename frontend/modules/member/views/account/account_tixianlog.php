@@ -39,7 +39,7 @@ $accountlogs = AccountService::findCashlog($data);
                 ?>
                 <div class="container">
                     <div class="toggle-1">
-                        <a href="#" class="deploy-toggle-1">
+                        <a href="#" data-pjax="0" class="deploy-toggle-1">
                             <?= date('Y年m月d日H时i分s秒', $onelog->addtime) ?>提现<?= $onelog->total ?> 元 <?= $onelog->getStatusRemark() ?> 
                         </a>
                         <div class="toggle-content">

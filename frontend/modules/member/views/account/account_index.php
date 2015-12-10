@@ -32,7 +32,7 @@ $accountlogs = AccountService::findAccountlog($data);
                 ?>
                 <div class="container">
                     <div class="toggle-1">
-                        <a href="#" class="deploy-toggle-1">
+                        <a href="#" data-pjax="0" class="deploy-toggle-1">
                             <?= date('Y年m月d日H时i分s秒', $onelog->addtime) ?> <?= $onelog->getTypeRemark() ?> <?= $onelog->money ?> 元
                         </a>
                         <div class="toggle-content">
@@ -52,6 +52,7 @@ $accountlogs = AccountService::findAccountlog($data);
             echo LinkPager::widget(['pagination' => $accountlogs['pages']]);
             ?>
         </div>
+        
         <?php Pjax::end() ?>
     <?php else: ?>
 
