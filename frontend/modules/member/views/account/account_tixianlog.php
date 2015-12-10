@@ -1,10 +1,11 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '资金明细';
+$this->title = '提现记录';
 
 use frontend\services\AccountService;
 use yii\widgets\Pjax;
 use yii\widgets\LinkPager;
+use yii\helpers\Url;
 
 $user_id = Yii::$app->user->getId();
 ?>
