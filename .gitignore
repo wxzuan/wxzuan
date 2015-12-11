@@ -30,3 +30,5 @@ phpunit.phar
 /phpunit.xml
 !/vendor/
 /frontend/web/html/
+!/frontend/modules/wechat/config/config.php
+/frontend/modules/wechat/config/
