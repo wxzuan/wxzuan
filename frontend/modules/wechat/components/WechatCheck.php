@@ -64,21 +64,24 @@ use app\modules\wechat\services\WeixinVoiceService;
   ]
   }';
  */
-
+use yii\base\Component;
 /**
  * Description of WechatCheck
  *
  * @author qinyangsheng
  */
-class WechatCheck {
+class WechatCheck extends Component{
+
     //put your code here
 //
 //    const token = 'zuanzuanle5130';
 
     private $APPID;
     private $APPSECRET;
+
 //
 //    //基本接口地址
+
     const BASE_WEIXIN_URL = "https://api.weixin.qq.com";
 //    //申请access_token的地址
     const TOKEN_URL = "/cgi-bin/token?grant_type=client_credential";
@@ -154,33 +157,19 @@ class WechatCheck {
 
 //private标记的构造方法
     function __construct() {
-        self::checkAccessToken();
+        $this->checkAccessToken();
     }
 
 //
-//创建__clone方法防止对象被复制克隆
-    public function __clone() {
-        trigger_error('Clone is not allow!', E_USER_ERROR);
-    }
-
-//
-//单例方法,用于访问实例的公共的静态方法
-    public static function getInstance() {
-        if (!(self::$_instance instanceof self)) {
-            self::$_instance = new self;
-        }
-        return self::$_instance;
-    }
-
 //
     /**
      * 检查access_token是否起作用
      */
-    public static function checkAccessToken() {
+    public function checkAccessToken() {
 
         if (self::$access_token_endtime === null || self::$access_token_endtime < time()) {
 //            重新申请access_token
-            $json = file_get_contents(self::BASE_WEIXIN_URL . self::TOKEN_URL . "&appid=" . self::APPID . "&secret=" . self::APPSECRET);
+            $json = file_get_contents(self::BASE_WEIXIN_URL . self::TOKEN_URL . "&appid=" . $this->APPID . "&secret=" . $this->APPSECRET);
             if ($json) {
                 $result = json_decode($json, true);
                 self::$access_token = $result['access_token'];
@@ -276,7 +265,7 @@ class WechatCheck {
 //
 ////消息处理
 ////仅实现了文本消息和推送事件
-    public static function _responseMsg() {
+    public function _responseMsg() {
         $postStr = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : "";
         if (!empty($postStr)) {
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);

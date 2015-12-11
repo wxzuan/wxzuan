@@ -59,6 +59,10 @@ return [
             'class' => 'app\modules\member\MemberModule',
             'defaultRoute' => 'index',
         ],
+        'wechat' => [
+            'class' => 'app\modules\wechat\wechatModule',
+            'defaultRoute' => 'api',
+        ],
     ],
     'params' => $params,
 ];

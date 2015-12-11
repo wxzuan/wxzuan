@@ -3,7 +3,6 @@
 namespace app\modules\wechat\controllers;
 
 use yii\web\Controller;
-use app\modules\wechat\components\WechatCheck;
 
 class ApiController extends Controller {
 
@@ -12,10 +11,9 @@ class ApiController extends Controller {
      */
     function init() {
         //获得是否已经设定了自定义菜单
-        $this->wechat = WechatCheck::getInstance();
 //        $this->wechat->deleteMenu();
-        if (!$this->wechat->getMenu()) {
-            $this->wechat->createMenu();
+        if (\Yii::$app->wechat->getMenu()) {
+            \Yii::$app->wechat->createMenu();
         }
         parent::init();
     }
@@ -24,9 +22,9 @@ class ApiController extends Controller {
     public function actionIndex() {
         //接口校验
         if (isset($_GET['echostr'])) {
-            $this->wechat->_valid();
+            \Yii::$app->wechat->_valid();
         } else {
-            WechatCheck::_responseMsg();
+            \Yii::$app->wechat->_responseMsg();
         }
         \Yii::$app->end();
     }
