@@ -19,7 +19,6 @@ use yii\image\drivers\Image;
  */
 class ImageDriver extends Component
 {
-      
         /**
         * @var  string  default driver: GD or ImageMagick
         */

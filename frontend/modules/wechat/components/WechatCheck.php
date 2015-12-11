@@ -75,8 +75,8 @@ class WechatCheck {
 //
 //    const token = 'zuanzuanle5130';
 
-    const APPID = "wx3b55df6bdee5d3fe";
-    const APPSECRET = "fee6f919b912ee0de565387a9467c77a";
+    private $APPID;
+    private $APPSECRET;
 //
 //    //基本接口地址
     const BASE_WEIXIN_URL = "https://api.weixin.qq.com";

@@ -5,7 +5,7 @@ namespace app\modules\wechat\controllers;
 use yii\web\Controller;
 use app\modules\wechat\components\WechatCheck;
 
-class DefaultController extends Controller {
+class ApiController extends Controller {
 
     /**
      *  初始化用户自定义菜单
