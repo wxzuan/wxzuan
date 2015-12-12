@@ -61,7 +61,7 @@ class WeixinClickService {
         $mdstring = md5($randstring . $user->user_id);
         $result = User::updateAll(["repstaken" => $mdstring, "repsativetime" => time()], " user_id=:user_id", [':user_id' => $user->user_id]);
         if ($result) {
-            $content = '请在10秒内进入>> <a href="http://wxzuan.zuanzuanle.com/public/login/' . $user->user_id . '/token/' . $mdstring . '.html">首页</a>,否则授权将失效。';
+            $content = '请在10秒内进入>> <a href="http://wxzuan.zuanzuanle.com/public/login/' . $user->user_id . '/' . $mdstring . '.html">首页</a>,否则授权将失效。';
         } else {
             $content = "无法获得授权,请重新获取...";
         }
