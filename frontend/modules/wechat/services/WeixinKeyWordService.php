@@ -1,5 +1,6 @@
 <?php
 namespace app\modules\wechat\services;
+use common\models\User;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -15,7 +16,7 @@ class WeixinKeyWordService {
     /**
      * 微信处理关键字
      */
-    public static function fitKeyWord($obj, Users $user) {
+    public static function fitKeyWord($obj, User $user) {
         $keyword = strtolower($obj->Content);
         switch ($keyword) {
             #开启图片保存
