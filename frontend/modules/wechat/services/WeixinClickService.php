@@ -75,7 +75,7 @@ class WeixinClickService {
      * @return string
      */
     public static function getAccountClick($object, $weixinuser) {
-        $myAccount = Account::find()->where("user_id=:user_id", [":user_id" => $weixinuser->user_id]);
+        $myAccount = Account::find()->where("user_id=:user_id", [":user_id" => $weixinuser->user_id])->one();
         $content = "我的总金额为：" . $myAccount->total . "\n" . "可用资金为：" . $myAccount->use_money;
         WechatCheck::_transmitText($object, $content);
     }
