@@ -17,7 +17,6 @@ use app\modules\wechat\services\WeixinVoiceService;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
   '{
   "button":[
@@ -65,19 +64,20 @@ use app\modules\wechat\services\WeixinVoiceService;
   }';
  */
 use yii\base\Component;
+
 /**
  * Description of WechatCheck
  *
  * @author qinyangsheng
  */
-class WechatCheck extends Component{
+class WechatCheck extends Component {
 
     //put your code here
 //
 //    const token = 'zuanzuanle5130';
 
-    private $APPID;
-    private $APPSECRET;
+    public $APPID;
+    public $APPSECRET;
 
 //
 //    //基本接口地址
@@ -118,9 +118,9 @@ class WechatCheck extends Component{
     //保存类实例的静态成员变量
     private static $_instance;
 //标识串
-    static $access_token = null;
+    private $access_token = null;
 //标识串无效时间
-    static $access_token_endtime = null;
+    private $access_token_endtime = null;
     public $user = null;
 
     public function _valid() {
@@ -167,13 +167,17 @@ class WechatCheck extends Component{
      */
     public function checkAccessToken() {
 
-        if (self::$access_token_endtime === null || self::$access_token_endtime < time()) {
+        if ($this->access_token_endtime === null || $this->access_token_endtime < time()) {
 //            重新申请access_token
-            $json = file_get_contents(self::BASE_WEIXIN_URL . self::TOKEN_URL . "&appid=" . $this->APPID . "&secret=" . $this->APPSECRET);
+            $json = file_get_contents(WechatCheck::BASE_WEIXIN_URL . WechatCheck::TOKEN_URL . "&appid=" . $this->APPID . "&secret=" . $this->APPSECRET);
             if ($json) {
                 $result = json_decode($json, true);
-                self::$access_token = $result['access_token'];
-                self::$access_token_endtime = time() + $result['expires_in'];
+                if (isset($result['access_token'])) {
+                    $this->access_token = $result['access_token'];
+                    $this->access_token_endtime = time() + $result['expires_in'];
+                } else {
+                    echo 'errormsg';
+                }
             }
         }
     }
@@ -182,7 +186,7 @@ class WechatCheck extends Component{
 //     * 获得自定义菜单
 //     */
     public function getMenu() {
-        $MENU_URL = self::BASE_WEIXIN_URL . self::GET_MENU_URL . self::$access_token;
+        $MENU_URL = WechatCheck::BASE_WEIXIN_URL . WechatCheck::GET_MENU_URL . $this->access_token;
         $menu = $this->getUrlResult($MENU_URL);
         $menulist = (array) json_decode($menu);
         #如果没有菜单，创建菜单
@@ -198,7 +202,7 @@ class WechatCheck extends Component{
 //     * 创建自定义菜单
 //     */
     public function createMenu() {
-        $MENU_URL = self::BASE_WEIXIN_URL . self::CREATE_MENU_URL . self::$access_token;
+        $MENU_URL = WechatCheck::BASE_WEIXIN_URL . WechatCheck::CREATE_MENU_URL . $this->access_token;
 
         $this->getPostResult($MENU_URL);
     }
@@ -208,7 +212,7 @@ class WechatCheck extends Component{
 //     * 获得自定义菜单
 //     */
     public function deleteMenu() {
-        $MENU_URL = self::BASE_WEIXIN_URL . self::DELETE_MENU_URL . self::$access_token;
+        $MENU_URL = WechatCheck::BASE_WEIXIN_URL . WechatCheck::DELETE_MENU_URL . $this->access_token;
         $menu = $this->getUrlResult($MENU_URL);
         $menulist = (array) json_decode($menu);
         #如果没有菜单，创建菜单
@@ -246,7 +250,7 @@ class WechatCheck extends Component{
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-        $json_string = (json_encode(self::$WEIXIN_MENU, JSON_UNESCAPED_UNICODE));
+        $json_string = (json_encode(WechatCheck::$WEIXIN_MENU, JSON_UNESCAPED_UNICODE));
         $json_string = str_replace('\\', '', $json_string);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json_string);
