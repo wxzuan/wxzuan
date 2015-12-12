@@ -141,7 +141,7 @@ class WechatCheck extends Component {
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
 
-        $token = $this->$token;
+        $token = $this->token;
         $tmpArr = array($token, $timestamp, $nonce);
         // use SORT_STRING rule
         sort($tmpArr, SORT_STRING);
