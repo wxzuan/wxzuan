@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\wechat\services;
 use common\models\User;
+use app\modules\wechat\components\WechatCheck;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
