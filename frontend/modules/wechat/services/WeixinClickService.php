@@ -5,6 +5,7 @@ namespace app\modules\wechat\services;
 use common\models\User;
 use common\models\Account;
 use app\modules\wechat\components\WechatCheck;
+use common\models\ProductCoupon;
 
 /*
  * To change this template, choose Tools | Templates
@@ -102,7 +103,18 @@ class WeixinClickService {
         } else {
             $result = rand(1, 10);
             if ($result === 1) {
-                $content = "恭喜您：中奖啦，您将获得本平台提供的免费商品,马上去发货。";
+                $newCoupon = new ProductCoupon();
+                $newCoupon->cash_id = 0;
+                $newCoupon->user_id = $weixinuser->user_id;
+                $newCoupon->off_rate = '100';
+                $newCoupon->status = 0;
+                $newCoupon->type = 0;
+                $newCoupon->addtime = time();
+                if ($newCoupon->validate() && $newCoupon->save()) {
+                    $content = "恭喜您：中奖啦，您将获得本平台提供的免费商品,马上去发货。";
+                } else {
+                    $content = "命中失败,再抽一次！";
+                }
             } else {
                 $content = "很遗憾，今天又没中奖,这是个鸟系统抽了N次不中,无聊割草！";
             }
