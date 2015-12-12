@@ -110,7 +110,7 @@ class WechatCheck extends Component {
                 'sub_button' => array(
                     array("type" => 'click', "name" => "我的资金", "key" => "weixin_usemoney"),
                     array("type" => 'click', "name" => "快速分享", "key" => "weixin_sharp"),
-                    array("type" => 'view', "name" => "代理推广", "url" => "http://www.zuanzuanle.com/wechat/help/daili.html"),
+                    array("type" => 'click', "name" => "代理推广", "key" => "weixin_alias"),
                 )
             )
         )
