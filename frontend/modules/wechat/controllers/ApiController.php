@@ -6,6 +6,8 @@ use yii\web\Controller;
 
 class ApiController extends Controller {
 
+    public $enableCsrfValidation = false;
+
     /**
      *  初始化用户自定义菜单
      */
