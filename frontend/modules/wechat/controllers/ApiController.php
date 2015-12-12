@@ -11,9 +11,13 @@ class ApiController extends Controller {
      */
     function init() {
         //获得是否已经设定了自定义菜单
-//        $this->wechat->deleteMenu();
-        if (\Yii::$app->wechat->getMenu()) {
-            \Yii::$app->wechat->createMenu();
+        if (isset($_GET['echostr'])) {
+            \Yii::$app->wechat->_valid();
+        } else {
+            \Yii::$app->wechat->checkAccessToken();
+            if (\Yii::$app->wechat->getMenu()) {
+                \Yii::$app->wechat->createMenu();
+            }
         }
         parent::init();
     }

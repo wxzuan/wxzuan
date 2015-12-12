@@ -74,7 +74,7 @@ class WechatCheck extends Component {
 
     //put your code here
 //
-//    const token = 'zuanzuanle5130';
+    public $token;
 
     public $APPID;
     public $APPSECRET;
@@ -141,7 +141,7 @@ class WechatCheck extends Component {
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
 
-        $token = self::token;
+        $token = $this->$token;
         $tmpArr = array($token, $timestamp, $nonce);
         // use SORT_STRING rule
         sort($tmpArr, SORT_STRING);
@@ -157,7 +157,6 @@ class WechatCheck extends Component {
 
 //private标记的构造方法
     function __construct() {
-        $this->checkAccessToken();
     }
 
 //
