@@ -473,7 +473,7 @@ class WechatCheck extends Component {
         $textTpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content><MsgId>%d</MsgId></xml>";
         $resultStr = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content, $object->MsgId);
         echo $resultStr;
-        Yii::app()->end();
+        \Yii::app()->end();
     }
 
 //
