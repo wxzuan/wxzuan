@@ -18,7 +18,7 @@ class WechatTemplate {
                 break;
             case "1":$tpl = "<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>";
                 break;
-            case "2":$tpl = "</Articles><FuncFlag><![CDATA[%s]]></FuncFlag></xml>";
+            case "2":$tpl = "</Articles></xml>";
                 break;
             default:$tpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>%s</ArticleCount><Articles>";
         }
