@@ -123,6 +123,7 @@ class WeixinClickService {
                 $content = "命中失败,再抽一次！";
             }
         }
+        $content=[];
         $content['content'] = [
             0 => [
                 'title' => '12323', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibzibhFvAFRLUqEnxkWSngMiayEv3p6yGuFWFrdvxoY1R3oKOpkjqf4SIw/0?wx_fmt=jpeg', 'url' => ''
