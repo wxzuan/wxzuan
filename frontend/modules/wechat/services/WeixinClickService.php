@@ -123,7 +123,18 @@ class WeixinClickService {
                 $content = "命中失败,再抽一次！";
             }
         }
-        WechatCheck::_transmitText($object, $content);
+        $content['content'] = [
+            0 => [
+                $reponevalue['title'] => '12323', $reponevalue['des'] => 'xxx', $reponevalue['picurl'] => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibzibhFvAFRLUqEnxkWSngMiayEv3p6yGuFWFrdvxoY1R3oKOpkjqf4SIw/0?wx_fmt=jpeg', $reponevalue['url'] => ''
+            ],
+            1 => [
+                $reponevalue['title'] => '123', $reponevalue['des'] => 'ooo', $reponevalue['picurl'] => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ib9tjFrJOGZQmfeAC4WapMdKMA7ZkfBLjicel4rwxdicOxhCHN3Z1y1rTQ/0?wx_fmt=jpeg', $reponevalue['url'] => ''
+            ],
+            2 => [
+                $reponevalue['title'] => '123232', $reponevalue['des'] => 'xxx', $reponevalue['picurl'] => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibuiamOrlB3usT9VuzibYFdAn0EFAANbic6C94U969Iy9oIqIUJa80N15cg/0?wx_fmt=jpeg', $reponevalue['url'] => ''
+            ]
+        ];
+        WechatCheck::_transmitArticleAndPic($object, $content);
     }
 
     /**
