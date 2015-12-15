@@ -127,7 +127,7 @@ class WeixinClickService {
         //$content['type']='news';
         $content = [
             0 => [
-                'title' => '恭喜您！获得一份春节红包抽奖券！', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibzibhFvAFRLUqEnxkWSngMiayEv3p6yGuFWFrdvxoY1R3oKOpkjqf4SIw/0?wx_fmt=jpeg', 'url' => ''
+                'title' => '恭喜您！获得一份春节红包抽奖券！', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg', 'url' => 'http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd'
             ],
             1 => [
                 'title' => '春节初一至初十五天天抽奖。抽完为止。', 'des' => 'ooo', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ib9tjFrJOGZQmfeAC4WapMdKMA7ZkfBLjicel4rwxdicOxhCHN3Z1y1rTQ/0?wx_fmt=jpeg', 'url' => ''
