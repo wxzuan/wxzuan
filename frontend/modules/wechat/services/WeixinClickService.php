@@ -127,13 +127,13 @@ class WeixinClickService {
         //$content['type']='news';
         $content = [
             0 => [
-                'title' => '12323', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibzibhFvAFRLUqEnxkWSngMiayEv3p6yGuFWFrdvxoY1R3oKOpkjqf4SIw/0?wx_fmt=jpeg', 'url' => ''
+                'title' => '恭喜您！获得一份春节红包抽奖券！', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibzibhFvAFRLUqEnxkWSngMiayEv3p6yGuFWFrdvxoY1R3oKOpkjqf4SIw/0?wx_fmt=jpeg', 'url' => ''
             ],
             1 => [
-                'title' => '123', 'des' => 'ooo', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ib9tjFrJOGZQmfeAC4WapMdKMA7ZkfBLjicel4rwxdicOxhCHN3Z1y1rTQ/0?wx_fmt=jpeg', 'url' => ''
+                'title' => '春节初一至初十五天天抽奖。抽完为止。', 'des' => 'ooo', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ib9tjFrJOGZQmfeAC4WapMdKMA7ZkfBLjicel4rwxdicOxhCHN3Z1y1rTQ/0?wx_fmt=jpeg', 'url' => ''
             ],
             2 => [
-                'title' => '123232', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibuiamOrlB3usT9VuzibYFdAn0EFAANbic6C94U969Iy9oIqIUJa80N15cg/0?wx_fmt=jpeg', 'url' => ''
+                'title' => '免费获取各种商品打折券，春节就要省省省。', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibuiamOrlB3usT9VuzibYFdAn0EFAANbic6C94U969Iy9oIqIUJa80N15cg/0?wx_fmt=jpeg', 'url' => ''
             ]
         ];
         WechatCheck::_transmitArticleAndPic($object, $content);
