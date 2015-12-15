@@ -99,7 +99,7 @@ class WeixinClickService {
 
         $time = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
         if ((int) $pertime === $time) {
-            $content = "亲爱的用户,您今天已经抽过奖啦,请明天再来试试吧!";
+            //$content = "亲爱的用户,您今天已经抽过奖啦,请明天再来试试吧!";
         } else {
             $result = rand(1, 10);
             if ($result === 1) {
@@ -111,20 +111,21 @@ class WeixinClickService {
                 $newCoupon->type = 0;
                 $newCoupon->addtime = time();
                 if ($newCoupon->validate() && $newCoupon->save()) {
-                    $content = "恭喜您：中奖啦，您将获得本平台提供的免费商品,马上去发货。";
+                    //$content = "恭喜您：中奖啦，您将获得本平台提供的免费商品,马上去发货。";
                 } else {
-                    $content = "命中失败,再抽一次！";
+                    //$content = "命中失败,再抽一次！";
                 }
             } else {
-                $content = "很遗憾，今天又没中奖,这是个鸟系统抽了N次不中,无聊割草！";
+                //$content = "很遗憾，今天又没中奖,这是个鸟系统抽了N次不中,无聊割草！";
             }
             $result = User::updateAll(["purview" => $time], " user_id=:user_id", [':user_id' => $weixinuser->user_id]);
             if (!$result) {
-                $content = "命中失败,再抽一次！";
+               // $content = "命中失败,再抽一次！";
             }
         }
-        $content=[];
-        $content['content'] = [
+        //$content=[];
+        //$content['type']='news';
+        $content = [
             0 => [
                 'title' => '12323', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibzibhFvAFRLUqEnxkWSngMiayEv3p6yGuFWFrdvxoY1R3oKOpkjqf4SIw/0?wx_fmt=jpeg', 'url' => ''
             ],

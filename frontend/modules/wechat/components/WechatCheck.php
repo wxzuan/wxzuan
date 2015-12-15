@@ -442,11 +442,11 @@ class WechatCheck extends Component {
     public static function _transmitArticleAndPic($object, $repaydata) {
         #绑定头部
         $textheaderTpl = WechatTemplate::getArtitlePic_T("0");
-        $resultStr = sprintf($textheaderTpl, $object->FromUserName, $object->ToUserName, time(), count($repaydata['content']));
+        $resultStr = sprintf($textheaderTpl, $object->FromUserName, $object->ToUserName, time(), count($repaydata));
         #绑定内容
         $textbodyTpl = WechatTemplate::getArtitlePic_T("1");
         $key = 1;
-        foreach ($repaydata['content'] as $reponevalue) {
+        foreach ($repaydata as $reponevalue) {
             if ($key > 10) {
                 break;
             }
