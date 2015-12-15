@@ -26,6 +26,8 @@ class AddProductForm extends Model {
             [['product_name', 'product_price', 'product_num', 'product_description', 'product_info'], 'required', 'message' => '{attribute}不能空'],
             ['product_name', 'string', 'min' => 2, 'max' => 100, 'message' => '{attribute}在2至100个字符之间'],
             ['product_price', 'match', 'pattern' => '/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/', 'message' => '请输入有效的金额'],
+            ['product_price', 'string', 'min' => 1, 'max' => 10, 'message' => '{attribute}在1至10个字符之间'],
+            [['product_description', 'product_info'], 'string', 'max' => 60000],
             ['product_num', 'match', 'pattern' => '/^([1-9][0-9]{0,4}|0)$/', 'message' => '请输入有效的数量'],
         ];
     }

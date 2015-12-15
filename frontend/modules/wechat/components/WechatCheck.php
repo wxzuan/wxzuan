@@ -75,7 +75,6 @@ class WechatCheck extends Component {
     //put your code here
 //
     public $token;
-
     public $APPID;
     public $APPSECRET;
 
@@ -157,6 +156,7 @@ class WechatCheck extends Component {
 
 //private标记的构造方法
     function __construct() {
+        
     }
 
 //
@@ -459,7 +459,7 @@ class WechatCheck extends Component {
         $textTpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content><MsgId>%d</MsgId></xml>";
         $resultStr = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $resultStr, $object->MsgId);
         echo $resultStr;
-        Yii::app()->end();
+        \Yii::$app()->end();
     }
 
 //    /**
