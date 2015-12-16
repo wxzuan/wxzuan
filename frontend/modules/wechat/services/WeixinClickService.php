@@ -96,10 +96,16 @@ class WeixinClickService {
     public static function getRollRestul($object, $weixinuser) {
         #增加今天是否已经抽过奖的处理
         $pertime = $weixinuser->purview;
-
+        $strTitle = "恭喜您！获得一份春节红包抽奖券！";
+        $strDes = "xxx";
+        $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
+        $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
         $time = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
         if ((int) $pertime === $time) {
-            //$content = "亲爱的用户,您今天已经抽过奖啦,请明天再来试试吧!";
+            $strTitle = "您今天已经抽过奖了,请明天再来吧。";
+            $strDes = "已经抽过奖了";
+            $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
+            $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
         } else {
             $result = rand(1, 10);
             if ($result === 1) {
@@ -111,23 +117,27 @@ class WeixinClickService {
                 $newCoupon->type = 0;
                 $newCoupon->addtime = time();
                 if ($newCoupon->validate() && $newCoupon->save()) {
-                    //$content = "恭喜您：中奖啦，您将获得本平台提供的免费商品,马上去发货。";
+                    $strTitle = "恭喜您！获得一份春节红包抽奖券！";
+                    $strDes = "获得一份春节红包抽奖券";
+                    $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
+                    $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
                 } else {
-                    //$content = "命中失败,再抽一次！";
+                    $strTitle = "命中失败,再抽一次！";
+                    $strDes = "再抽一次";
                 }
             } else {
-                //$content = "很遗憾，今天又没中奖,这是个鸟系统抽了N次不中,无聊割草！";
+                $strTitle = "很遗憾，今天又没中奖,这是个鸟系统抽了N次不中,无聊割草！";
+                $strDes = "今天又没中奖";
             }
             $result = User::updateAll(["purview" => $time], " user_id=:user_id", [':user_id' => $weixinuser->user_id]);
             if (!$result) {
-               // $content = "命中失败,再抽一次！";
+                $strTitle = "命中失败,再抽一次！";
+                $strDes = "再抽一次";
             }
         }
-        //$content=[];
-        //$content['type']='news';
         $content = [
             0 => [
-                'title' => '恭喜您！获得一份春节红包抽奖券！', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg', 'url' => 'http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd'
+                'title' => $strTitle, 'des' => $strDes, 'picurl' => $strPicurl, 'url' => $strUrl
             ],
             1 => [
                 'title' => '春节初一至初十五天天抽奖。抽完为止。', 'des' => 'ooo', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ib9tjFrJOGZQmfeAC4WapMdKMA7ZkfBLjicel4rwxdicOxhCHN3Z1y1rTQ/0?wx_fmt=jpeg', 'url' => ''

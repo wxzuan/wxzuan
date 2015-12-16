@@ -459,11 +459,6 @@ class WechatCheck extends Component {
         #绑定脚部
         $textfooterTpl = WechatTemplate::getArtitlePic_T("2");
         $resultStr.=$textfooterTpl;
-        
-        ///$textTpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content><MsgId>%d</MsgId></xml>";
-        //$resultStr = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $resultStr, $object->MsgId);
-        //$textTpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content><MsgId>%d</MsgId></xml>";
-        //$resultStr = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $resultStr, $object->MsgId);
         echo $resultStr;
         \Yii::$app->end();
         //echo $resultStr;
