@@ -67,7 +67,7 @@ class WeixinClickService {
         $result = User::updateAll(["repstaken" => $mdstring, "repsativetime" => time()], " user_id=:user_id", [':user_id' => $user->user_id]);
         if ($result) {
             $strTitle = "请在10秒内进入,否则授权将失效。";
-            $strDes = '请在10秒内进入,否则授权将失效。';
+            $strDes = '请点击阅读全文进入登录,由于微信自身原因,使用wifi登录会比较慢,切换手机自身网络会加快速度。或者请耐心等待。';
             $strUrl = 'http://wxzuan.zuanzuanle.com/public/login/' . $user->user_id . '/' . $mdstring . '.html';
         } else {
             $strTitle = "无法获得授权,请重新获取...";
