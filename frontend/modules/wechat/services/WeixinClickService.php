@@ -58,16 +58,28 @@ class WeixinClickService {
      */
     public static function getLoginUrl($obj, $user) {
         #增加用户的验证依据
+        $strTitle = "恭喜您！获得一份春节红包抽奖券！";
+        $strDes = "xxx";
+        $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOuG8mrcZvr1icXrjCvvAj0xvZ4ZmT6jn4wVENO7ZwH7oxqicJFlNythSWBLhbuuEGvfdZxssrbGHYibQ/0?wx_fmt=jpeg";
+        $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
         $randstring = rand(10000, 99999);
         $mdstring = md5($randstring . $user->user_id);
         $result = User::updateAll(["repstaken" => $mdstring, "repsativetime" => time()], " user_id=:user_id", [':user_id' => $user->user_id]);
         if ($result) {
-            $content = '请在10秒内进入>> <a href="http://wxzuan.zuanzuanle.com/public/login/' . $user->user_id . '/' . $mdstring . '.html">首页</a>,否则授权将失效。';
+            $strTitle = "请在10秒内进入,否则授权将失效。";
+            $strDes = '请在10秒内进入,否则授权将失效。';
+            $strUrl = 'http://wxzuan.zuanzuanle.com/public/login/' . $user->user_id . '/' . $mdstring . '.html';
         } else {
-            $content = "无法获得授权,请重新获取...";
+            $strTitle = "无法获得授权,请重新获取...";
+            $strDes = '无法获得授权,请重新获取...';
         }
 
-        WechatCheck::_transmitText($obj, $content);
+        $content = [
+            0 => [
+                'title' => $strTitle, 'des' => $strDes, 'picurl' => $strPicurl, 'url' => $strUrl
+            ]
+        ];
+        WechatCheck::_transmitArticleAndPic($obj, $content);
     }
 
     /**
