@@ -152,10 +152,10 @@ class WeixinClickService {
                 'title' => $strTitle, 'des' => $strDes, 'picurl' => $strPicurl, 'url' => $strUrl
             ],
             1 => [
-                'title' => '春节初一至初十五天天抽奖。抽完为止。', 'des' => 'ooo', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ib9tjFrJOGZQmfeAC4WapMdKMA7ZkfBLjicel4rwxdicOxhCHN3Z1y1rTQ/0?wx_fmt=jpeg', 'url' => ''
+                'title' => '春节初一至初十五天天抽奖。抽完为止。', 'des' => 'ooo', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ib9tjFrJOGZQmfeAC4WapMdKMA7ZkfBLjicel4rwxdicOxhCHN3Z1y1rTQ/0?wx_fmt=jpeg', 'url' => 'http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402303743&idx=1&sn=e9f6232ec4b8cf5e0b6faa8f89b28cbe#rd'
             ],
             2 => [
-                'title' => '免费获取各种商品打折券，春节就要省省省。', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibuiamOrlB3usT9VuzibYFdAn0EFAANbic6C94U969Iy9oIqIUJa80N15cg/0?wx_fmt=jpeg', 'url' => ''
+                'title' => '免费获取各种商品打折券，春节就要省省省。', 'des' => 'xxx', 'picurl' => 'https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibuiamOrlB3usT9VuzibYFdAn0EFAANbic6C94U969Iy9oIqIUJa80N15cg/0?wx_fmt=jpeg', 'url' => 'http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402303933&idx=1&sn=9f1b157a47d14c2dee8da2c14fc6abb4#rd'
             ]
         ];
         WechatCheck::_transmitArticleAndPic($object, $content);
