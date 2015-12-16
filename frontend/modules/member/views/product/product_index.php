@@ -13,7 +13,7 @@ use yii\helpers\Url;
 <div class="container no-bottom" style="padding:0px 10px;">
     <?php
     $user_id = Yii::$app->user->getId();
-    $data = ['user_id' => $user_id, 'limit' => 10];
+    $data = ['user_id' => $user_id, 'limit' => 5];
     $productlists = ProductService::findMyProducts($data);
     if ($productlists):
         echo ListView::widget([
@@ -25,7 +25,7 @@ use yii\helpers\Url;
     else:
         ?>
         <div class="container" style="min-height: 350px;">
-            <p>暂时没有资金记录</p>
+            <p>暂时没有商品记录</p>
         </div>
     <?php endif; ?>
 </div>
