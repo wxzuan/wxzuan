@@ -564,6 +564,8 @@ a{
 
 .button-orange{			  background-color:#e67e22;	}
 .button-orange:active{	   background-color:#b76217;	}
+.button-goldden{background-color:#E35033;}
+.button-goldden:active{background-color:#b76217;}
 .button-w {font-size: 12px;color: #1a1a1a;border: 1px solid #efefef;padding: 5px 7px;}
 
 /*/////////////*/

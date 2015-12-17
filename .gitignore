@@ -32,3 +32,4 @@ phpunit.phar
 /frontend/web/html/
 !/frontend/modules/wechat/config/config.php
 /frontend/modules/wechat/config/
+!/frontend/web/assets/

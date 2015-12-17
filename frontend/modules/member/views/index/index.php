@@ -13,7 +13,7 @@ $thisuserAccount = Account::find()->where(":user_id=user_id", [':user_id' => $us
         可用资金（元）    
     </p>
     <p class="p_member_m">
-<?= ceil($thisuserAccount->use_money * 100) / 100; ?>   
+        <?= ceil($thisuserAccount->use_money * 100) / 100; ?>   
     </p>
     <div class="one-half">
         <p class="qys_member_center">
@@ -31,6 +31,10 @@ $thisuserAccount = Account::find()->where(":user_id=user_id", [':user_id' => $us
 <div class="container no-bottom">
     <a href="<?= Url::toRoute('/member/account/chongzhi') ?>"  style="width:100%;" class="button-big-colse button-red">充值</a>
     <a href="<?= Url::toRoute('/member/account/tixian') ?>"  style="width:100%;" class="button-big-colse button-orange">提现</a>
+</div>
+<div class="decoration"></div>
+<div class="container no-bottom">
+    <a href="<?= Url::toRoute('/member/account/coupon') ?>"  style="width:100%;" class="button-big-colse button-goldden">优惠券</a>
 </div>
 <div class="decoration"></div>
 <div class="container no-bottom">
