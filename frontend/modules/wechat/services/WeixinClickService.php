@@ -150,7 +150,9 @@ class WeixinClickService {
                         } else {
                             $result = $activity->toRollActivity($weixinuser, $fitActivity->id);
                             $reply = $result['remark'];
-                            User::updateAll(['purview'=>  time()], 'user_id=:user_id',[':user_id'=>$weixinuser->user_id]);
+                            if ($result['status'] != 2) {
+                                User::updateAll(['purview' => time()], 'user_id=:user_id', [':user_id' => $weixinuser->user_id]);
+                            }
                         }
                     }
                 }
@@ -179,11 +181,13 @@ class WeixinClickService {
             'user_id' => $weixinuser->user_id,
             'remind_name' => $re_activity->ac_name,
             'remind_mark' => $re_activity->ac_cname,
-            'remind_type' => 'wechatclick',
+            'remind_type' => 0,
             'addtime' => time()
         ]);
         $activityRemind->save();
-        User::updateAll(['purview'=>  time()], 'user_id=:user_id',[':user_id'=>$weixinuser->user_id]);
+        if ($result['status'] != 2) {
+            User::updateAll(['purview' => time()], 'user_id=:user_id', [':user_id' => $weixinuser->user_id]);
+        }
         if ($result['status'] == 1) {
             $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
             $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
