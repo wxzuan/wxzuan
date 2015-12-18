@@ -100,9 +100,9 @@ class WechatCheck extends Component {
             array(
                 'name' => '占卜',
                 'sub_button' => array(
-                    array("type" => 'click', "name" => "用力点", "key" => "weixin_clickone"),
-                    array("type" => 'click', "name" => "不要点", "key" => "weixin_clicktwo"),
-                    array("type" => 'click', "name" => "随便点", "key" => "weixin_clickthree")
+                    array("type" => 'click', "name" => "抽现金", "key" => "weixin_clickone"),
+                    array("type" => 'click', "name" => "抽实物", "key" => "weixin_clicktwo"),
+                    array("type" => 'click', "name" => "抽优惠", "key" => "weixin_clickthree")
                 )
             ),
             array(

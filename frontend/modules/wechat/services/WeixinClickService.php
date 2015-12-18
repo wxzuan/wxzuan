@@ -6,6 +6,9 @@ use common\models\User;
 use common\models\Account;
 use app\modules\wechat\components\WechatCheck;
 use common\models\ProductCoupon;
+use common\models\Gift;
+use common\models\Activity;
+use common\models\ActivityRemind;
 
 /*
  * To change this template, choose Tools | Templates
@@ -19,23 +22,23 @@ use common\models\ProductCoupon;
  */
 class WeixinClickService {
 
-    public static function fitEvent($object, $weixinuser) {
+    public static function fitEvent($object, User $weixinuser) {
         switch ($object->EventKey) {
             #更多功能
             case 'weixin_userlogin':
                 $repaydata = self::getLoginUrl($object, $weixinuser);
                 break;
-            #可用金额
+            #抽资金
             case 'weixin_clickone':
-                $repaydata = self::getRollRestul($object, $weixinuser);
+                $repaydata = self::getRollRestul($object, $weixinuser, 1);
                 break;
             #今日待还
             case 'weixin_clicktwo':
-                $repaydata = self::getRollRestul($object, $weixinuser);
+                $repaydata = self::getRollRestul($object, $weixinuser, 2);
                 break;
             #今日待收
             case 'weixin_clickthree':
-                $repaydata = self::getRollRestul($object, $weixinuser);
+                $repaydata = self::getRollRestul($object, $weixinuser, 3);
                 break;
             case 'weixin_usemoney':
                 $repaydata = self::getAccountClick($object, $weixinuser);
@@ -105,48 +108,71 @@ class WeixinClickService {
     /**
      * 
      */
-    public static function getRollRestul($object, $weixinuser) {
-        #增加今天是否已经抽过奖的处理
+    public static function getRollRestul($object, User $weixinuser, $gift_type) {
+
         $pertime = $weixinuser->purview;
-        $strTitle = "恭喜您！获得一份春节红包抽奖券！";
-        $strDes = "xxx";
-        $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
-        $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
         $time = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
         if ((int) $pertime === $time) {
             $strTitle = "您今天已经抽过奖了,请明天再来吧。";
-            $strDes = "已经抽过奖了";
-            $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
-            $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
         } else {
-            $result = rand(1, 10);
-            if ($result === 1) {
-                $newCoupon = new ProductCoupon();
-                $newCoupon->cash_id = 0;
-                $newCoupon->user_id = $weixinuser->user_id;
-                $newCoupon->off_rate = '100';
-                $newCoupon->status = 0;
-                $newCoupon->type = 0;
-                $newCoupon->addtime = time();
-                if ($newCoupon->validate() && $newCoupon->save()) {
-                    $strTitle = "恭喜您！获得一份春节红包抽奖券！";
-                    $strDes = "获得一份春节红包抽奖券";
-                    $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
-                    $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
-                } else {
-                    $strTitle = "命中失败,再抽一次！";
-                    $strDes = "再抽一次";
-                }
+            #是否已经提醒过
+            $activity = Activity::find()->where("ac_name=:ac_name", [':ac_name' => 'year2016'])->one();
+            if (!$activity) {
+                #不存在
+                $reply = '这个活动不存在';
             } else {
-                $strTitle = "很遗憾，今天又没中奖,这是个鸟系统抽了N次不中,无聊割草！";
-                $strDes = "今天又没中奖";
-            }
-            $result = User::updateAll(["purview" => $time], " user_id=:user_id", [':user_id' => $weixinuser->user_id]);
-            if (!$result) {
-                $strTitle = "命中失败,再抽一次！";
-                $strDes = "再抽一次";
+                if (!$activity->isInDate()) {
+                    $reply = $activity->isInDateRemark();
+                } elseif (!$activity->isRightStatus()) {
+                    $reply = $activity->isRightStatusRemark();
+                } else {
+                    //获得是否提醒过
+                    switch ($gift_type) {
+                        case 1:
+                            $fitActivity = Activity::find()->where("ac_name=:ac_name", [':ac_name' => 'year2016money'])->one();
+                            break;
+                        case 2:
+                            $fitActivity = Activity::find()->where("ac_name=:ac_name", [':ac_name' => 'year2016gift'])->one();
+                            break;
+                        case 3:
+                            $fitActivity = Activity::find()->where("ac_name=:ac_name", [':ac_name' => 'year2016agio'])->one();
+                            break;
+                        default :
+                            $fitActivity = Activity::find()->where("ac_name=:ac_name", [':ac_name' => 'year2016money'])->one();
+                            break;
+                    }
+                    $remind_nums = ActivityRemind::find()->where('activity_id=:ac_id AND user_id=:user_id', [':ac_id' => $activity->id, ':user_id' => $weixinuser->user_id])->count();
+                    if ($remind_nums < 1) {
+                        self::toBigPicArctileShow($object, $weixinuser, $fitActivity);
+                    } else {
+                        $result = $activity->toRollActivity($weixinuser, $fitActivity->id);
+                        $reply = $result['remark'];
+                    }
+                }
             }
         }
+        WechatCheck::_transmitText($object, $reply);
+    }
+
+    /**
+     * 
+     * @param type $object
+     * @param type $weixinuser
+     */
+    public static function getSharpPic($object, $weixinuser) {
+        self::getDefaultClick($object, $weixinuser);
+    }
+
+    public static function toBigPicArctileShow($object, User $weixinuser, Activity $activity) {
+        $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
+        $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
+        $result = $activity->toRollActivity($weixinuser, $activity->id);
+        if ($result['status'] == 1) {
+            $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
+            $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
+        }
+        $strTitle = $result['remark'];
+        $strDes = $result['remark'];
         $content = [
             0 => [
                 'title' => $strTitle, 'des' => $strDes, 'picurl' => $strPicurl, 'url' => $strUrl
@@ -159,15 +185,6 @@ class WeixinClickService {
             ]
         ];
         WechatCheck::_transmitArticleAndPic($object, $content);
-    }
-
-    /**
-     * 
-     * @param type $object
-     * @param type $weixinuser
-     */
-    public static function getSharpPic($object, $weixinuser) {
-        self::getDefaultClick($object, $weixinuser);
     }
 
 }
