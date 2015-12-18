@@ -26,7 +26,7 @@ class WeixinEventService {
                 break;
             #关注处理
             case 'subscribe':
-                self::fitSubscribe();
+                self::fitSubscribe($object, $weixinuser);
                 break;
             default :
                 $repaydata = self::getDefaultClick($object, $weixinuser);
