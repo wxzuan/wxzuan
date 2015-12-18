@@ -113,7 +113,7 @@ class WeixinClickService {
         $pertime = $weixinuser->purview;
         $time = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
         if ((int) $pertime === $time) {
-            $strTitle = "您今天已经抽过奖了,请明天再来吧。";
+            $reply = "您今天已经抽过奖了,请明天再来吧。";
         } else {
             #是否已经提醒过
             $activity = Activity::find()->where("ac_name=:ac_name", [':ac_name' => 'year2016'])->one();
