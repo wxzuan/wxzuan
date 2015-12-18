@@ -146,10 +146,11 @@ class WeixinClickService {
                     } else {
                         $remind_nums = ActivityRemind::find()->where('activity_id=:ac_id AND user_id=:user_id', [':ac_id' => $activity->id, ':user_id' => $weixinuser->user_id])->count();
                         if ($remind_nums < 1) {
-                            self::toBigPicArctileShow($object, $weixinuser, $fitActivity);
+                            self::toBigPicArctileShow($object, $weixinuser, $fitActivity, $activity);
                         } else {
                             $result = $activity->toRollActivity($weixinuser, $fitActivity->id);
                             $reply = $result['remark'];
+                            User::updateAll(['purview'=>  time()], 'user_id=:user_id',[':user_id'=>$weixinuser->user_id]);
                         }
                     }
                 }
@@ -167,10 +168,22 @@ class WeixinClickService {
         self::getDefaultClick($object, $weixinuser);
     }
 
-    public static function toBigPicArctileShow($object, User $weixinuser, Activity $activity) {
+    public static function toBigPicArctileShow($object, User $weixinuser, Activity $activity, Activity $re_activity) {
         $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
         $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
         $result = $activity->toRollActivity($weixinuser, $activity->id);
+        #增加提醒记录
+        $activityRemind = new ActivityRemind();
+        $activityRemind->setAttributes([
+            'activity_id' => $re_activity->id,
+            'user_id' => $weixinuser->user_id,
+            'remind_name' => $re_activity->ac_name,
+            'remind_mark' => $re_activity->ac_cname,
+            'remind_type' => 'wechatclick',
+            'addtime' => time()
+        ]);
+        $activityRemind->save();
+        User::updateAll(['purview'=>  time()], 'user_id=:user_id',[':user_id'=>$weixinuser->user_id]);
         if ($result['status'] == 1) {
             $strPicurl = "https://mmbiz.qlogo.cn/mmbiz/3Nsx3YNMeOv6rg4at4Txeak4b9Wkiaq9ibIw7z3V0jFgoXRnCoAfs06y6VRYdzbsSicMRia4nIAyDzkzcjMxzdA3aw/0?wx_fmt=jpeg";
             $strUrl = "http://mp.weixin.qq.com/s?__biz=MzAwNDU3NjAwMw==&mid=402239047&idx=1&sn=96477c6d8807242d4bd75ecf021fbde0#rd";
