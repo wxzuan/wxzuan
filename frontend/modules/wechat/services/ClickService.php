@@ -18,7 +18,7 @@ use common\models\ActivityRemind;
  *
  * @author Administrator
  */
-class WeixinClickService {
+class ClickService {
 
     public static function fitEvent($object, User $weixinuser) {
         switch ($object->EventKey) {

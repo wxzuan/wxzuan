@@ -5,7 +5,7 @@ namespace app\modules\wechat\components;
 use common\models\User;
 use common\models\Account;
 use app\modules\wechat\services\WeixinKeyWordService;
-use app\modules\wechat\services\WeixinClickService;
+use app\modules\wechat\services\WeixinEventService;
 use app\modules\wechat\services\WeixinImageService;
 use app\modules\wechat\services\WeixinLinkService;
 use app\modules\wechat\services\WeixinLocationService;
@@ -303,7 +303,7 @@ class WechatCheck extends Component {
                     $resultStr = WeixinLinkService::fitLink($postObj);
                     break;
                 case "event":
-                    $resultStr = WeixinClickService::fitEvent($postObj, $user);
+                    $resultStr = WeixinEventService::fitEvent($postObj, $user);
                     break;
                 default:
                     $resultStr = "unknow msg type: " . $RX_TYPE;
@@ -461,8 +461,6 @@ class WechatCheck extends Component {
         $resultStr.=$textfooterTpl;
         echo $resultStr;
         \Yii::$app->end();
-        //echo $resultStr;
-        //\Yii::$app->end();
     }
 
 //    /**
