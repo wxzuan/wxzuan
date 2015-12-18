@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use common\models\User;
+use \PDO;
 
 /**
  * This is the model class for table "web_activity".
