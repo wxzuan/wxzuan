@@ -18,10 +18,10 @@ class ApiController extends Controller {
         } else {
             \Yii::$app->wechat->checkAccessToken();
             
-            \Yii::$app->wechat->deleteMenu();
-            if (\Yii::$app->wechat->getMenu()) {
+            //\Yii::$app->wechat->deleteMenu();
+            //if (\Yii::$app->wechat->getMenu()) {
                 \Yii::$app->wechat->createMenu();
-            }
+            //}
         }
         parent::init();
     }
