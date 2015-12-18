@@ -141,12 +141,16 @@ class WeixinClickService {
                             $fitActivity = Activity::find()->where("ac_name=:ac_name", [':ac_name' => 'year2016money'])->one();
                             break;
                     }
-                    $remind_nums = ActivityRemind::find()->where('activity_id=:ac_id AND user_id=:user_id', [':ac_id' => $activity->id, ':user_id' => $weixinuser->user_id])->count();
-                    if ($remind_nums < 1) {
-                        self::toBigPicArctileShow($object, $weixinuser, $fitActivity);
+                    if (!$fitActivity) {
+                        $reply = '这个活动不存在';
                     } else {
-                        $result = $activity->toRollActivity($weixinuser, $fitActivity->id);
-                        $reply = $result['remark'];
+                        $remind_nums = ActivityRemind::find()->where('activity_id=:ac_id AND user_id=:user_id', [':ac_id' => $activity->id, ':user_id' => $weixinuser->user_id])->count();
+                        if ($remind_nums < 1) {
+                            self::toBigPicArctileShow($object, $weixinuser, $fitActivity);
+                        } else {
+                            $result = $activity->toRollActivity($weixinuser, $fitActivity->id);
+                            $reply = $result['remark'];
+                        }
                     }
                 }
             }
