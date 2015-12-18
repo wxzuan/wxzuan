@@ -5,8 +5,6 @@ namespace app\modules\wechat\services;
 use common\models\User;
 use common\models\Account;
 use app\modules\wechat\components\WechatCheck;
-use common\models\ProductCoupon;
-use common\models\Gift;
 use common\models\Activity;
 use common\models\ActivityRemind;
 
@@ -111,8 +109,9 @@ class WeixinClickService {
     public static function getRollRestul($object, User $weixinuser, $gift_type) {
 
         $pertime = $weixinuser->purview;
+        $fitime = mktime(0, 0, 0, date("m", $pertime), date("d", $pertime), date("Y", $pertime));
         $time = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
-        if ((int) $pertime === $time) {
+        if ((int) $fitime === $time) {
             $reply = "您今天已经抽过奖了,请明天再来吧。";
         } else {
             #是否已经提醒过
