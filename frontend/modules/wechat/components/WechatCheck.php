@@ -98,7 +98,7 @@ class WechatCheck extends Component {
         'button' => array(
             array("type" => 'click', "name" => "获取权限", "key" => "weixin_userlogin"),
             array(
-                'name' => '占卜',
+                'name' => '碰手气',
                 'sub_button' => array(
                     array("type" => 'click', "name" => "抽现金", "key" => "weixin_clickone"),
                     array("type" => 'click', "name" => "抽实物", "key" => "weixin_clicktwo"),
