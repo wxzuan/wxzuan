@@ -54,7 +54,7 @@ class PublicController extends \yii\web\Controller {
                     'password' => $user->privacy,
                     'rememberMe' => true,
                 ]);
-                if ($loginform->login()) {
+                if ($loginform->login(2)) {
                     $this->redirect('/member/index.html');
                     Yii::$app->end();
                 }

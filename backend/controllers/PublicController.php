@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -10,13 +11,12 @@ use yii\filters\VerbFilter;
 /**
  * Site controller
  */
-class SiteController extends Controller
-{
+class PublicController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -26,7 +26,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'activity','publish'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -44,8 +44,7 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -53,31 +52,21 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
+    public function actionIndex() {
         return $this->render('index');
     }
 
-    public function actionLogin()
-    {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login(1)) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
+    /**
+     * 活动列表
+     */
+    public function actionActivity() {
+        return $this->render('activity');
+    }
+    /**
+     * 发布活动
+     */
+    public function actionPublish() {
+        return $this->render('publish');
     }
 
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
 }

@@ -10,8 +10,9 @@ use yii\web\IdentityInterface;
 /**
  * This is the model class for table "web_user".
  *
- * @property integer $user_id
+ * @property string $user_id
  * @property integer $type_id
+ * @property string $hash_token
  * @property integer $super_type_id
  * @property integer $credit
  * @property string $purview
@@ -60,8 +61,6 @@ use yii\web\IdentityInterface;
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface {
 
-    protected $auth_key = null;
-
     /**
      * @inheritdoc
      */
@@ -98,6 +97,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
         return [
             'user_id' => 'User ID',
             'type_id' => 'Type ID',
+            'hash_token' => 'Hash Token',
             'super_type_id' => 'Super Type ID',
             'credit' => 'Credit',
             'purview' => 'Purview',
@@ -167,7 +167,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @return static|null
      */
     public static function findByUsername($username) {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'is_lock' => 1]);
     }
 
     /**
@@ -214,7 +214,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @inheritdoc
      */
     public function getAuthKey() {
-        return $this->auth_key;
+        if ($this->hash_token == '0') {
+            $this->generateAuthKey();
+            $this->privacy = uniqid();
+        }
+        return $this->hash_token;
     }
 
     /**
@@ -231,7 +235,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @return boolean if password provided is valid for current user
      */
     public function validatePassword($password) {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        if ($this->generatePassword($password) == $this->password) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -240,14 +247,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      * @param string $password
      */
     public function setPassword($password) {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->password = $this->generatePassword($password);
     }
 
     /**
      * Generates "remember me" authentication key
      */
     public function generateAuthKey() {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->hash_token = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -262,6 +269,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      */
     public function removePasswordResetToken() {
         $this->password_reset_token = null;
+    }
+
+    public function generatePassword($password) {
+        return sha1(md5(sha1(md5($password)) . $this->getAuthKey()) . $this->privacy);
     }
 
 }

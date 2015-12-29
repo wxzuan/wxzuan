@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\Activity;
 
 /**
  * This is the model class for table "web_gift".
@@ -18,21 +19,30 @@ use Yii;
  * @property integer $fittime
  * @property string $addip
  */
-class Gift extends \yii\db\ActiveRecord
-{
+class Gift extends \yii\db\ActiveRecord {
+
+    public function showActivity() {
+        $fitArray = [];
+        $result = Activity::find()->select(['id', 'ac_cname'])->where('ac_status=0 and UNIX_TIMESTAMP() BETWEEN ac_starttime AND ac_endtime ')->asArray()->indexBy('id')->all();
+        if ($result) {
+            foreach ($result as $key => $value) {
+                $fitArray[$key] = $value['ac_cname'];
+            }
+        }
+        return $fitArray;
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'web_gift';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['user_id', 'activity_id', 'gift_status', 'addtime', 'updatetime', 'fittime'], 'integer'],
             [['gift_name'], 'required'],
@@ -45,8 +55,7 @@ class Gift extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
@@ -60,4 +69,5 @@ class Gift extends \yii\db\ActiveRecord
             'addip' => 'Addip',
         ];
     }
+
 }

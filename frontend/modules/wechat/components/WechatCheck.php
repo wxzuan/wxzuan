@@ -441,7 +441,7 @@ class WechatCheck extends Component {
 //     * @return XML
 //     */
     public static function _transmitArticleAndPic($object, $repaydata) {
-        
+
         #绑定头部
         $textheaderTpl = WechatTemplate::getArtitlePic_T("0");
         $resultStr = sprintf($textheaderTpl, $object->FromUserName, $object->ToUserName, time(), count($repaydata));
@@ -534,9 +534,8 @@ class WechatCheck extends Component {
         #注册新用户
         $newuser = new User();
         $newuser->setAttribute('username', $weixinUser);
-        $newuser->setAttribute('password', 'ooxxooxx');
+        $newuser->setAttribute('password', $newuser->generatePassword(self::generateRandString()));
         $newuser->setAttribute('wangwang', $weixinUser);
-        $newuser->setAttribute('privacy', uniqid());
         if ($newuser->validate() && $newuser->save()) {
 
             $accountarray = array(
@@ -566,6 +565,20 @@ class WechatCheck extends Component {
             fclose($fp);
             return FALSE;
         }
+    }
+
+    /**
+     * 随机生成10位字符串
+     */
+    public static function generateRandString() {
+        $str = "0123456789abcdefghijklmnopqrstuvwxyz~@#()_"; //输出字符集
+        $n = 10; //输出串长度
+        $len = strlen($str) - 1;
+        $s = '';
+        for ($i = 0; $i < $n; $i++) {
+            $s .= $str[rand(0, $len)];
+        }
+        return $s;
     }
 
 }
