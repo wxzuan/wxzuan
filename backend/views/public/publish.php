@@ -5,11 +5,8 @@ use yii\widgets\Breadcrumbs;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\Gift;
 
 $this->title = '日志新版';
-
-$giftSearch = new Gift();
 ?>
 <div class="site-index">
     <?php
@@ -29,42 +26,26 @@ $giftSearch = new Gift();
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group" role="group" aria-label="First group">
                     <a href="<?= Url::toRoute('/public/activity') ?>" class="btn btn-default">活动列表</a>
-                    <a type="button" class="btn btn-default">现金活动</a>
+                    <a href="<?= Url::toRoute('/public/publish') ?>" class="btn btn-default">现金活动</a>
                     <a type="button" class="btn btn-default">实物活动</a>
                     <a type="button" class="btn btn-default">优惠券活动</a>
-                </div>
-                <div class="btn-group" role="group" aria-label="Second group">
-                    <a href="<?= Url::toRoute('/public/publish') ?>" class="btn btn-default">发布活动</a>
                 </div>
             </div>
         </div>
         <div class="panel-body">
             <?php
             $form = ActiveForm::begin([
-                        'action' => ['test/getpost'],
+                        'action' => ['public/publish'],
                         'method' => 'post',
             ]);
             ?>
-            <?= $form->field($giftSearch, 'activity_id',['labelOptions' => ['label' => '请选择要发布的活动类型']])->dropDownList($giftSearch->showActivity()) ?>
-            <div class="form-group">
-                <label for="exampleInputEmail1">活动</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <input type="file" id="exampleInputFile">
-                <p class="help-block">Example block-level help text here.</p>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox"> Check me out
-                </label>
-            </div>
-            <?= Html::submitButton('提交', ['class' => 'btn btn-primary', 'name' => 'submit-button']) ?>   
+            <?= $form->field($model, 'activity_id', ['labelOptions' => ['label' => '请选择要发布的活动类型']])->dropDownList($model->showActivity()) ?>
+            <?= $form->field($model, 'gift_name', ['labelOptions' => ['label' => '名称']]); ?>
+            <?= $form->field($model, 'gift_price', ['labelOptions' => ['label' => '总资金']]); ?>
+            <?= $form->field($model, 'gift_nums', ['labelOptions' => ['label' => '总发布数量']]); ?>
+            <?= $form->field($model, 'gift_min', ['labelOptions' => ['label' => '最小抽奖金额']]); ?>
+            <?= $form->field($model, 'gift_max', ['labelOptions' => ['label' => '最大抽奖金额']]); ?>
+            <?= Html::submitButton('发布', ['class' => 'btn btn-primary', 'name' => 'submit-button']) ?>   
             <?php ActiveForm::end(); ?>
 
         </div>

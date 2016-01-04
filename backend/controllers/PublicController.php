@@ -5,8 +5,8 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use common\models\LoginForm;
 use yii\filters\VerbFilter;
+use backend\models\forms\PublishGiftMoneyForm;
 
 /**
  * Site controller
@@ -26,7 +26,7 @@ class PublicController extends Controller {
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'activity','publish'],
+                        'actions' => ['logout', 'index', 'activity', 'publish'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -62,11 +62,21 @@ class PublicController extends Controller {
     public function actionActivity() {
         return $this->render('activity');
     }
+
     /**
      * 发布活动
      */
     public function actionPublish() {
-        return $this->render('publish');
+        $model = new PublishGiftMoneyForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->baseValition()) {
+            if ($model->publish()) {
+                $this->redirect('/public/activity.html');
+            } else {
+                return $this->render('publish', ['model' => $model]);
+            }
+        } else {
+            return $this->render('publish', ['model' => $model]);
+        }
     }
 
 }

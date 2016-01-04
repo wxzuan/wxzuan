@@ -3,7 +3,6 @@
 namespace common\models;
 
 use Yii;
-use common\models\Activity;
 
 /**
  * This is the model class for table "web_gift".
@@ -20,17 +19,6 @@ use common\models\Activity;
  * @property string $addip
  */
 class Gift extends \yii\db\ActiveRecord {
-
-    public function showActivity() {
-        $fitArray = [];
-        $result = Activity::find()->select(['id', 'ac_cname'])->where('ac_status=0 and UNIX_TIMESTAMP() BETWEEN ac_starttime AND ac_endtime ')->asArray()->indexBy('id')->all();
-        if ($result) {
-            foreach ($result as $key => $value) {
-                $fitArray[$key] = $value['ac_cname'];
-            }
-        }
-        return $fitArray;
-    }
 
     /**
      * @inheritdoc
@@ -58,15 +46,15 @@ class Gift extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'activity_id' => 'Activity ID',
-            'gift_name' => 'Gift Name',
-            'gift_price' => 'Gift Price',
-            'gift_status' => 'Gift Status',
-            'addtime' => 'Addtime',
-            'updatetime' => 'Updatetime',
-            'fittime' => 'Fittime',
-            'addip' => 'Addip',
+            'user_id' => '中奖用户',
+            'activity_id' => '活动类型',
+            'gift_name' => '物品名称',
+            'gift_price' => '物品价值',
+            'gift_status' => '是否中奖',
+            'addtime' => '添加时间',
+            'updatetime' => '更新时间',
+            'fittime' => '领取时间',
+            'addip' => '添加IP',
         ];
     }
 
