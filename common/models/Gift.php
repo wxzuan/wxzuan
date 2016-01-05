@@ -20,6 +20,53 @@ use Yii;
  */
 class Gift extends \yii\db\ActiveRecord {
 
+    public function showUsername() {
+        if ($this->user_id == 0) {
+            return '无';
+        } else {
+            return '<span title='.$this->user->username.'>'.substr($this->user->username, 0,10).'...'.'</span>';
+        }
+    }
+
+    /**
+     * 处理显示的时候
+     * @param type $time
+     * @return string
+     */
+    public function showData($time) {
+        if ($time) {
+            return Date('Y-m-d/H:i:s', $time);
+        } else {
+            return '暂无数据';
+        }
+    }
+
+    /**
+     * 显示抽取状态
+     * @return string
+     */
+    public function showGiftStaus() {
+        if ($this->gift_status == 1) {
+            return '已抽中';
+        } else {
+            return '待抽取';
+        }
+    }
+
+// 获取所属活动
+    public function getActivity() {
+        //同样第一个参数指定关联的子表模型类名
+        //
+        return $this->hasOne(Activity::className(), ['id' => 'activity_id']);
+    }
+
+// 获取所属用户
+    public function getUser() {
+        //同样第一个参数指定关联的子表模型类名
+        //
+        return $this->hasOne(User::className(), ['user_id' => 'user_id']);
+    }
+
     /**
      * @inheritdoc
      */

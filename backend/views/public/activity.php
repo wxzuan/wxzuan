@@ -6,6 +6,7 @@ use yii\grid\GridView;
 use backend\models\GiftSearch;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 $this->title = '日志新版';
 
@@ -46,6 +47,65 @@ $dataProvider = new ActiveDataProvider([
             GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $giftSearch,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'label' => '中奖用户',
+                        'filter' => Html::activeTextInput($giftSearch, 'user_id', ['class' => 'form-control']),
+                        'format' => 'raw',
+                        'value' => function ($data) {
+                    return $data->showUsername();
+                }
+                    ],
+                    [
+                        'label' => '活动类型',
+                        'filter' => Html::activeTextInput($giftSearch, 'activity_id', ['class' => 'form-control']),
+                        'format' => 'raw',
+                        'value' => function ($data) {
+                    return $data->activity->ac_cname;
+                }
+                    ],
+                    [
+                        'label' => '奖品名称',
+                        'value' => function ($data) {
+                            return $data->gift_name;
+                        }
+                    ],
+                    [
+                        'label' => '奖品价值',
+                        'value' => function ($data) {
+                            return $data->gift_price . '元';
+                        }
+                    ],
+                    [
+                        'label' => '是否已抽中',
+                        'value' => function ($data) {
+                            return $data->showGiftStaus();
+                        }
+                    ],
+                    [
+                        'label' => '添加时间',
+                        'filter' => Html::activeTextInput($giftSearch, 'addtime', ['class' => 'form-control']),
+                        'format' => 'raw',
+                        'value' => function ($data) {
+                    return $data->showData($data->addtime);
+                }],
+                    [
+                        'label' => '中奖时间',
+                        'filter' => Html::activeTextInput($giftSearch, 'updatetime', ['class' => 'form-control']),
+                        'format' => 'raw',
+                        'value' => function ($data) {
+                    return $data->showData($data->updatetime);
+                }],
+                    [
+                        'label' => '领奖时间',
+                        'filter' => Html::activeTextInput($giftSearch, 'fittime', ['class' => 'form-control']),
+                        'format' => 'raw',
+                        'value' => function ($data) {
+                    return $data->showData($data->fittime);
+                }
+                    ]
+                ]
             ]);
             ?>
         </div>
