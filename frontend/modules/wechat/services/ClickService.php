@@ -99,7 +99,7 @@ class ClickService {
      * @return string
      */
     public static function getDefaultClick($object, $weixinuser) {
-        $content = "亲爱的赚赚乐平台用户：该功能还没有实现呢。";
+        $content = "亲爱的用户：该功能还没有实现呢。";
         WechatCheck::_transmitText($object, $content);
     }
 

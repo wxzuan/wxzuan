@@ -5,14 +5,13 @@ use yii\widgets\Breadcrumbs;
 use yii\grid\GridView;
 use backend\models\GiftSearch;
 use yii\data\ActiveDataProvider;
-use yii\helpers\Url;
 use yii\helpers\Html;
 
 $this->title = '日志新版';
 
 $giftSearch = new GiftSearch();
 $dataProvider = new ActiveDataProvider([
-    'query' => $giftSearch->find(),
+    'query' => $giftSearch->find()->orderBy('id desc'),
     'pagination' => [
         'pagesize' => '10',
     ]
@@ -32,16 +31,7 @@ $dataProvider = new ActiveDataProvider([
     ]);
     ?>
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group" role="group" aria-label="First group">
-                    <a href="<?= Url::toRoute('/public/activity') ?>" class="btn btn-default">活动列表</a>
-                    <a href="<?= Url::toRoute('/public/publish') ?>" class="btn btn-default">现金活动</a>
-                    <a type="button" class="btn btn-default">实物活动</a>
-                    <a type="button" class="btn btn-default">优惠券活动</a>
-                </div>
-            </div>
-        </div>
+        <?= $this->render('@app/views/layouts/common_top.php'); ?>
         <div class="panel-body">
             <?=
             GridView::widget([
