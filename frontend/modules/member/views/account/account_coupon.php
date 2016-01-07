@@ -8,20 +8,24 @@ use yii\widgets\LinkPager;
 use yii\helpers\Url;
 
 $user_id = Yii::$app->user->getId();
+$get = Yii::$app->request->get();
+$showtype = 1;
+if (isset($get['type'])) {
+    $showtype = intval($get['type']);
+}
 ?>
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
 </div>
 <div class="container">
     <div class="tabs">
-        <a href="<?= Url::toRoute('/member/account/coupon') ?>" class="tab-but tab-but-1">现金礼品</a>
-        <a href="<?= Url::toRoute('/member/account/coupon').'?type=2' ?>" class="tab-but tab-but-1">实物礼品</a>
-        <a href="<?= Url::toRoute('/member/account/coupon').'?type=3' ?>" class="tab-but tab-but-1 tab-active">优惠券礼品</a>     
+        <a href="<?= Url::toRoute('/member/account/coupon') ?>" class="tab-but tab-but-1<?= ($showtype == 1) ? ' tab-active' : ''; ?>">现金礼品</a>
+        <a href="<?= Url::toRoute('/member/account/coupon') . '?type=2' ?>" class="tab-but tab-but-1<?= ($showtype == 2) ? ' tab-active' : ''; ?>">实物礼品</a>
+        <a href="<?= Url::toRoute('/member/account/coupon') . '?type=3' ?>" class="tab-but tab-but-1<?= ($showtype == 3) ? ' tab-active' : ''; ?>">优惠券礼品</a>     
     </div>     
 </div>
 <?php
-$get=Yii::$app->request->get();
-$data = ['user_id' => $user_id, 'limit' => 10,'get'=>$get];
+$data = ['user_id' => $user_id, 'limit' => 10, 'get' => $get];
 $accountlogs = AccountService::findGift($data);
 ?>
 <div class="one-half-responsive last-column">
