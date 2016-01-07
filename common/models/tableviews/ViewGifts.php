@@ -22,21 +22,35 @@ use Yii;
  * @property string $addip
  * @property integer $gift_status
  */
-class ViewGifts extends \yii\db\ActiveRecord
-{
+class ViewGifts extends \yii\db\ActiveRecord {
+
+    /**
+     * 显示领取状态
+     * @return string
+     */
+    public function showFittimeRemark($string = 0) {
+        if ($this->fittime) {
+            if ($string == 1) {
+                return date('Y年m月d日H时i分s秒', $this->fittime);
+            } else {
+                return '已领取';
+            }
+        } else {
+            return '未领取';
+        }
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'web_view_gifts';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['ac_type', 'ac_starttime', 'ac_endtime', 'user_id', 'id', 'activity_id', 'addtime', 'updatetime', 'fittime', 'gift_status'], 'integer'],
             [['gift_name'], 'required'],
@@ -49,8 +63,7 @@ class ViewGifts extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'ac_cname' => 'Ac Cname',
             'ac_type' => 'Ac Type',
@@ -68,4 +81,5 @@ class ViewGifts extends \yii\db\ActiveRecord
             'gift_status' => 'Gift Status',
         ];
     }
+
 }
