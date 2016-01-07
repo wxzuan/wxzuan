@@ -75,7 +75,7 @@ $accountlogs = AccountService::findGift($data);
     <?php else: ?>
 
         <div class="container" style="min-height: 350px;">
-            <p>暂时没有资金记录</p>
+            <p>暂时没有中奖记录</p>
         </div>
     <?php endif; ?>
 </div>
