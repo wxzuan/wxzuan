@@ -50,7 +50,7 @@ $accountlogs = AccountService::findGift($data);
                         </a>
                         <div class="toggle-content">
                             <p>
-                                奖品名称：<?= $onelog->gift_name ?> 元 价值：<?= $onelog->gift_price ?><br/>
+                                奖品名称：<?= $onelog->gift_name ?> 价值：<?= $onelog->gift_price ?> 元<br/>
                                 中奖时间：<?= date('Y年m月d日H时i分s秒', $onelog->updatetime) ?><br/>
                                 领取时间：<?= $onelog->showFittimeRemark(1) ?> <br/>
                             </p>
