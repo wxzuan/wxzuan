@@ -24,7 +24,7 @@ class Gift extends \yii\db\ActiveRecord {
         if ($this->user_id == 0) {
             return '无';
         } else {
-            return '<span title='.$this->user->username.'>'.substr($this->user->username, 0,10).'...'.'</span>';
+            return '<span title=' . $this->user->username . '>' . substr($this->user->username, 0, 10) . '...' . '</span>';
         }
     }
 
@@ -50,6 +50,22 @@ class Gift extends \yii\db\ActiveRecord {
             return '已抽中';
         } else {
             return '待抽取';
+        }
+    }
+
+    /**
+     * 显示领取状态
+     * @return string
+     */
+    public function showFittimeRemark($string = 0) {
+        if ($this->fittime) {
+            if ($string == 1) {
+                return date('Y年m月d日H时i分s秒', $this->fittime);
+            } else {
+                return '已领取';
+            }
+        } else {
+            return '未领取';
         }
     }
 

@@ -14,13 +14,15 @@ $user_id = Yii::$app->user->getId();
 </div>
 <div class="container">
     <div class="tabs">
-        <a href="<?= Url::toRoute('/member/account/tixian') ?>" class="tab-but tab-but-1">申请提现</a>
-        <a href="<?= Url::toRoute('/member/account/tixianlog') ?>" class="tab-but tab-but-2 tab-active">提现记录</a>     
+        <a href="<?= Url::toRoute('/member/account/coupon') ?>" class="tab-but tab-but-1">现金礼品</a>
+        <a href="<?= Url::toRoute('/member/account/coupon').'?type=2' ?>" class="tab-but tab-but-1">实物礼品</a>
+        <a href="<?= Url::toRoute('/member/account/coupon').'?type=3' ?>" class="tab-but tab-but-1 tab-active">优惠券礼品</a>     
     </div>     
 </div>
 <?php
-$data = ['user_id' => $user_id, 'limit' => 10];
-$accountlogs = AccountService::findCashlog($data);
+$get=Yii::$app->request->get();
+$data = ['user_id' => $user_id, 'limit' => 10,'get'=>$get];
+$accountlogs = AccountService::findGift($data);
 ?>
 <div class="one-half-responsive last-column">
     <?php if ($accountlogs['models']): ?>
@@ -40,13 +42,13 @@ $accountlogs = AccountService::findCashlog($data);
                 <div class="container">
                     <div class="toggle-1">
                         <a href="#" data-pjax="0" class="deploy-toggle-1">
-                            <?= date('Y年m月d日H时i分s秒', $onelog->addtime) ?>提现<?= $onelog->total ?> 元 <?= $onelog->getStatusRemark() ?> 
+                            <?= date('Y年m月d日H时i分s秒', $onelog->updatetime) ?>抽中价值<span style="color:red;"><?= $onelog->gift_price ?></span> 元 <?= $onelog->showFittimeRemark(0) ?> 
                         </a>
                         <div class="toggle-content">
                             <p>
-                                到帐资金：<?= $onelog->credited ?> 元 手续费：<?= $onelog->fee ?><br/>
-                                提现帐号：<?= '**' . substr($onelog->account, -4) ?>银行名称：<?= $onelog->bank_name ?>
-                                备注：<?= $onelog->verify_remark ?>
+                                奖品名称：<?= $onelog->gift_name ?> 元 价值：<?= $onelog->gift_price ?><br/>
+                                中奖时间：<?= date('Y年m月d日H时i分s秒', $onelog->updatetime) ?><br/>
+                                领取时间：<?= $onelog->showFittimeRemark(1) ?> <br/>
                             </p>
                         </div>
                     </div>

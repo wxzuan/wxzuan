@@ -1,0 +1,71 @@
+<?php
+
+namespace common\models\tableviews;
+
+use Yii;
+
+/**
+ * This is the model class for table "web_view_gifts".
+ *
+ * @property string $ac_cname
+ * @property integer $ac_type
+ * @property integer $ac_starttime
+ * @property integer $ac_endtime
+ * @property integer $user_id
+ * @property string $id
+ * @property integer $activity_id
+ * @property string $gift_name
+ * @property string $gift_price
+ * @property integer $addtime
+ * @property integer $updatetime
+ * @property integer $fittime
+ * @property string $addip
+ * @property integer $gift_status
+ */
+class ViewGifts extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'web_view_gifts';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['ac_type', 'ac_starttime', 'ac_endtime', 'user_id', 'id', 'activity_id', 'addtime', 'updatetime', 'fittime', 'gift_status'], 'integer'],
+            [['gift_name'], 'required'],
+            [['gift_price'], 'number'],
+            [['ac_cname', 'gift_name'], 'string', 'max' => 255],
+            [['addip'], 'string', 'max' => 100]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'ac_cname' => 'Ac Cname',
+            'ac_type' => 'Ac Type',
+            'ac_starttime' => 'Ac Starttime',
+            'ac_endtime' => 'Ac Endtime',
+            'user_id' => 'User ID',
+            'id' => 'ID',
+            'activity_id' => 'Activity ID',
+            'gift_name' => 'Gift Name',
+            'gift_price' => 'Gift Price',
+            'addtime' => 'Addtime',
+            'updatetime' => 'Updatetime',
+            'fittime' => 'Fittime',
+            'addip' => 'Addip',
+            'gift_status' => 'Gift Status',
+        ];
+    }
+}

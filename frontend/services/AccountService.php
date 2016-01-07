@@ -17,6 +17,7 @@ namespace frontend\services;
 use common\models\AccountLog;
 use common\models\Cash;
 use yii\data\Pagination;
+use common\models\tableviews\ViewGifts;
 
 class AccountService {
 
@@ -37,7 +38,8 @@ class AccountService {
                 ->all();
         return ['models' => $models, 'pages' => $pages];
     }
-        /**
+
+    /**
      * 
      * @param int $data
      * @return \yii\data\ActiveDataProvider
@@ -47,6 +49,28 @@ class AccountService {
             $data['limit'] = 10;
         }
         $query = Cash::find()->Where('user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" addtime desc ");
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $data['limit']]);
+        $models = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+        return ['models' => $models, 'pages' => $pages];
+    }
+
+    /**
+     * 
+     * @param int $data
+     * @return type
+     */
+    public static function findGift($data = array()) {
+        if (!isset($data['limit'])) {
+            $data['limit'] = 10;
+        }
+        $type=1;
+        if(isset($data['get']['type'])){
+            $type=  intval($data['get']['type']);
+        }
+        $query = ViewGifts::find()->Where('user_id=:user_id AND ac_type=:actype', [':user_id' => $data['user_id'],':actype'=>$type])->orderBy(" fittime asc,id desc ");
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $data['limit']]);
         $models = $query->offset($pages->offset)
