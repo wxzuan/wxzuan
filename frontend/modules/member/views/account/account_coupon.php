@@ -15,7 +15,7 @@ if (isset($get['type'])) {
 }
 ?>
 <div class="container no-bottom">
-    <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
+    <img class="responsive-image" src="/images/lanmu/bannar_gift.jpg" alt="img">
 </div>
 <div class="container padding15px">
     <div class="tabs">
