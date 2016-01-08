@@ -33,6 +33,7 @@ return [
                 'member/product/successbuy/<id:\d+>' => 'member/product/successbuy',
                 'member/product/cancelsellproduct/<id:\d+>' => 'member/product/cancelsellproduct',
                 'member/product/suresellproduct/<id:\d+>' => 'member/product/suresellproduct',
+                'member/account/getgift/<id:\d+>/<type:\d+>/' => 'member/account/getgift',
                 'member/product/selectimg/<id:\d+>' => 'member/product/selectimg',
                 'member/product/rate/<id:\d+>' => 'member/product/rate',
                 'member/product/changeimg/<id:\d+>' => 'member/product/changeimg',

@@ -7,6 +7,7 @@ use yii\filters\VerbFilter;
 use frontend\models\forms\CashForm;
 use \PDO;
 use yii\helpers\Url;
+use common\models\tableviews\ViewGifts;
 
 class AccountController extends \common\controllers\BaseController {
 
@@ -19,7 +20,7 @@ class AccountController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'chongzhi', 'tixian', 'tixianlog', 'coupon'],
+                        'actions' => ['index', 'chongzhi', 'tixian', 'tixianlog', 'coupon', 'getgift'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -108,6 +109,51 @@ class AccountController extends \common\controllers\BaseController {
      */
     public function actionCoupon() {
         return $this->render('account_coupon');
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function actionGetgift() {
+
+        $user_id = \Yii::$app->user->getId();
+        #获得用户的可用资金
+        $p_param = \Yii::$app->request->get();
+        if (!isset($p_param['id'])||!isset($p_param['type'])) {
+            echo 1;
+            Yii::$app->end();
+        }
+        $gift = ViewGifts::find()->where("id=:id AND user_id=:user_id AND ac_type=:type AND LENGTH(fittime)<5", [':id' => $p_param['id'], ':user_id' => $user_id,':type'=>$p_param['type']])->one();
+        if (!isset($gift)) {
+            echo 1;
+            \Yii::$app->end();
+        }
+        if (isset($p_param['sure']) && $p_param['sure'] == 1) {
+            $in_p_user_id = $gift->user_id;
+            $id = $gift->id;
+            #调有存储过程冻结资金并生成订单
+            $conn = \Yii::$app->db;
+            $trance = $conn->beginTransaction();
+            try {
+
+                $addip = \Yii::$app->request->userIP;
+                $user_id = \Yii::$app->user->getId();
+                $conn = \Yii::$app->db;
+                $command = $conn->createCommand('call p_get_Gift(:in_p_user_id,:id,:in_addip,@out_status,@out_remark)');
+                $command->bindParam(":in_p_user_id", $user_id, PDO::PARAM_INT);
+                $command->bindParam(":id", $id, PDO::PARAM_STR);
+                $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
+                $command->execute();
+                $fit = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+            } catch (Exception $e) {
+                $trance->rollBack();
+                $fit = ['remark' => '领取失败', 'status' => 0];
+            }
+        } else {
+            $fit = [];
+        }
+        return $this->renderAjax('ajax_getgift', ['order' => $gift, 'p_param' => $p_param, 'fit' => $fit]);
     }
 
 }

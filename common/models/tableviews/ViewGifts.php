@@ -3,6 +3,8 @@
 namespace common\models\tableviews;
 
 use Yii;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "web_view_gifts".
@@ -36,7 +38,11 @@ class ViewGifts extends \yii\db\ActiveRecord {
                 return '已领取';
             }
         } else {
-            return '未领取';
+            if ($string == 1) {
+                return '未领取';
+            } else {
+                return '<span id="fit_gift_'.$this->id.'" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/account/getgift/'.$this->id.'/'.$this->ac_type.'.html" title="信息提示">领取</span>';
+            }
         }
     }
 

@@ -29,3 +29,9 @@
 .table tr td{
     word-break: break-all;
 }
+.padding15px{
+    padding: 0px 15px;
+}
+.panel-p{
+    margin-bottom: 0px;
+}
