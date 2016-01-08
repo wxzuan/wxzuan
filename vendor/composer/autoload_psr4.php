@@ -18,6 +18,7 @@ return array(
     'yii2mod\\user\\' => array($vendorDir . '/yii2mod/yii2-user'),
     'yii2mod\\rbac\\' => array($vendorDir . '/yii2mod/yii2-rbac'),
     'kucha\\ueditor\\' => array($vendorDir . '/kucha/ueditor'),
+    'dosamigos\\qrcode\\' => array($vendorDir . '/2amigos/yii2-qrcode-helper/src'),
     'dosamigos\\gallery\\' => array($vendorDir . '/2amigos/yii2-gallery-widget/src'),
     'dosamigos\\fileupload\\' => array($vendorDir . '/2amigos/yii2-file-upload-widget/src'),
     'dosamigos\\datepicker\\' => array($vendorDir . '/2amigos/yii2-date-picker-widget/src'),
