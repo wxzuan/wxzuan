@@ -9,13 +9,13 @@ use yii\widgets\LinkPager;
 $user_id = Yii::$app->user->getId();
 ?>
 <div class="container no-bottom">
-    <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
+    <img class="responsive-image" src="/images/lanmu/zijidetail.jpg" alt="img">
 </div>
 <?php
 $data = ['user_id' => $user_id, 'limit' => 10];
 $accountlogs = AccountService::findAccountlog($data);
 ?>
-<div class="one-half-responsive last-column">
+<div class="one-half-responsive last-column padding15px">
     <?php if ($accountlogs['models']): ?>
         <?php
         Pjax::begin(['id' => 'loadpajax']);
@@ -31,15 +31,17 @@ $accountlogs = AccountService::findAccountlog($data);
             foreach ($accountlogs['models'] as $onelog) :
                 ?>
                 <div class="container">
-                    <div class="toggle-1">
-                        <a href="#" data-pjax="0" class="deploy-toggle-1">
+
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
                             <?= date('Y年m月d日H时i分s秒', $onelog->addtime) ?> <?= $onelog->getTypeRemark() ?> <?= $onelog->money ?> 元
-                        </a>
-                        <div class="toggle-content">
-                            <p>
-                                可用余额：<?= $onelog->use_money ?> 元<br/>
-                                备注：<?= $onelog->remark ?>
-                            </p>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped" style="margin-bottom: 0px">
+                                <tr><th>总资金</th><th>可用余额</th><th>冻结资金</th><th>待收资金</th></tr>
+                                <tr><td><?= $onelog->total ?> 元</td><td><?= $onelog->use_money ?></td><td><?= $onelog->no_use_money ?></td><td><?= $onelog->collection ?></td></tr>
+                                <tr><td colspan="4" class="text-left">备注：<?= $onelog->remark ?></td></tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -53,12 +55,12 @@ $accountlogs = AccountService::findAccountlog($data);
             ?>
         </div>
         <script type="text/javascript">
-            $(document).ready(function(){
-                $('.deploy-toggle-1').on('click', function() {
-                $(this).parent().find('.toggle-content').toggle(100);
-                $(this).toggleClass('toggle-1-active');
-                return false;
-            });
+            $(document).ready(function () {
+                $('.deploy-toggle-1').on('click', function () {
+                    $(this).parent().find('.toggle-content').toggle(100);
+                    $(this).toggleClass('toggle-1-active');
+                    return false;
+                });
             });
         </script>
         <?php Pjax::end() ?>
