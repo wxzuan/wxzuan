@@ -2,10 +2,14 @@
 
 namespace frontend\controllers;
 
-class HelpController extends \yii\web\Controller {
+use dosamigos\qrcode\QrCode;
+use dosamigos\qrcode\formats\MailTo;
+
+class QrcodeController extends \yii\web\Controller {
 
     public function actionIndex() {
-        return $this->render('index');
+        $string='http://www.baidu.com';
+        return QrCode::png($string);
     }
 
     /**

@@ -19,7 +19,7 @@ $form = ActiveForm::begin([
 ?>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">所属银行<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">所属银行<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <?= $form->field($model, 'bank', ['labelOptions' => ['label' => '所属银行<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']])->dropDownList(Linkage::getValueChina("qys_none", "account_bank")); ?>
         </div>
@@ -27,7 +27,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">帐号类型<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">帐号类型<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <?= $form->field($model, 'bank_type', ['labelOptions' => ['label' => '帐号类型<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']])->dropDownList(['0' => '对私', '1' => '对公']); ?>            
         </div>
@@ -35,7 +35,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">真实姓名<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">真实姓名<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <?= $form->field($model, 'realname', [ 'labelOptions' => ['label' => '真实姓名<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>
@@ -43,7 +43,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">银行卡号<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">银行卡号<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <?= $form->field($model, 'account', ['labelOptions' => ['label' => '银行卡号<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>
@@ -51,7 +51,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">银行所在地<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">银行所在地<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <div class="one-half" id="province_div">
                 <select class="contactField requiredField">
@@ -72,7 +72,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">支行名称<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">支行名称<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <?= $form->field($model, 'branch', ['labelOptions' => ['label' => '支行名称<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>

@@ -34,7 +34,7 @@ $thisuserAccount = Account::find()->where(":user_id=user_id", [':user_id' => $us
     <a href="<?= Url::toRoute('/member/account/coupon') ?>"  style="width:100%;color:#1a1a1a;background-color: #fafafa;font-weight: 600;" class="button-big-colse">我的宝箱</a>
     <div class="decoration"></div>
     <div class="container no-bottom">
-        <a href="<?= Url::toRoute('/member/index/sharp') ?>" style="width:100%;" class="button-big-icon-colse icon-sharp button-white">快速分享<em class="go-right-member"></em></a>
+        <a href="<?= Url::toRoute('/member/friend/index') ?>" style="width:100%;" class="button-big-icon-colse icon-sharp button-white">我的好友<em class="go-right-member"></em></a>
         <a href="<?= Url::toRoute('/member/index/userinfo') ?>" style="width:100%;" class="button-big-icon-colse icon-baseinfo button-white">基本信息<em class="go-right-member"></em></a>
         <a href="<?= Url::toRoute('/member/index/bank') ?>" style="width:100%;" class="button-big-icon-colse icon-bankcard button-white">我的银行<em class="go-right-member"></em></a>
         <a href="<?= Url::toRoute('/member/index/shippingaddress') ?>" style="width:100%;" class="button-big-icon-colse icon-proaddress button-white">收货地址<em class="go-right-member"></em></a>

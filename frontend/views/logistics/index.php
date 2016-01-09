@@ -2,22 +2,22 @@
 /* @var $this yii\web\View */
 $this->title = '商品列表';
 
-use frontend\services\ProductService;
+use frontend\services\LogisticsService;
 use yii\helpers\Url;
 use frontend\extensions\scrollpager\ScrollPager;
 use yii\widgets\ListView;
 ?>
-<?= $this->render('@app/views/layouts/main_header.php', ['icons' => ['product-content' => Url::toRoute('/product/addproduct'), 'twitter-content' => Url::toRoute('/index')]]); ?>
+<?= $this->render('@app/views/layouts/main_header.php', ['icons' => ['product-content' => Url::toRoute('/logistics/publishlogistics'), 'twitter-content' => Url::toRoute('/index')]]); ?>
 <?= $this->render('@app/views/layouts/servicesMenu.php'); ?>
 <div class="content">
     <?php
     $data = ['limit' => 5];
-    $productlists = ProductService::findProducts($data);
-    if ($productlists):
+    $logisticsLists = LogisticsService::findLogisticss($data);
+    if ($logisticsLists):
         echo ListView::widget([
-            'dataProvider' => $productlists,
+            'dataProvider' => $logisticsLists,
             'itemOptions' => ['class' => 'item'],
-            'itemView' => '_item_product_view',
+            'itemView' => '_item_logistics_view',
             'pager' => ['class' => ScrollPager::className()]
         ]);
     else:

@@ -18,7 +18,7 @@ $form = ActiveForm::begin([
 ?>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">收货人姓名<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">收货人姓名<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <?= $form->field($model, 'realname', [ 'labelOptions' => ['label' => '收货人姓名<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>
@@ -26,7 +26,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">联系人手机<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">联系人手机<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <?= $form->field($model, 'phone', [ 'labelOptions' => ['label' => '联系人手机<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>
@@ -34,7 +34,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">所在城市<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">所在城市<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <div class="one-third" id="province_div">
                 <select class="contactField requiredField">
@@ -60,7 +60,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="container">
     <div class="toggle-1">
-        <a href="#" class="deploy-toggle-1 toggle-1-active">收货人详细地址<span class="float-right color-bule">查看</span></a>
+        <a href="#" class="deploy-toggle-2 toggle-1-active">收货人详细地址<span class="float-right color-bule">查看</span></a>
         <div class="toggle-content padding10" style="overflow: hidden;">
             <?= $form->field($model, 'address', [ 'labelOptions' => ['label' => '收货人详细地址<span>(必填)</span>', 'class' => 'field-title contactNameField'], 'inputOptions' => ['class' => 'contactField requiredField']]) ?>  
         </div>

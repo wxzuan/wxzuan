@@ -30,6 +30,7 @@ return [
                 'product/showmymoney/<id:\d+>' => 'product/showmymoney',
                 'product/addproduct/<id:\d+>' => 'product/addproduct',
                 'product/buy/<id:\d+>' => 'product/buy',
+                'product/publishlogistics/<id:\d+>' => 'product/publishlogistics',
                 'member/product/successbuy/<id:\d+>' => 'member/product/successbuy',
                 'member/product/cancelsellproduct/<id:\d+>' => 'member/product/cancelsellproduct',
                 'member/product/suresellproduct/<id:\d+>' => 'member/product/suresellproduct',
