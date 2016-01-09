@@ -10,28 +10,28 @@ $thisuserAccount = Account::find()->where(":user_id=user_id", [':user_id' => $us
 ?>
 <div class="container no-bottom" style="background-color: #fae0ca;">              
     <p class="p_member_t">
-        可用资金（元）    
+        总资金（元）    
     </p>
     <p class="p_member_m">
-        <?= ceil($thisuserAccount->use_money * 100) / 100; ?>   
+        <?= ceil($thisuserAccount->total * 100) / 100; ?>   
     </p>
     <div class="one-half">
         <p class="qys_member_center">
-            今日收益<br>
-            0.00
+            可用资金<br>
+            <?= ceil($thisuserAccount->use_money * 100) / 100; ?> 
         </p>
     </div>
     <div class="two-half last-column">
         <p class="qys_member_center">
-            总收益<br>
-            100.00元 
+            今日收益<br>
+            0.00元 
         </p>        
     </div>
 </div>
 <div class="container no-bottom">
     <a href="<?= Url::toRoute('/member/account/chongzhi') ?>"  style="width:100%;" class="button-big-colse button-red">充值</a>
     <a href="<?= Url::toRoute('/member/account/tixian') ?>"  style="width:100%;" class="button-big-colse button-orange">提现</a>
-    <a href="<?= Url::toRoute('/member/account/coupon') ?>"  style="width:100%;color:#1a1a1a;background-color: #fafafa;font-weight: 600;" class="button-big-colse"><img  style="margin:0 auto;width: 30px;"src="/images/lists/present_48.png"></a>
+    <a href="<?= Url::toRoute('/member/account/coupon') ?>"  style="width:100%;color:#1a1a1a;background-color: #fafafa;font-weight: 600;" class="button-big-colse">我的宝箱</a>
     <div class="decoration"></div>
     <div class="container no-bottom">
         <a href="<?= Url::toRoute('/member/index/sharp') ?>" style="width:100%;" class="button-big-icon-colse icon-sharp button-white">快速分享<em class="go-right-member"></em></a>
