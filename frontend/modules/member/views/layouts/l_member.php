@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
+$user=\Yii::$app->user->getIdentity();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE HTML>
@@ -40,11 +41,12 @@ AppAsset::register($this);
             </div>
         </div>
         <div class="all-elements">
+            <?= $this->render('l_member_sider') ?>
             <div id="content" class="page-content">
                 <div class="page-header-m">
-                    <a href="#" class="deploy-options"></a>
+                    <a href="#" class="deploy-sidebar deploy-options"></a>
                     <p class="bread-crumb"><?= Html::encode($this->title) ?></p>
-                    <a href="<?= Url::toRoute('/member/index') ?>" class="deploy-member" style="background-size: 30px 30px;background-position: 10px 10px;background-image:url(/images/wechat/huodong/product.jpg);"><img src="/images/misc/avatercopy.png" /></a>
+                    <a href="<?= Url::toRoute('/member/index') ?>" class="deploy-member" style="background-size: 30px 30px;background-position: 10px 10px;background-image:url(<?= ($user->litpic)?:'/images/wechat/huodong/product.jpg'; ?>);"><img src="/images/misc/avatercopy.png" /></a>
                 </div>
                 <div class="content-m">
                     <?= $content ?>

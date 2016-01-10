@@ -48,6 +48,7 @@ $thisuserAccount = Account::find()->where(":user_id=user_id", [':user_id' => $us
     </div>
     <div class="decoration"></div>
     <div class="container no-bottom">
-        <a href="<?= Url::toRoute('/member/product/fititem') ?>" style="width:100%;" class="button-big-icon-colse icon-proaddress button-white">处理货物<em class="go-right-member"></em></a>
+        <a href="<?= Url::toRoute('/member/product/fititem') ?>" style="width:100%;" class="button-big-icon-colse icon-proaddress button-white">出售商品<em class="go-right-member"></em></a>
+        <a href="<?= Url::toRoute('/member/logistics/index') ?>" style="width:100%;" class="button-big-icon-colse icon-proaddress button-white">处理货物<em class="go-right-member"></em></a>
     </div>
     <div class="decoration"></div>

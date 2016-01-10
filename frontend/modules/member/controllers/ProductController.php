@@ -113,7 +113,8 @@ class ProductController extends \common\controllers\BaseController {
                         }
                     }
                 }
-                $query = Pic::find()->where('user_id=:user_id', [':user_id' => $user_id])->orderBy(" id desc ");
+                //获得商品类型图片
+                $query = Pic::find()->where('user_id=:user_id AND pic_type=0', [':user_id' => $user_id])->orderBy(" id desc ");
                 $countQuery = clone $query;
                 $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => '9']);
                 $models = $query->offset($pages->offset)
@@ -130,7 +131,7 @@ class ProductController extends \common\controllers\BaseController {
     }
 
     /**
-     * 单个商品修改
+     * 单个上传商品图片
      * @return type
      */
     public function actionChangeimg() {

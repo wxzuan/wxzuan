@@ -25,7 +25,7 @@ use yii\helpers\Url;
     else:
         ?>
         <div class="container" style="min-height: 350px;">
-            <p>暂时没有商品记录</p>
+            <p>暂时没有物品记录</p>
         </div>
     <?php endif; ?>
 </div>

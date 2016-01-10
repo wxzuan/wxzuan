@@ -11,7 +11,7 @@ use yii\widgets\ListView;
 <?= $this->render('@app/views/layouts/servicesMenu.php'); ?>
 <div class="content">
     <?php
-    $data = ['limit' => 5];
+    $data = ['limit' => 5,'fee_lock'=>1];
     $logisticsLists = LogisticsService::findLogisticss($data);
     if ($logisticsLists):
         echo ListView::widget([

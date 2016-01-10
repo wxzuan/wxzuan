@@ -71,14 +71,75 @@ class UploadfileController extends \yii\web\Controller {
         }
         return $response;
     }
-
     /**
-     * 删除图片
+     * 删除商品图片
      */
     public function actionDeletepropic() {
         $user_id = \Yii::$app->user->getId();
         $p_params = Yii::$app->request->get();
         $delPic = Pic::find()->where(" id=:id AND user_id=:user_id ", [":id" => $p_params['id'], ":user_id" => $user_id])->one();
+        if (!$delPic) {
+            throw new NotFoundHttpException(Yii::t('app', 'Page not found'));
+        }
+        if ($delPic->delete()) {
+            Yii::$app->response->getHeaders()->set('Vary', 'Accept');
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            @unlink(Yii::$app->getBasePath() . '/web' . $delPic->pic_s_img);
+            @unlink(Yii::$app->getBasePath() . '/web' . $delPic->pic_m_img);
+            @unlink(Yii::$app->getBasePath() . '/web' . $delPic->pic_b_img);
+            $response['files'][] = [
+                'name' => TRUE
+            ];
+        } else {
+            $response[] = ['error' => '删除失败'];
+        }
+
+        return $response;
+    }
+/**
+     * 上传商品图片
+     */
+    public function actionUserpic() {
+        $user=\Yii::$app->user->getIdentity();
+
+        $picture = new UploadForm();
+        $picture->file = UploadedFile::getInstance($user, 'litpic');
+        if ($picture->file !== null && $picture->validate()) {
+            Yii::$app->response->getHeaders()->set('Vary', 'Accept');
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            $response = [];
+
+            if ($picture->userSave()) {
+                $response['files'][] = [
+                    'name' => $picture->file->name,
+                    'type' => $picture->file->type,
+                    'size' => $picture->file->size,
+                    'url' => '/' . $picture->getImageUrl(),
+                    'thumbnailUrl' => '/' . $picture->getOImageUrl(),
+                    'deleteUrl' => Url::to(['/uploadfile/deleteuserpic', 'id' => $picture->getID()]),
+                    'deleteType' => 'POST'
+                ];
+            } else {
+                $response[] = ['error' => Yii::t('app', '上传错误')];
+            }
+            @unlink($picture->file->tempName);
+        } else {
+            if ($picture->hasErrors()) {
+                $response[] = ['error' => '上传错误'];
+            } else {
+                throw new HttpException(500, Yii::t('app', '上传错误'));
+            }
+        }
+        return $response;
+    }
+    /**
+     * 删除商品图片
+     */
+    public function actionDeleteuserpic() {
+        $user=\Yii::$app->user->getIdentity();
+        $p_params = Yii::$app->request->get();
+        $delPic = Pic::find()->where(" id=:id AND user_id=:user_id ", [":id" => $p_params['id'], ":user_id" => $user->user_id])->one();
         if (!$delPic) {
             throw new NotFoundHttpException(Yii::t('app', 'Page not found'));
         }
@@ -113,7 +174,7 @@ class UploadfileController extends \yii\web\Controller {
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index','productpic','deletepropic','userpic'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

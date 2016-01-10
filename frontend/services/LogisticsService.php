@@ -17,8 +17,30 @@ namespace frontend\services;
 use common\models\Logistics;
 use yii\data\ActiveDataProvider;
 use \Yii;
+use \PDO;
 
 class LogisticsService {
+
+    /**
+     * 发布物流冻结佣金
+     * @return boolean
+     */
+    public static function lockLogisticsFee($user_id, $logis_id) {
+        try {
+            $addip = \Yii::$app->request->userIP;
+            $conn = \Yii::$app->db;
+            $command = $conn->createCommand('call p_lock_logis_Fee(:in_user_id,:logis_id,:in_addip,@out_status,@out_remark)');
+            $command->bindParam(":in_user_id", $user_id, PDO::PARAM_INT);
+            $command->bindParam(":logis_id", $logis_id, PDO::PARAM_INT);
+            $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
+            $command->execute();
+            $result = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+            return $result;
+        } catch (Exception $e) {
+            $result = ['status' => 0, 'remark' => '系统繁忙，暂时无法处理'];
+            return $result;
+        }
+    }
 
     /**
      * 
@@ -31,7 +53,7 @@ class LogisticsService {
         }
         $model = new Logistics();
         $dataProvider = new ActiveDataProvider([
-            'query' => $model->find()->Where('logis_realarrivetime=0')->orderBy(" id desc ")->limit($data['limit']),
+            'query' => $model->find()->Where('logis_realarrivetime=0 AND fee_lock=:fee_lock',[':fee_lock'=>$data['fee_lock']])->orderBy(" id desc ")->limit($data['limit']),
             'pagination' => [
                 'pagesize' => $data['limit'],
             ]
@@ -57,7 +79,8 @@ class LogisticsService {
         ]);
         return $dataProvider;
     }
-    public static function findIndexLists($limit){
+
+    public static function findIndexLists($limit) {
         return Product::find()->limit($limit)->orderBy(" product_id desc ")->all();
     }
 

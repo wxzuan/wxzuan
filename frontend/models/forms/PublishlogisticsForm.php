@@ -8,6 +8,8 @@ use common\models\Logistics;
 use common\models\Friend;
 use common\services\CacheService;
 use common\models\User;
+use common\models\Account;
+use frontend\services\LogisticsService;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -31,6 +33,17 @@ class PublishlogisticsForm extends Model {
     public $user_city;
     public $user_area;
     public $user_address;
+
+    /**
+     * 验证用户是否有足够资金发布项目
+     */
+    public function logisfeeRight() {
+        $oneAccount = Account::find()->where("user_id=:user_id", [':user_id' => $this->publis_user_id])->one();
+        if ($this->logis_fee > $oneAccount->use_money) {
+            $this->addError('logis_fee', '您的可用资金不足以支付佣金。');
+            return false;
+        }
+    }
 
     /**
      * 验证用户是否合法
@@ -64,7 +77,7 @@ class PublishlogisticsForm extends Model {
         } else {
             $this->user_area = '无';
         }
-        $this->user_area = $publishUser->address;
+        $this->user_address = $publishUser->address;
     }
 
     function __construct($config = array()) {
@@ -81,6 +94,7 @@ class PublishlogisticsForm extends Model {
             [['logis_name', 'logis_bail', 'logis_fee', 'to_user_id', 'logis_description', 'logis_arrivetime'], 'required', 'message' => '{attribute}不能空'],
             ['logis_name', 'string', 'min' => 2, 'max' => 100, 'message' => '{attribute}在2至100个字符之间'],
             ['to_user_id', 'UseridRight'],
+            ['logis_fee', 'logisfeeRight'],
             [['logis_bail', 'logis_fee'], 'match', 'pattern' => '/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/', 'message' => '请输入有效的金额'],
             [['logis_bail', 'logis_fee'], 'string', 'min' => 1, 'max' => 10, 'message' => '{attribute}在1至10个字符之间'],
             ['logis_description', 'string', 'max' => 60000],
@@ -122,12 +136,30 @@ class PublishlogisticsForm extends Model {
     public function save() {
         $newLogis = new Logistics();
         $newLogis->setAttributes($this->attributes);
+        $newLogis->setAttribute('user_country', $this->user_country);
+        $newLogis->setAttribute('user_province', $this->user_province);
+        $newLogis->setAttribute('user_city',$this->user_city);
+        $newLogis->setAttribute('user_area', $this->user_area);
+        $newLogis->setAttribute('user_address', $this->user_address);
         $newLogis->setAttribute('fit_user_id', 0);
+        $newLogis->setAttribute('bail_lock', 0);
+        $newLogis->setAttribute('fee_lock', 0);
         $newLogis->setAttribute('logis_arrivetime', strtotime($this->logis_arrivetime));
         $newLogis->setAttribute('logis_realarrivetime', 0);
         $newLogis->setAttribute("logis_addtime", time());
         $newLogis->setAttribute('logis_addip', \Yii::$app->request->userIp);
-        return $newLogis->save();
+        if ($newLogis->save()) {
+            $logisct_id = \Yii::$app->db->lastInsertID;
+            $result = LogisticsService::lockLogisticsFee($this->publis_user_id, $logisct_id);
+            if ($result['status'] == 1) {
+                return true;
+            } else {
+                $this->addError('logis_name', $result['remark']);
+                return FALSE;
+            }
+        } else {
+            return FALSE;
+        }
     }
 
 }
