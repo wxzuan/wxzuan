@@ -25,7 +25,7 @@ class LogisticsController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'buyed', 'rate', 'changeimg', 'selectimg', 'fititem', 'suresellproduct', 'cancelsellproduct', 'successbuy'],
+                        'actions' => ['index', 'booked', 'rate', 'changeimg', 'selectimg', 'fititem', 'suresellproduct', 'cancelsellproduct', 'successbuy'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -52,8 +52,8 @@ class LogisticsController extends \common\controllers\BaseController {
      * 已购商品
      * @return type
      */
-    public function actionBuyed() {
-        return $this->render('product_buyed');
+    public function actionBooked() {
+        return $this->render('logistics_booked');
     }
 
     /**
