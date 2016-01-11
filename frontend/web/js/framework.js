@@ -51,16 +51,16 @@ $(document).ready(function () {
     $('.tab-but-1-qys').click(function () {
         $('.tab-but').removeClass('tab-active');
         $('.tab-but-1-qys').addClass('tab-active');
-        $('.tab-content').hide(100);
-        $('.tab-content-1-qys').show(100);
+        $('.tab-content').hide();
+        $('.tab-content-1-qys').show();
         return false;
     });
 
     $('.tab-but-2-qys').click(function () {
         $('.tab-but').removeClass('tab-active');
         $('.tab-but-2-qys').addClass('tab-active');
-        $('.tab-content').hide(100);
-        $('.tab-content-2-qys').show(100);
+        $('.tab-content').hide();
+        $('.tab-content-2-qys').show();
         return false;
     });
 
