@@ -80,9 +80,6 @@ class UploadForm extends Model {
     public function logisticsSave() {
         $user_id = \Yii::$app->user->getId();
         $baseimgurl = 'date/upload/wechat/logis/';
-        $createpath=\Yii::$app->basePath.'/web/'.$baseimgurl;
-        ToolService::createdir($createpath, 775);
-        //生成随机文件名
         $basefilename = $user_id . '_' . time() . '_' . rand(1000, 9999);
         $this->s_img_url = $sfilename = $baseimgurl . 's' . $basefilename . '.' . $this->file->extension;
         $this->o_img_url = $ofilename = $baseimgurl . 'o' . $basefilename . '.' . $this->file->extension;

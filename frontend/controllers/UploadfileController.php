@@ -18,6 +18,7 @@ use yii\web\HttpException;
 use yii\helpers\Html;
 use yii\web\Response;
 use yii\web\NotFoundHttpException;
+use common\models\Logistics;
 
 class UploadfileController extends \yii\web\Controller {
 
@@ -71,6 +72,7 @@ class UploadfileController extends \yii\web\Controller {
         }
         return $response;
     }
+
     /**
      * 删除商品图片
      */
@@ -96,11 +98,12 @@ class UploadfileController extends \yii\web\Controller {
 
         return $response;
     }
-/**
+
+    /**
      * 上传商品图片
      */
     public function actionUserpic() {
-        $user=\Yii::$app->user->getIdentity();
+        $user = \Yii::$app->user->getIdentity();
 
         $picture = new UploadForm();
         $picture->file = UploadedFile::getInstance($user, 'litpic');
@@ -133,11 +136,12 @@ class UploadfileController extends \yii\web\Controller {
         }
         return $response;
     }
+
     /**
      * 删除商品图片
      */
     public function actionDeleteuserpic() {
-        $user=\Yii::$app->user->getIdentity();
+        $user = \Yii::$app->user->getIdentity();
         $p_params = Yii::$app->request->get();
         $delPic = Pic::find()->where(" id=:id AND user_id=:user_id ", [":id" => $p_params['id'], ":user_id" => $user->user_id])->one();
         if (!$delPic) {
@@ -158,14 +162,18 @@ class UploadfileController extends \yii\web\Controller {
 
         return $response;
     }
-/**
+
+    /**
      * 上传物品图片
      */
     public function actionLogisticspic() {
-        $user=\Yii::$app->user->getIdentity();
-
+        $p_params = Yii::$app->request->get();
+        $logis = Logistics::findOne($p_params['id']);
+        if (!$logis) {
+            throw new NotFoundHttpException('Page not found');
+        }
         $picture = new UploadForm();
-        $picture->file = UploadedFile::getInstance($user, 'logis_s_img');
+        $picture->file = UploadedFile::getInstance($logis, 'logis_s_img');
         if ($picture->file !== null && $picture->validate()) {
             Yii::$app->response->getHeaders()->set('Vary', 'Accept');
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -183,23 +191,24 @@ class UploadfileController extends \yii\web\Controller {
                     'deleteType' => 'POST'
                 ];
             } else {
-                $response[] = ['error' => Yii::t('app', '上传错误')];
+                $response[] = ['error' => '上传错误'];
             }
             @unlink($picture->file->tempName);
         } else {
             if ($picture->hasErrors()) {
                 $response[] = ['error' => '上传错误'];
             } else {
-                throw new HttpException(500, Yii::t('app', '上传错误'));
+                throw new HttpException(500, '上传错误');
             }
         }
         return $response;
     }
+
     /**
      * 删除物品图片
      */
     public function actionDeletelogisticspic() {
-        $user=\Yii::$app->user->getIdentity();
+        $user = \Yii::$app->user->getIdentity();
         $p_params = Yii::$app->request->get();
         $delPic = Pic::find()->where(" id=:id AND user_id=:user_id ", [":id" => $p_params['id'], ":user_id" => $user->user_id])->one();
         if (!$delPic) {
@@ -220,6 +229,7 @@ class UploadfileController extends \yii\web\Controller {
 
         return $response;
     }
+
     /**
      * @inheritdoc
      */
@@ -235,7 +245,7 @@ class UploadfileController extends \yii\web\Controller {
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index','productpic','deletepropic','userpic','deleteuserpic','logisticspic','deletelogisticspic'],
+                        'actions' => ['index', 'productpic', 'deletepropic', 'userpic', 'deleteuserpic', 'logisticspic', 'deletelogisticspic'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
