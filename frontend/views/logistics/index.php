@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '商品列表';
+$this->title = '物流列表';
 
 use frontend\services\LogisticsService;
 use yii\helpers\Url;
