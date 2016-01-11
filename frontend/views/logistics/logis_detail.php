@@ -15,8 +15,10 @@ use yii\helpers\Html;
         <h4><?= $model->logis_name ?></h4>
         <h4>佣金：<?= $model->logis_fee ?> <em> 保证金：￥ <?= $model->logis_bail ?> 元</em></h4>
         <p style="line-height: 25px;margin-bottom: 10px;">
-            出发地点: <?= $model->user_country ?> <?= $model->user_province ?> <?= $model->user_city ?> <?= $model->user_area ?><br/>
-            目的地点: <?= $model->logis_country ?> <?= $model->logis_provice ?> <?= $model->logis_city ?> <?= $model->logis_area ?><br/>
+            出发地点： <?= $model->user_country ?> <?= $model->user_province ?> <?= $model->user_city ?> <?= $model->user_area ?><br/>
+            出货地址：<?= $model->user_address ?><br/>
+            目的地点： <?= $model->logis_country ?> <?= $model->logis_provice ?> <?= $model->logis_city ?> <?= $model->logis_area ?><br/>
+            收货地址：<?= $model->logis_detailaddress ?><br/>
         <div class="well">
             <?= $model->logis_description ?>
         </div>
