@@ -100,7 +100,9 @@ class IndexController extends \common\controllers\BaseController {
         $model = new BankForm();
         $user_id = Yii::$app->user->getId();
         $thisBank = Bankcard::find()->where("user_id=" . $user_id)->one();
-
+        if (!$thisBank) {
+            $thisBank = new Bankcard();
+        }
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
@@ -131,6 +133,9 @@ class IndexController extends \common\controllers\BaseController {
         $model = new UserProductAddressForm();
         $user_id = Yii::$app->user->getId();
         $thisuserpa = UserProductAddress::find()->where("user_id=" . $user_id)->one();
+        if (!$thisuserpa) {
+            $thisuserpa = new UserProductAddress();
+        }
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;

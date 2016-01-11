@@ -25,21 +25,26 @@ use Yii;
  * @property integer $logis_addtime
  * @property string $logis_addip
  */
-class Logistics extends \yii\db\ActiveRecord
-{
+class Logistics extends \yii\db\ActiveRecord {
+
+    // 获取所属用户
+    public function getUser() {
+        //同样第一个参数指定关联的子表模型类名
+        //
+        return $this->hasOne(User::className(), ['user_id' => 'publis_user_id']);
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'web_logistics';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['publis_user_id', 'to_user_id', 'fit_user_id', 'logis_arrivetime', 'logis_realarrivetime', 'logis_addtime'], 'integer'],
             [['logis_country', 'logis_provice', 'logis_city', 'logis_area', 'logis_detailaddress', 'logis_name', 'logis_description', 'logis_addip'], 'required'],
@@ -53,8 +58,7 @@ class Logistics extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'publis_user_id' => 'Publis User ID',
@@ -75,4 +79,5 @@ class Logistics extends \yii\db\ActiveRecord
             'logis_addip' => 'Logis Addip',
         ];
     }
+
 }

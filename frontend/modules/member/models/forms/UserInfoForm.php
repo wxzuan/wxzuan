@@ -25,7 +25,11 @@ class UserInfoForm extends Model {
      * @return boolean
      */
     public function update(User $user) {
+        $username=$user->username;
         $user->setAttributes($this->attributes);
+        if($user->username!=$user->wangwang){
+            $user->setAttribute("username", $username);
+        }
         return $user->update();
     }
 
@@ -35,10 +39,7 @@ class UserInfoForm extends Model {
     public function UsernameRight() {
         $post=\Yii::$app->request->post();
         $thisuser=User::find()->where("user_id=:user_id", [':user_id' => $this->user_id])->one();
-        if($thisuser->username!=$thisuser->wangwang){
-            $this->addError('username', '你已经更改过用户名,不允许再次更改！');
-            return false;
-        }
+        
         $user = User::find()->where("username=:username AND type_id=2 AND user_id<>:user_id", [':username' => $this->username, ':user_id' => $this->user_id])->one();
         if ($user) {
             $this->addError('username', '用户名已经被使用');

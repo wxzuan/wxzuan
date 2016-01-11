@@ -89,14 +89,14 @@ echo $this->render('bankpayaddressdiv');
     $(document).ready(function () {
 <?php
 $bankCard = Bankcard::find()->where("user_id=" . Yii::$app->user->getId())->one();
-if ($bankCard->province) {
+if (isset($bankCard->province)) {
     ?>
             $(".qys_common_pay_provice").val(<?php echo $bankCard->province; ?>);
 <?php } ?>
         var newprovice = $(".qys_common_pay_provice");
         $("#province_div").html(newprovice);
 <?php
-if ($bankCard->city) {
+if (isset($bankCard->city)) {
     ?>
             $(".qys_common_pay_city_<?php echo $bankCard->province; ?>").val(<?php echo $bankCard->city; ?>);
             var newcity = $(".qys_common_pay_city_<?php echo $bankCard->province; ?>");

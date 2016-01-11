@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '银行卡信息';
+$this->title = '收货地址信息';
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
@@ -77,14 +77,14 @@ echo $this->render('addressdiv');
     $(document).ready(function () {
 <?php
 $userprodaddress = UserProductAddress::find()->where("user_id=" . Yii::$app->user->getId())->one();
-if ($userprodaddress->province) {
+if (isset($userprodaddress->province)) {
     ?>
             $(".qys_common_provice").val(<?php echo $userprodaddress->province; ?>);
 <?php } ?>
         var newprovice = $(".qys_common_provice");
         $("#province_div").html(newprovice);
 <?php
-if ($userprodaddress->city) {
+if (isset($userprodaddress->city)) {
     ?>
             $(".qys_common_city_<?php echo $userprodaddress->province; ?>").val(<?php echo $userprodaddress->city; ?>);
             var newcity = $(".qys_common_city_<?php echo $userprodaddress->province; ?>");
@@ -93,7 +93,7 @@ if ($userprodaddress->city) {
 <?php } ?>
         $("#city_div").html(newcity);
 <?php
-if ($userprodaddress->area) {
+if (isset($userprodaddress->area)) {
     ?>
             $(".qys_common_area_<?php echo $userprodaddress->city; ?>").val(<?php echo $userprodaddress->area; ?>);
             var newarea = $(".qys_common_area_<?php echo $userprodaddress->city; ?>");
