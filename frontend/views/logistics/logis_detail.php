@@ -2,10 +2,8 @@
 /* @var $this yii\web\View */
 $this->title = '商品列表';
 
-use frontend\services\LogisticsService;
 use yii\helpers\Url;
-use frontend\extensions\scrollpager\ScrollPager;
-use yii\widgets\ListView;
+use yii\helpers\Html;
 ?>
 <?= $this->render('@app/views/layouts/main_header.php', ['icons' => ['product-content' => Url::toRoute('/logistics/publishlogistics'), 'twitter-content' => Url::toRoute('/index')]]); ?>
 <?= $this->render('@app/views/layouts/servicesMenu.php'); ?>
