@@ -2,7 +2,7 @@
 /* @var $this yii\web\View */
 $this->title = '我的商品';
 
-use frontend\services\ProductService;
+use frontend\services\LogisticsService;
 use yii\widgets\ListView;
 use frontend\extensions\scrollpager\ScrollPager;
 use yii\helpers\Url;
@@ -14,12 +14,12 @@ use yii\helpers\Url;
     <?php
     $user_id = Yii::$app->user->getId();
     $data = ['user_id' => $user_id, 'limit' => 5];
-    $productlists = ProductService::findMyProducts($data);
-    if ($productlists):
+    $logisLists = LogisticsService::findMyLogiss($data);
+    if ($logisLists):
         echo ListView::widget([
-            'dataProvider' => $productlists,
+            'dataProvider' => $logisLists,
             'itemOptions' => ['class' => 'item'],
-            'itemView' => '_item_product_index_view',
+            'itemView' => '_item_logis_index_view',
             'pager' => ['class' => ScrollPager::className()]
         ]);
     else:

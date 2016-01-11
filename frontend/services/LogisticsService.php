@@ -66,13 +66,13 @@ class LogisticsService {
      * @param int $data
      * @return \yii\data\ActiveDataProvider
      */
-    public static function findMyProducts($data = array()) {
+    public static function findMyLogiss($data = array()) {
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
-        $model = new Product();
+        $model = new Logistics();
         $dataProvider = new ActiveDataProvider([
-            'query' => $model->find()->Where('product_user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" product_id desc "),
+            'query' => $model->find()->Where('publis_user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" id desc "),
             'pagination' => [
                 'pagesize' => $data['limit'],
             ]

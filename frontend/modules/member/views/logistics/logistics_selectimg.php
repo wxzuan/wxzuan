@@ -16,18 +16,18 @@ use yii\widgets\LinkPager;
 
 <div class="container no-bottom" style="padding:0px 10px;">
     <div class="section-title">
-        <h4><?= Html::encode($model->product_name) ?></h4>
-        <em>下面为当前商品已选择的图片</em>
+        <h4><?= Html::encode($model->logis_name) ?></h4>
+        <em>下面为当前已选择的图片</em>
     </div>
     <div class="section">
-        <img class="responsive-image" src="<?= $model->product_s_img ? $model->product_s_img : '/images/product_demo.jpg'; ?>" alt="img">
+        <img class="responsive-image" src="<?= $model->logis_s_img ? $model->logis_s_img : '/images/product_demo.jpg'; ?>" alt="img">
     </div>
 </div>
 <div class="container no-bottom" style="padding:0px 10px;">
     <div class="section-title">
         <h4>选择商品图片</h4>
         <em>如果没有理想图片，请从右边添加新图片。</em>
-        <strong><a href="<?= Url::toRoute('/member/product/changeimg/' . $model->product_id) ?>"><img src="/images/misc/icons/addpic.png" width="20" alt="img"></a></strong>
+        <strong><a href="<?= Url::toRoute('/member/logistics/changeimg/' . $model->id) ?>"><img src="/images/misc/icons/addpic.png" width="20" alt="img"></a></strong>
     </div>
 </div>
 <?php
@@ -36,7 +36,7 @@ $form = ActiveForm::begin([
             'fieldConfig' => ['template' => '{input}',]
         ]);
 ?>
-<?= $form->field($model, 'product_s_img')->hiddenInput(['id' => 'selectimg']) ?>
+<?= $form->field($model, 'logis_s_img')->hiddenInput(['id' => 'selectimg']) ?>
 <div class="container no-bottom" style="padding:0px 10px;">
     <?php Pjax::begin(['id' => 'loadpajax']); ?>
     <div>

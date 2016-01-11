@@ -96,17 +96,17 @@ class LogisticsController extends \common\controllers\BaseController {
             $oneLogistics = Logistics::find()->where("id=:id", [':id' => $p_param['id']])->one();
             if ($oneLogistics) {
                 //图片选择处理
-                if (isset($_POST['Product'])) {
-                    if (is_numeric($_POST['Product']['product_s_img'])) {
+                if (isset($_POST['Logistics'])) {
+                    if (is_numeric($_POST['Logistics']['logis_s_img'])) {
                         #获得图片
-                        $selectpic = Pic::find()->where('user_id=:user_id AND id=:id', [':user_id' => $user_id, ':id' => $_POST['Product']['product_s_img']])->one();
+                        $selectpic = Pic::find()->where('user_id=:user_id AND id=:id', [':user_id' => $user_id, ':id' => $_POST['Logistics']['logis_s_img']])->one();
                         if ($selectpic) {
                             $oneLogistics->setAttribute('logis_s_img', $selectpic->pic_s_img);
                             $oneLogistics->setAttribute('logis_m_img', $selectpic->pic_m_img);
                             $oneLogistics->setAttribute('logis_b_img', $selectpic->pic_b_img);
                             if ($oneLogistics->update()) {
                                 $error = '更改成功';
-                                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/product/index'), 'backtitle' => '返回');
+                                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/logistics/index'), 'backtitle' => '返回');
                                 Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
                                 $this->redirect(Url::toRoute('/public/notices'));
                                 Yii::$app->end();
@@ -114,7 +114,7 @@ class LogisticsController extends \common\controllers\BaseController {
                         }
                     }
                 }
-                $query = Pic::find()->where('user_id=:user_id', [':user_id' => $user_id])->orderBy(" id desc ");
+                $query = Pic::find()->where('user_id=:user_id AND pic_type=2', [':user_id' => $user_id])->orderBy(" id desc ");
                 $countQuery = clone $query;
                 $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => '9']);
                 $models = $query->offset($pages->offset)
@@ -124,7 +124,7 @@ class LogisticsController extends \common\controllers\BaseController {
                 Yii::$app->end();
             }
         }
-        $error = '不存在此商品';
+        $error = '不存在此信息';
         $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/logistics/index'), 'backtitle' => '返回');
         Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
         $this->redirect(Url::toRoute('/public/notices'));

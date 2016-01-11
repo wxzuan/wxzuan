@@ -16,8 +16,8 @@ use dosamigos\fileupload\FileUploadUI;
     <?=
     FileUploadUI::widget([
         'model' => $model,
-        'attribute' => 'product_s_img',
-        'url' => ['/uploadfile/productpic', 'id' => $model->product_id],
+        'attribute' => 'logis_s_img',
+        'url' => ['/uploadfile/logisticspic', 'id' => $model->id],
         'gallery' => TRUE,
         'fieldOptions' => [
             'accept' => 'image/*'
@@ -39,4 +39,4 @@ use dosamigos\fileupload\FileUploadUI;
     ]);
     ?>
 </div>
-<a href="<?= Url::toRoute('/member/product/selectimg/'.$model->product_id) ?>"  style="width:100%;" class="button-big button-red">返回选择图片</a>
+<a href="<?= Url::toRoute('/member/logistics/selectimg/'.$model->id) ?>"  style="width:100%;" class="button-big button-red">返回选择图片</a>

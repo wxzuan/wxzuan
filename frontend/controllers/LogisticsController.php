@@ -45,10 +45,18 @@ class LogisticsController extends \yii\web\Controller {
         }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($oneLogis) {
+                $logis_fee = $oneLogis->logis_fee;
+                $logis_bail = $oneLogis->logis_bail;
                 $oneLogis->setAttributes($model->attributes);
+                if ($oneLogis->fee_lock != 0) {
+                    $oneLogis->Attribute("logis_fee", $logis_fee);
+                }
+                if ($oneLogis->bail_lock != 0) {
+                    $oneLogis->Attribute("logis_bail", $logis_bail);
+                }
                 if ($oneLogis->update()) {
-                    $error = '更新成功';
-                    $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/friend/publishlogistics/' . $oneLogis->id), 'backtitle' => '返回');
+                    $error = '更新成功,如已冻结佣金或者已冻结保证金,相应资金不能再修改.';
+                    $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/logistics/publishlogistics/' . $oneLogis->id), 'backtitle' => '返回');
                     Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
                     $this->redirect(Url::toRoute('/public/notices'));
                 } else {

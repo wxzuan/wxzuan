@@ -46,7 +46,7 @@ endif;
         <?= Html::submitButton('发布物流信息', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
     <?php else: ?>
         <?= Html::submitButton('修改物流信息', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
-        <a href="<?= Url::toRoute('/member/product/selectimg/' . $p_param['id']) ?>"  style="width:100%;" class="button-big button-red">选择物品图片</a>
+        <a href="<?= Url::toRoute('/member/logistics/selectimg/' . $p_param['id']) ?>"  style="width:100%;" class="button-big button-red">选择物品图片</a>
     <?php endif; ?>
 
     <?php ActiveForm::end(); ?>
