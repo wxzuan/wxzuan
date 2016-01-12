@@ -22,7 +22,7 @@ class BaseController extends \yii\web\Controller {
             $this->redirect('http://www.zuanzuanle.com');
             \Yii::$app->end();
         }
-        parent::beforeAction($action);
+        return parent::beforeAction($action);
     }
 
     //put your code here
