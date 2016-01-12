@@ -14,7 +14,7 @@ use \PDO;
 use common\models\User;
 use frontend\services\LogisticsService;
 
-class LogisticsController extends \yii\web\Controller {
+class LogisticsController extends \common\controllers\BaseController {
 
     /**
      * 商品列表

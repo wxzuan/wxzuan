@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-class HelpController extends \yii\web\Controller {
+class HelpController extends \common\controllers\BaseController {
 
     public function actionIndex() {
         return $this->render('index');

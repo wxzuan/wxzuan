@@ -2,25 +2,20 @@
 
 namespace frontend\controllers;
 
-use frontend\models\forms\AddProductForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use common\models\UserProductAddress;
 use common\models\Product;
-use common\models\Account;
 use yii\helpers\Url;
-use \PDO;
 use yii\web\UploadedFile;
 use common\models\forms\UploadForm;
 use common\models\Pic;
 use yii\web\HttpException;
-use yii\helpers\Html;
 use yii\web\Response;
 use yii\web\NotFoundHttpException;
 use common\models\Logistics;
 
-class UploadfileController extends \yii\web\Controller {
+class UploadfileController extends \common\controllers\BaseController {
 
     /**
      * 商品列表

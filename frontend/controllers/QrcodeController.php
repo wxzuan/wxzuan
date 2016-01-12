@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use dosamigos\qrcode\QrCode;
 use dosamigos\qrcode\formats\MailTo;
 
-class QrcodeController extends \yii\web\Controller {
+class QrcodeController extends \common\controllers\BaseController {
 
     public function actionIndex() {
         $string='http://www.baidu.com';

@@ -12,7 +12,7 @@ use common\models\Account;
 use yii\helpers\Url;
 use \PDO;
 
-class ProductController extends \yii\web\Controller {
+class ProductController extends \common\controllers\BaseController {
 
     /**
      * 商品列表

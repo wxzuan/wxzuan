@@ -7,7 +7,7 @@ use common\models\LoginForm;
 use Yii;
 use yii\web\Request;
 
-class PublicController extends \yii\web\Controller {
+class PublicController extends \common\controllers\BaseController {
 
     public function actionIndex() {
         return $this->render('index');
