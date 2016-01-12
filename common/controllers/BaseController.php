@@ -18,8 +18,8 @@ use common\services\BaseInitService;
 class BaseController extends \yii\web\Controller {
 
     function beforeAction($action) {
-        if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') == false) {
-            header('Location:http://www.zuanzuanle.com');
+        if (!strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger')) {
+            $this->redirect('http://www.zuanzuanle.com');
             \Yii::$app->end();
         }
         parent::beforeAction($action);
