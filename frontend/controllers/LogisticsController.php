@@ -6,11 +6,9 @@ use frontend\models\forms\PublishlogisticsForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use common\models\UserProductAddress;
 use common\models\Logistics;
 use common\models\Account;
 use yii\helpers\Url;
-use \PDO;
 use common\models\User;
 use frontend\services\LogisticsService;
 
@@ -121,7 +119,8 @@ class LogisticsController extends \common\controllers\BaseController {
                     $notices = array('type' => 2, 'msgtitle' => '错误信息', 'message' => $error, 'backurl' => $backUrl, 'backtitle' => '返回');
                 } else {
                     $userAccount = Account::find()->where("user_id=:user_id", [":user_id" => $user_id])->one();
-                    if ($userAccount->use_money < $logis->logis_bail) {
+                    echo $userAccount->use_money;
+                    if ($userAccount->use_money > $logis->logis_bail) {
                         $result = LogisticsService::lockLogisticsBail($user_id, $logis->id);
                         if ($result['status'] == 1) {
                             $error = '签约成功！';
