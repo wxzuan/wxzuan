@@ -1,12 +1,10 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '我的头像';
+$this->title = '我的微信二维码';
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\Html;
-use common\models\Linkage;
-use dosamigos\fileupload\FileUploadUI;
 use yii\widgets\Pjax;
 use yii\widgets\LinkPager;
 ?>

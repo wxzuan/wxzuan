@@ -1,11 +1,8 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = '我的商品';
+$this->title = '上传微信二维码';
 
-use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use yii\helpers\Html;
-use common\models\Linkage;
 use dosamigos\fileupload\FileUploadUI;
 ?>
 <div class="container no-bottom">
@@ -16,7 +13,7 @@ use dosamigos\fileupload\FileUploadUI;
     <?=
     FileUploadUI::widget([
         'model' => $model,
-        'attribute' => 'litpic',
+        'attribute' => 'card_pic2',
         'url' => ['/uploadfile/userqrcodepic', 'id' => $model->user_id],
         'gallery' => TRUE,
         'fieldOptions' => [
