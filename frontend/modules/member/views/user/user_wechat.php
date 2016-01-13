@@ -34,7 +34,7 @@ $form = ActiveForm::begin([
             'fieldConfig' => ['template' => '{input}',]
         ]);
 ?>
-<?= $form->field($model, 'litpic')->hiddenInput(['id' => 'selectimg']) ?>
+<?= $form->field($model, 'card_pic2')->hiddenInput(['id' => 'selectimg']) ?>
 <div class="container no-bottom" style="padding:0px 10px;">
     <?php Pjax::begin(['id' => 'loadpajax']); ?>
     <div>
