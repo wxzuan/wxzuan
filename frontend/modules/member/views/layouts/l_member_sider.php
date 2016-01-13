@@ -18,6 +18,9 @@ use yii\helpers\Url;
                 <a href="<?= Url::toRoute('/member/user/index') ?>" class="home-nav">我的头像<em class="selected-nav"></em></a>
             </div>
             <div class="nav-item">
+                <a href="<?= Url::toRoute('/member/user/wechat') ?>" class="qrcode-nav">我的微信<em class="selected-nav"></em></a>
+            </div>
+            <div class="nav-item">
                 <a href="#" class="features-nav submenu-deploy">信息认证<em class="dropdown-nav"></em></a>
                 <div class="nav-item-submenu" style="overflow: hidden; display: none;">
                     <a href="<?= Url::toRoute('/member/user/info') ?>">修改信息	 

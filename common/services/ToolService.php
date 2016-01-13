@@ -8,8 +8,22 @@ class ToolService {
      */
 
     public static function createdir($path, $mode) {
-        if (!is_dir($path)) {  //判断目录存在否，存在不创建
-            mkdir($path, $mode, true);
+        
+        $adir = explode('/', $path);
+        $dirlist = '';
+        $rootdir = array_shift($adir);
+        if (($rootdir != '.' || $rootdir != '..') && !file_exists($rootdir)) {
+            @mkdir($rootdir);
+        }
+        foreach ($adir as $key => $val) {
+            if ($val != '.' && $val != '..') {
+                $dirlist .= "/" . $val;
+                $dirpath = $rootdir . $dirlist;
+                if (!file_exists($dirpath)) {
+                    @mkdir($dirpath);
+                    @chmod($dirpath, 0777);
+                }
+            }
         }
     }
 

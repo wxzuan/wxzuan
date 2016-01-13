@@ -392,7 +392,9 @@ body {
 .home-nav{
     background-image:url(../images/misc/sidebar-home.png);
 }
-
+.qrcode-nav{
+    background-image:url(../images/misc/sidebar-qrcode.png);
+}
 .features-nav{
     background-image:url(../images/misc/sidebar-features.png);
 }

@@ -28,7 +28,7 @@ class UserController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['info', 'changeimg', 'index', 'sharp', 'bank', 'shippingaddress'],
+                        'actions' => ['info', 'changeimg', 'index', 'wechat','wechtchangeimg'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -42,7 +42,45 @@ class UserController extends \common\controllers\BaseController {
             ],
         ];
     }
+    public function actionWechat() {
+        $user = \Yii::$app->user->getIdentity();
+        $post = \Yii::$app->request->post();
+        //图片选择处理
+        if (isset($post['User'])) {
+            if (is_numeric($post['User']['card_pic2'])) {
+                #获得图片
+                $selectpic = Pic::find()->where('user_id=:user_id AND id=:id', [':user_id' => $user->user_id, ':id' => $post['User']['card_pic2']])->one();
+                if ($selectpic) {
+                    $user->setAttribute('card_pic2', $selectpic->pic_s_img);
+                    if ($user->update()) {
+                        $error = '更改成功';
+                        $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/user/wechat'), 'backtitle' => '返回');
+                        Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+                        $this->redirect(Url::toRoute('/public/notices'));
+                        Yii::$app->end();
+                    }
+                }
+            }
+        }
+        //获得头像类型图片
+        $query = Pic::find()->where('user_id=:user_id AND pic_type=3', [':user_id' => $user->user_id])->orderBy(" id desc ");
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => '9']);
+        $models = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+        return $this->render('user_wechat', ['model' => $user, 'models' => $models, 'pages' => $pages]);
+        \Yii::$app->end();
+    }
 
+    /**
+     * 单个上传头像图片
+     * @return type
+     */
+    public function actionWechtchangeimg() {
+        $user = \Yii::$app->user->getIdentity();
+        return $this->render('user_wechatchangeimg', ['model' => $user]);
+    }
     public function actionIndex() {
         $user = \Yii::$app->user->getIdentity();
         $post = \Yii::$app->request->post();
@@ -82,15 +120,6 @@ class UserController extends \common\controllers\BaseController {
         $user = \Yii::$app->user->getIdentity();
         return $this->render('user_changeimg', ['model' => $user]);
     }
-
-    /**
-     * 快速分享
-     * @return type
-     */
-    public function actionSharp() {
-        return $this->render('sharp');
-    }
-
     /**
      * 用户基本信息
      * @return type
@@ -118,69 +147,4 @@ class UserController extends \common\controllers\BaseController {
             return $this->render('info', ['model' => $model]);
         }
     }
-
-    /**
-     * 我的银行
-     */
-    public function actionBank() {
-        $model = new BankForm();
-        $user_id = Yii::$app->user->getId();
-        $thisBank = Bankcard::find()->where("user_id=" . $user_id)->one();
-
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $thisBank->setAttributes($model->attributes);
-            $thisBank->setAttribute('province', $_POST['province']);
-            $thisBank->setAttribute('city', $_POST['city']);
-            $bank_name = Linkage::getValueChina("1002", "account_bank");
-            $thisBank->setAttribute('bank_name', $bank_name);
-            $resultR = $thisBank->save();
-            $this->refresh();
-            if ($resultR) {
-                Yii::$app->session->setFlash('success', '更新成功');
-                $this->redirect('/public/notices.html');
-                Yii::$app->end();
-            }
-        } else {
-            $model->setAttributes($thisBank->attributes);
-            return $this->render('bank', ['model' => $model]);
-        }
-    }
-
-    /**
-     * 我的银行
-     */
-    public function actionShippingaddress() {
-        $model = new UserProductAddressForm();
-        $user_id = Yii::$app->user->getId();
-        $thisuserpa = UserProductAddress::find()->where("user_id=" . $user_id)->one();
-
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $thisuserpa->setAttributes($model->attributes);
-            $thisuserpa->setAttribute('province', $_POST['province']);
-            $thisuserpa->setAttribute('city', $_POST['city']);
-            $thisuserpa->setAttribute('area', $_POST['area']);
-            $address = Yii::$app->cache->get('sys_address');
-            $sysaddress = $address['province'][$_POST['province']] . $address['city'][$_POST['city']] . $address['area'][$_POST['area']];
-            $thisuserpa->setAttribute('sysaddress', $sysaddress);
-            $resultR = $thisuserpa->save();
-            $this->refresh();
-            if ($resultR) {
-                Yii::$app->session->setFlash('success', '更新成功');
-                $this->redirect('/public/notices.html');
-                Yii::$app->end();
-            }
-        } else {
-            $model->setAttributes($thisuserpa->attributes);
-            return $this->render('shippingaddress', ['model' => $model]);
-        }
-    }
-
 }
