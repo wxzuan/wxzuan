@@ -29,6 +29,12 @@ class LogisticsController extends \common\controllers\BaseController {
         $model = new PublishlogisticsForm();
         $p_param = Yii::$app->request->get();
         $publishUser = User::find()->where("user_id=:user_id", [':user_id' => \Yii::$app->user->getId()])->one();
+        if (!$publishUser->card_pic2) {
+            $error = '您的微信联系方式没有留下';
+            $notices = array('type' => 2, 'msgtitle' => '联系方式没有留下', 'message' => $error, 'backurl' => Url::toRoute('/member/user/wechat'), 'backtitle' => '上传微信二维码');
+            Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+            $this->redirect(Url::toRoute('/public/notices'));
+        }
         if (!$publishUser->province || !$publishUser->city || !$publishUser->address) {
             $error = '您的地址没有完善，无法发布物流信息。';
             $notices = array('type' => 2, 'msgtitle' => '地址不正确', 'message' => $error, 'backurl' => Url::toRoute('/member/index/userinfo'), 'backtitle' => '完善个人信息');

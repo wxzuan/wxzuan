@@ -28,7 +28,7 @@ class UserController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['info', 'changeimg', 'index', 'wechat','wechtchangeimg'],
+                        'actions' => ['info', 'changeimg', 'index', 'wechat','wechatchangeimg'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -77,7 +77,7 @@ class UserController extends \common\controllers\BaseController {
      * 单个上传头像图片
      * @return type
      */
-    public function actionWechtchangeimg() {
+    public function actionWechatchangeimg() {
         $user = \Yii::$app->user->getIdentity();
         return $this->render('user_wechatchangeimg', ['model' => $user]);
     }
