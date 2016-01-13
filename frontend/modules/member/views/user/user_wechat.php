@@ -20,7 +20,7 @@ use yii\widgets\LinkPager;
         <em>微信二维码</em>
     </div>
     <div class="section">
-        <img class="responsive-image" src="<?= $model->litpic ? $model->litpic : '/images/product_demo.jpg'; ?>" alt="img">
+        <img class="responsive-image" src="<?= $model->card_pic2 ? $model->card_pic2 : '/images/product_demo.jpg'; ?>" alt="img">
     </div>
 </div>
 <div class="container no-bottom" style="padding:0px 10px;">
