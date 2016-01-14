@@ -28,7 +28,7 @@ use yii\helpers\Html;
                     <?= $model->logis_description ?>
                 </div>
                 </p>
-                <strong><?= Html::a('<img src="/images/misc/icons/book.png" width="20" alt="img">', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/logistics/book/' . $model->id), 'class' => 'showModalButton']); ?></strong>
+                <strong><?= Html::a('<img src="/images/misc/icons/book.png" width="20" alt="img">', FALSE, ['title' => '信息提示', 'value' => Url::toRoute('/logistics/books/' . $model->id), 'class' => 'showModalButton']); ?></strong>
             </div>
         </div>
         <div class="tab-content tab-content-2-qys" style="overflow: hidden; display: none;">

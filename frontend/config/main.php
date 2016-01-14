@@ -33,6 +33,7 @@ return [
                 'logistics/publishlogistics/<id:\d+>' => 'logistics/publishlogistics',
                 'logistics/detail/<id:\d+>' => 'logistics/detail',
                 'logistics/book/<id:\d+>' => 'logistics/book',
+                'logistics/books/<id:\d+>' => 'logistics/books',
                 'logistics/vouch/<id:\d+>' => 'logistics/vouch',
                 'member/logistics/selectimg/<id:\d+>' => 'member/logistics/selectimg',
                 'member/logistics/changeimg/<id:\d+>' => 'member/logistics/changeimg',

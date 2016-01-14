@@ -235,7 +235,7 @@ class LogisticsController extends \common\controllers\BaseController {
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index', 'publishlogistics', 'book', 'vouch', 'showmymoney'],
+                        'actions' => ['index', 'publishlogistics', 'book','books', 'vouch', 'showmymoney'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
