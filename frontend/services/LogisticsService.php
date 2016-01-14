@@ -91,14 +91,14 @@ class LogisticsService {
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
-        $model = new Logistics();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $model->find()->Where('publis_user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" id desc "),
-            'pagination' => [
-                'pagesize' => $data['limit'],
-            ]
-        ]);
-        return $dataProvider;
+        
+        $query = Logistics::find()->Where('publis_user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" fee_lock asc,id desc ");
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $data['limit']]);
+        $models = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+        return ['models' => $models, 'pages' => $pages];
     }
 
     public static function findIndexLists($limit) {

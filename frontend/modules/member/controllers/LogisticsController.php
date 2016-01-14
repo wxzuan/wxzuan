@@ -25,7 +25,7 @@ class LogisticsController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'booked', 'rate', 'changeimg', 'selectimg', 'fititem', 'suresellproduct', 'cancelsellproduct', 'successbuy'],
+                        'actions' => ['index', 'booked', 'rate', 'changeimg', 'selectimg', 'fitlogis', 'fititem', 'suresellproduct', 'cancelsellproduct', 'successbuy'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -38,6 +38,14 @@ class LogisticsController extends \common\controllers\BaseController {
                 ],
             ],
         ];
+    }
+
+    /**
+     * 处理物流信息
+     */
+    public function actionFitlogis() {
+        echo 11;
+        \Yii::$app->end();
     }
 
     /**
