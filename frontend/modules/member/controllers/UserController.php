@@ -51,7 +51,7 @@ class UserController extends \common\controllers\BaseController {
                 #获得图片
                 $selectpic = Pic::find()->where('user_id=:user_id AND id=:id', [':user_id' => $user->user_id, ':id' => $post['User']['card_pic2']])->one();
                 if ($selectpic) {
-                    $user->setAttribute('card_pic2', $selectpic->pic_s_img);
+                    $user->setAttribute('card_pic2', $selectpic->pic_m_img);
                     if ($user->update()) {
                         $error = '更改成功';
                         $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/user/wechat'), 'backtitle' => '返回');

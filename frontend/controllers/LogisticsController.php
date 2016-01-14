@@ -215,7 +215,7 @@ class LogisticsController extends \common\controllers\BaseController {
             echo '<p>不允许签订自己的物品</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
             Yii::$app->end();
         } else {
-            echo '<p><h3>请扫描对方微信二维码进一步沟通</h3><img src="'.$logis->user->card_pic2.'"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+            echo '<p><h3>请扫描对方微信二维码进一步沟通<em>不真实图片为虚假信息</em></h3><img style="margin:0 auto;" src="'.$logis->user->card_pic2.'"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
             Yii::$app->end();
         }
     }
