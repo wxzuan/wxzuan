@@ -196,6 +196,31 @@ class LogisticsController extends \common\controllers\BaseController {
     }
 
     /**
+     * 显示发布人的微信图片
+     */
+    public function actionBooks() {
+        $user_id = \Yii::$app->user->getId();
+        #获得用户的可用资金
+        $p_param = Yii::$app->request->get();
+        if (!isset($p_param['id'])) {
+            echo 1;
+            Yii::$app->end();
+        }
+        $logis = Logistics::find()->where("id=:id", [':id' => $p_param['id']])->one();
+        if (!isset($logis)) {
+            echo 1;
+            Yii::$app->end();
+        }
+        if ($user_id == $logis->publis_user_id) {
+            echo '<p>不允许签订自己的物品</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+            Yii::$app->end();
+        } else {
+            echo '<p><h3>请扫描对方微信二维码进一步沟通</h3><img src="'.$logis->user->card_pic2.'"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+            Yii::$app->end();
+        }
+    }
+
+    /**
      * @inheritdoc
      */
     public function behaviors() {
