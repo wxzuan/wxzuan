@@ -16,6 +16,7 @@ namespace frontend\services;
 
 use common\models\Logistics;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use \Yii;
 use \PDO;
 
