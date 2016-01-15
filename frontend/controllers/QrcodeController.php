@@ -3,7 +3,6 @@
 namespace frontend\controllers;
 
 use dosamigos\qrcode\QrCode;
-use dosamigos\qrcode\formats\MailTo;
 
 class QrcodeController extends \common\controllers\BaseController {
 
@@ -24,8 +23,10 @@ class QrcodeController extends \common\controllers\BaseController {
      * 生成订单二维码
      */
     public function actionBookcode() {
-        $string=Yii::$app->session->getFlash('userbookingstring');
-        return QrCode::png($string);
+        $string = Yii::$app->session->getFlash('userbookingstring');
+        $tokenString = \Yii::$app->security->encryptByKey($string, $string['tokenstring']);
+        $url = 'http://' . $_SERVER['HTTP_HOST'] . '/member/logistics/fitlogs.html?token=' . $tokenString;
+        return QrCode::png($url);
     }
 
 }
