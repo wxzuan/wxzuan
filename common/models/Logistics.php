@@ -47,13 +47,13 @@ class Logistics extends \yii\db\ActiveRecord {
         switch ($this->fee_lock) {
             case 0 :
 
-                $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/index/del/' . $this->id . '/1.html" title="信息提示">删除</span>';
+                $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/index/del/' . $this->id . '.html" title="信息提示">删除</span>';
                 break;
             case 1:
                 if ($this->bail_lock == 0) {
-                    $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/index/outcode/' . $this->id . '/2.html" title="信息提示">出货</span>';
+                    $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/index/outcode/' . $this->id . '.html" title="信息提示">出货</span>';
                 } else {
-                    $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/fitlogis/' . $this->id . '/3.html" title="信息提示">撤消</span>';
+                    $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/fitlogis/' . $this->id . '.html" title="信息提示">撤消</span>';
                 }
                 break;
             default :
