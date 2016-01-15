@@ -39,7 +39,7 @@ class UploadForm extends Model {
         $user_id = \Yii::$app->user->getId();
         $baseimgurl = 'date/upload/wechat/qrcode/';
         $createpath=\Yii::$app->basePath.'/web/'.$baseimgurl;
-        ToolService::createdir($createpath, 775);
+        ToolService::createdir($createpath);
         //生成随机文件名
         $basefilename = $user_id . '_' . time() . '_' . rand(1000, 9999);
         $this->s_img_url = $sfilename = $baseimgurl . 's' . $basefilename . '.' . $this->file->extension;
@@ -81,7 +81,7 @@ class UploadForm extends Model {
         $user_id = \Yii::$app->user->getId();
         $baseimgurl = 'date/upload/wechat/user/';
         $createpath=\Yii::$app->basePath.'/web/'.$baseimgurl;
-        ToolService::createdir($createpath, 775);
+        ToolService::createdir($createpath);
         //生成随机文件名
         $basefilename = $user_id . '_' . time() . '_' . rand(1000, 9999);
         $this->s_img_url = $sfilename = $baseimgurl . 's' . $basefilename . '.' . $this->file->extension;

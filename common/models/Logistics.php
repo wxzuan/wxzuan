@@ -15,6 +15,7 @@ use Yii;
  * @property string $user_area
  * @property string $user_address
  * @property integer $to_user_id
+ * @property string $hash_key
  * @property string $logis_country
  * @property string $logis_provice
  * @property string $logis_city
@@ -46,11 +47,11 @@ class Logistics extends \yii\db\ActiveRecord {
         switch ($this->fee_lock) {
             case 0 :
 
-                $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/fitlogis/' . $this->id . '/1.html" title="信息提示">删除</span>';
+                $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/index/del/' . $this->id . '/1.html" title="信息提示">删除</span>';
                 break;
             case 1:
                 if ($this->bail_lock == 0) {
-                    $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/fitlogis/' . $this->id . '/2.html" title="信息提示">出货</span>';
+                    $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/index/outcode/' . $this->id . '/2.html" title="信息提示">出货</span>';
                 } else {
                     $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/fitlogis/' . $this->id . '/3.html" title="信息提示">撤消</span>';
                 }
@@ -84,6 +85,7 @@ class Logistics extends \yii\db\ActiveRecord {
             [['logis_bail', 'logis_fee'], 'number'],
             [['logis_description'], 'string'],
             [['user_country', 'user_province', 'user_city', 'user_area', 'user_address', 'logis_country', 'logis_provice', 'logis_city', 'logis_area', 'logis_detailaddress', 'logis_name'], 'string', 'max' => 200],
+            [['hash_key'], 'string', 'max' => 255],
             [['logis_s_img', 'logis_m_img', 'logis_b_img'], 'string', 'max' => 300],
             [['logis_addip'], 'string', 'max' => 100]
         ];
@@ -102,6 +104,7 @@ class Logistics extends \yii\db\ActiveRecord {
             'user_area' => 'User Area',
             'user_address' => 'User Address',
             'to_user_id' => 'To User ID',
+            'hash_key' => 'Hash Key',
             'logis_country' => 'Logis Country',
             'logis_provice' => 'Logis Provice',
             'logis_city' => 'Logis City',

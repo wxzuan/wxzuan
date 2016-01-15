@@ -8,7 +8,7 @@ use dosamigos\qrcode\formats\MailTo;
 class QrcodeController extends \common\controllers\BaseController {
 
     public function actionIndex() {
-        $string='http://www.baidu.com';
+        $string = 'http://www.baidu.com';
         return QrCode::png($string);
     }
 
@@ -18,6 +18,14 @@ class QrcodeController extends \common\controllers\BaseController {
      */
     public function actionContact() {
         return $this->render('contact');
+    }
+
+    /**
+     * 生成订单二维码
+     */
+    public function actionBookcode() {
+        $string=Yii::$app->session->getFlash('userbookingstring');
+        return QrCode::png($string);
     }
 
 }

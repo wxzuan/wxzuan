@@ -6,12 +6,12 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use frontend\models\forms\SearchProcessForm;
-use common\models\Product;
 use common\models\Logistics;
 use common\models\Pic;
 use yii\data\Pagination;
 use yii\helpers\Url;
 use common\models\ProductOrder;
+use frontend\services\LogisticsService;
 use \PDO;
 
 class LogisticsController extends \common\controllers\BaseController {
@@ -25,7 +25,7 @@ class LogisticsController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'booked', 'rate', 'changeimg', 'selectimg', 'fitlogis', 'fititem', 'suresellproduct', 'cancelsellproduct', 'successbuy'],
+                        'actions' => ['mybook', 'mygift', 'index', 'booked', 'rate', 'changeimg', 'selectimg', 'fititem', 'suresellproduct', 'cancelsellproduct', 'successbuy'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -41,19 +41,32 @@ class LogisticsController extends \common\controllers\BaseController {
     }
 
     /**
-     * 处理物流信息
-     */
-    public function actionFitlogis() {
-        echo 11;
-        \Yii::$app->end();
-    }
-
-    /**
-     * 默认为我的商品列表
+     * 默认为我的物品列表
      * @return type
      */
     public function actionIndex() {
-        return $this->render('logistics_index');
+        $params_get = \Yii::$app->request->get();
+        if (isset($params_get['ac']) && isset($params_get['id'])) {
+            LogisticsService::fitIndexAC($params_get);
+        } else {
+            return $this->render('logistics_index');
+        }
+    }
+
+    /**
+     * 默认为我的订单列表
+     * @return type
+     */
+    public function actionMybook() {
+        return $this->render('logistics_book');
+    }
+
+    /**
+     * 默认为我的收物列表
+     * @return type
+     */
+    public function actionMygift() {
+        return $this->render('logistics_gift');
     }
 
     /**
@@ -286,3 +299,4 @@ class LogisticsController extends \common\controllers\BaseController {
     }
 
 }
+

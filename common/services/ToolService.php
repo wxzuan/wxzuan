@@ -7,7 +7,7 @@ class ToolService {
       21、写出一个能创建多级目录的PHP函数
      */
 
-    public static function createdir($path, $mode) {
+    public static function createdir($path) {
         
         $adir = explode('/', $path);
         $dirlist = '';

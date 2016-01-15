@@ -19,8 +19,32 @@ use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use \Yii;
 use \PDO;
+use yii\helpers\Url;
 
 class LogisticsService {
+
+    public static function fitIndexAC($data = array()) {
+        $user = \Yii::$app->user->getIdentity();
+        switch ($data['ac']) {
+            #删除一个信息
+            case 'del':
+                $result = Logistics::deleteAll("publis_user_id=:user_id AND fee_lock=0 and id=:id", [':user_id' => $user->user_id, ':id' => $data['id']]);
+                if ($result) {
+                    echo '<p>删除成功！</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button><script type="text/javascript">("#fit_gift_' . $data['id'] . '").parent().parent().remove();</script>';
+                } else {
+                    echo '<p>删除失败</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+                }
+                Yii::$app->end();
+                break;
+            case 'outcode':
+                #生成唯一标识TOOKENID
+                Yii::$app->session->setFlash('userbookingstring', 'There was an error sending email.');
+                echo '<p><h3>请扫描二维码以确认收货</h3><img style="margin:0 auto;" src="'.Url::toRoute('').'"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+                Yii::$app->end();
+                break;
+            default : break;
+        }
+    }
 
     /**
      * 签约物流冻结保证金
@@ -92,8 +116,46 @@ class LogisticsService {
         if (!isset($data['limit'])) {
             $data['limit'] = 10;
         }
-        
+
         $query = Logistics::find()->Where('publis_user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" fee_lock asc,id desc ");
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $data['limit']]);
+        $models = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+        return ['models' => $models, 'pages' => $pages];
+    }
+
+    /**
+     * 
+     * @param int $data
+     * @return \yii\data\ActiveDataProvider
+     */
+    public static function findMyBooks($data = array()) {
+        if (!isset($data['limit'])) {
+            $data['limit'] = 10;
+        }
+
+        $query = Logistics::find()->Where('fit_user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" fee_lock asc,id desc ");
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $data['limit']]);
+        $models = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+        return ['models' => $models, 'pages' => $pages];
+    }
+
+    /**
+     * 
+     * @param int $data
+     * @return \yii\data\ActiveDataProvider
+     */
+    public static function findMyGifts($data = array()) {
+        if (!isset($data['limit'])) {
+            $data['limit'] = 10;
+        }
+
+        $query = Logistics::find()->Where('to_user_id=:user_id', [':user_id' => $data['user_id']])->orderBy(" fee_lock asc,id desc ");
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $data['limit']]);
         $models = $query->offset($pages->offset)
