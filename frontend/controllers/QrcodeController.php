@@ -23,9 +23,12 @@ class QrcodeController extends \common\controllers\BaseController {
      * 生成订单二维码
      */
     public function actionBookcode() {
+        //得到传输过来的字符串
         $string = \Yii::$app->session->getFlash('userbookingstring');
-        $tokenString = \Yii::$app->security->encryptByKey($string, $string['tokenstring']);
-        $url = 'http://' . $_SERVER['HTTP_HOST'] . '/member/logistics/fitlogs.html?token=' . $tokenString;
+        //使用传输中的KEY值来加密数据
+        $tokenString = \Yii::$app->security->encryptByKey(json_encode($string), $string['tokenstring']);
+        $url = 'http://wxzuan.zuanzuanle.com/member/logistics/fitlogs.html?id=' . $string['id'] . 'token=' . $tokenString;
+        //$url = 'http://' . $_SERVER['HTTP_HOST'] . '/member/logistics/fitlogs.html?token=' . $tokenString;
         return QrCode::png($url);
     }
 

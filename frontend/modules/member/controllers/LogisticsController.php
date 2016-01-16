@@ -44,7 +44,8 @@ class LogisticsController extends \common\controllers\BaseController {
      * 处理订货
      */
     public function actionFitlogs() {
-        echo 11;
+        $param_get=\Yii::$app->request->get();
+        LogisticsService::fitLogs($this,$param_get);
         \Yii::$app->end();
     }
 

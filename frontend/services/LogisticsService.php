@@ -20,8 +20,39 @@ use yii\data\Pagination;
 use \Yii;
 use \PDO;
 use yii\helpers\Url;
+use app\modules\member\controllers\LogisticsController;
 
 class LogisticsService {
+
+    /**
+     * 处理订单问题
+     * @param \app\modules\member\controllers\LogisticsController $con
+     * @param type $param_get
+     */
+    public static function actionFitLogs(LogisticsController $con, $param_get = array()) {
+        //不存在ID直接跳转到错误的页面
+        if (!isset($param_get['id']) || empty($param_get['id']) || !isset($param_get['token']) || empty($param_get['token'])) {
+            $error = '错误的操作';
+            $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/index/index'), 'backtitle' => '返回');
+            \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+            $con->redirect(Url::toRoute('/public/notices'));
+            \Yii::$app->end();
+        }
+        $logis_id = $param_get['id'];
+        $token= $param_get['token'];
+        //判断这个ID是否已经被处理过了
+        $logs = Logistics::findOne($logis_id);
+        if (!$logs || $logs->bail_lock != 0) {
+            $error = '该信息不存在或者已经被接单。';
+            $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/index/index'), 'backtitle' => '返回');
+            \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+            $con->redirect(Url::toRoute('/public/notices'));
+            \Yii::$app->end();
+        }
+        //解密数据
+        $jsonstring=\Yii::$app->security->decryptByKey($token, $logs->hash_key);
+        print_r($jsonstring);exit;
+    }
 
     public static function fitIndexAC($data = array()) {
         $user = \Yii::$app->user->getIdentity();
@@ -38,11 +69,11 @@ class LogisticsService {
                 break;
             case 'outcode':
                 #生成唯一标识TOOKENID
-                $tokenString=\Yii::$app->security->generateRandomString();
-                $setFlashString=['user_id'=>$user->user_id,'id'=>$data['id'],'tokenstring'=>$tokenString];
-                Logistics::updateAll(['hash_key'=>$tokenString],"publis_user_id=:user_id AND bail_lock=0 and id=:id", [':user_id' => $user->user_id, ':id' => $data['id']]);
+                $tokenString = \Yii::$app->security->generateRandomString();
+                $setFlashString = ['user_id' => $user->user_id, 'id' => $data['id'], 'tokenstring' => $tokenString];
+                Logistics::updateAll(['hash_key' => $tokenString], "publis_user_id=:user_id AND bail_lock=0 and id=:id", [':user_id' => $user->user_id, ':id' => $data['id']]);
                 Yii::$app->session->setFlash('userbookingstring', $setFlashString);
-                echo '<p><h3>请扫描二维码以确认收货</h3><img style="margin:0 auto;" src="'.Url::toRoute('/qrcode/bookcode').'"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+                echo '<p><h3>请扫描二维码以确认收货</h3><img style="margin:0 auto;" src="' . Url::toRoute('/qrcode/bookcode') . '"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
                 Yii::$app->end();
                 break;
             default : break;
