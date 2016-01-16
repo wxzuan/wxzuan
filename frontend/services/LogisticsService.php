@@ -29,7 +29,7 @@ class LogisticsService {
      * @param \app\modules\member\controllers\LogisticsController $con
      * @param type $param_get
      */
-    public static function actionFitLogs(LogisticsController $con, $param_get = array()) {
+    public static function fitLogs(LogisticsController $con, $param_get = array()) {
         //不存在ID直接跳转到错误的页面
         if (!isset($param_get['id']) || empty($param_get['id']) || !isset($param_get['token']) || empty($param_get['token'])) {
             $error = '错误的操作';
