@@ -23,7 +23,7 @@ class QrcodeController extends \common\controllers\BaseController {
      * 生成订单二维码
      */
     public function actionBookcode() {
-        $string = Yii::$app->session->getFlash('userbookingstring');
+        $string = \Yii::$app->session->getFlash('userbookingstring');
         $tokenString = \Yii::$app->security->encryptByKey($string, $string['tokenstring']);
         $url = 'http://' . $_SERVER['HTTP_HOST'] . '/member/logistics/fitlogs.html?token=' . $tokenString;
         return QrCode::png($url);
