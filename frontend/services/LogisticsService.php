@@ -40,7 +40,7 @@ class LogisticsService {
                 #生成唯一标识TOOKENID
                 $tokenString=\Yii::$app->security->generateRandomString();
                 $setFlashString=['user_id'=>$user->user_id,'id'=>$data['id'],'tokenstring'=>$tokenString];
-                Logistics::updateAll(['hash'=>$tokenString],"publis_user_id=:user_id AND bail_lock=0 and id=:id", [':user_id' => $user->user_id, ':id' => $data['id']]);
+                Logistics::updateAll(['hash_key'=>$tokenString],"publis_user_id=:user_id AND bail_lock=0 and id=:id", [':user_id' => $user->user_id, ':id' => $data['id']]);
                 Yii::$app->session->setFlash('userbookingstring', $setFlashString);
                 echo '<p><h3>请扫描二维码以确认收货</h3><img style="margin:0 auto;" src="'.Url::toRoute('/qrcode/bookcode').'"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
                 Yii::$app->end();
