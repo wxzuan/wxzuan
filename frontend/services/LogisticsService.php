@@ -30,7 +30,7 @@ class LogisticsService {
      * @param type $param_get
      */
     public static function fitLogs(LogisticsController $con, $param_get = array()) {
-        print_r($param_get);exit;
+        
         //不存在ID直接跳转到错误的页面
         if (!isset($param_get['id']) || empty($param_get['id']) || !isset($param_get['token']) || empty($param_get['token'])) {
             $error = '错误的操作';
@@ -52,7 +52,7 @@ class LogisticsService {
         }
         //解密数据
         $jsonstring=\Yii::$app->security->decryptByKey($token, $logs->hash_key);
-        echo $jsonstring;exit;
+        print_r($jsonstring);exit;
     }
 
     public static function fitIndexAC($data = array()) {
