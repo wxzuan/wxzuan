@@ -52,7 +52,9 @@ class LogisticsService {
         }
         //解密数据
         $jsonstring=\Yii::$app->security->decryptByKey($token, $logs->hash_key);
-        print_r($jsonstring);exit;
+        $strarray=  json_decode($jsonstring);
+        
+        print_r($strarray);exit;
     }
 
     public static function fitIndexAC($data = array()) {
@@ -74,7 +76,7 @@ class LogisticsService {
                 $setFlashString = ['user_id' => $user->user_id, 'id' => $data['id'], 'tokenstring' => $tokenString];
                 Logistics::updateAll(['hash_key' => $tokenString], "publis_user_id=:user_id AND bail_lock=0 and id=:id", [':user_id' => $user->user_id, ':id' => $data['id']]);
                 Yii::$app->session->setFlash('userbookingstring', $setFlashString);
-                echo '<p><h3>请扫描二维码以确认收货</h3><img style="margin:0 auto;" src="' . Url::toRoute('/qrcode/bookcode') . '"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+                echo '<p><h3>请扫描二维码以确认收货</h3><img style="margin:0 auto;" src="' . Url::toRoute('/qrcode/bookcode') . '"/></p><button type="button" class="btn btn-danger pull-right" data-dismiss="modal">关闭</button>';
                 Yii::$app->end();
                 break;
             default : break;
