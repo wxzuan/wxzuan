@@ -27,7 +27,7 @@ class QrcodeController extends \common\controllers\BaseController {
         $string = \Yii::$app->session->getFlash('userbookingstring');
         //使用传输中的KEY值来加密数据
         $tokenString = \Yii::$app->security->encryptByKey(json_encode($string), $string['tokenstring']);
-        $url = 'http://wxzuan.zuanzuanle.com/member/logistics/fitlogs/' . $string['id'] . '/' . $tokenString . '.html';
+        $url = 'http://wxzuan.zuanzuanle.com/member/logistics/fitlogs/' . $string['id'] . '.html?token=' . $tokenString;
         //$url = 'http://' . $_SERVER['HTTP_HOST'] . '/member/logistics/fitlogs.html?token=' . $tokenString;
         return QrCode::png($url);
     }

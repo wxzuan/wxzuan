@@ -6,6 +6,7 @@ use common\models\User;
 use common\models\LoginForm;
 use Yii;
 use yii\web\Request;
+use yii\helpers\Html;
 
 class PublicController extends \common\controllers\BaseController {
 
