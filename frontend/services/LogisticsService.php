@@ -30,7 +30,7 @@ class LogisticsService {
      * @param type $param_get
      */
     public static function fitLogs(LogisticsController $con, $param_get = array()) {
-        
+
         //不存在ID直接跳转到错误的页面
         if (!isset($param_get['id']) || empty($param_get['id']) || !isset($param_get['token']) || empty($param_get['token'])) {
             $error = '错误的操作';
@@ -40,7 +40,7 @@ class LogisticsService {
             \Yii::$app->end();
         }
         $logis_id = $param_get['id'];
-        $token= $param_get['token'];
+        $token = $param_get['token'];
         //判断这个ID是否已经被处理过了
         $logs = Logistics::findOne($logis_id);
         if (!$logs || $logs->bail_lock != 0) {
@@ -51,10 +51,35 @@ class LogisticsService {
             \Yii::$app->end();
         }
         //解密数据
-        $jsonstring=\Yii::$app->security->decryptByKey($token, $logs->hash_key);
-        $strarray=  json_decode($jsonstring);
-        
-        print_r($strarray);exit;
+        $jsonstring = \Yii::$app->security->decryptByKey($token, $logs->hash_key);
+        $fitdata = json_decode($jsonstring);
+        if ($fitdata->tokenstring != $logs->hash_key) {
+            $error = '密钥对应不上，不能进行操作。';
+            $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/index/index'), 'backtitle' => '返回');
+            \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+            $con->redirect(Url::toRoute('/public/notices'));
+            \Yii::$app->end();
+        } else {
+            $user = \Yii::$app->user->getIdentity();
+            $user_id = $user->user_id;
+            try {
+                $addip = \Yii::$app->request->userIP;
+                $conn = \Yii::$app->db;
+                $command = $conn->createCommand('call p_lock_logis_Bail(:in_user_id,:logis_id,:in_addip,@out_status,@out_remark)');
+                $command->bindParam(":in_user_id", $user_id, PDO::PARAM_INT);
+                $command->bindParam(":logis_id", $logis_id, PDO::PARAM_INT);
+                $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
+                $command->execute();
+                $result = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+            } catch (Exception $e) {
+                $result = ['status' => 0, 'remark' => '系统繁忙，暂时无法处理'];
+            }
+            $error = $result['remark'];
+            $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/index/index'), 'backtitle' => '返回');
+            \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+            $con->redirect(Url::toRoute('/public/notices'));
+            \Yii::$app->end();
+        }
     }
 
     public static function fitIndexAC($data = array()) {
