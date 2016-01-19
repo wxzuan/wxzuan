@@ -40,7 +40,7 @@ return [
                 'member/logistics/mygift/<ac:\w+>/<id:\d+>' => 'member/logistics/mygift',
                 'member/logistics/selectimg/<id:\d+>' => 'member/logistics/selectimg',
                 'member/logistics/changeimg/<id:\d+>' => 'member/logistics/changeimg',
-                'member/logistics/fitlogis/<id:\d+>/' => 'member/logistics/fitlogis',
+                'member/logistics/fitlogs/<id:\d+>/' => 'member/logistics/fitlogs',
                 'member/product/cancelsellproduct/<id:\d+>' => 'member/product/cancelsellproduct',
                 'member/product/suresellproduct/<id:\d+>' => 'member/product/suresellproduct',
                 'member/account/getgift/<id:\d+>/<type:\d+>/' => 'member/account/getgift',

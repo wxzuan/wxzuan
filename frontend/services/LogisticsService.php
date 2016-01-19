@@ -51,7 +51,7 @@ class LogisticsService {
         }
         //解密数据
         $jsonstring=\Yii::$app->security->decryptByKey($token, $logs->hash_key);
-        print_r($jsonstring);exit;
+        echo $jsonstring;exit;
     }
 
     public static function fitIndexAC($data = array()) {
