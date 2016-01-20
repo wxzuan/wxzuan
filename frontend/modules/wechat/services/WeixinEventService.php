@@ -32,10 +32,24 @@ class WeixinEventService {
             case 'unsubscribe':
                 self::fitSubscribe($object, $weixinuser);
                 break;
+            #扫码处理数据
+            case 'scancode_waitmsg':
+                self::fitScancode_waitmsg($object, $weixinuser);
+                break;
             default :
                 $repaydata = self::getDefaultClick($object, $weixinuser);
                 break;
         }
+    }
+
+    /**
+     * 处理扫码内容
+     * @param type $object
+     * @param User $weixinuser
+     */
+    public static function fitScancode_waitmsg($object, User $weixinuser) {
+        $content = "扫码带提示：类型 ".$object->ScanCodeInfo->ScanType." 结果：".$object->ScanCodeInfo->ScanResult;
+        WechatCheck::_transmitText($object, $content);
     }
 
     public static function fitSubscribe($object, User $weixinuser) {
