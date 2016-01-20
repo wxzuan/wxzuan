@@ -88,7 +88,7 @@ class WeixinEventService {
                         }
                         $content = $result['remark'];
                         if ($result['status'] == 1) {
-                            $content = '担保！【 ' . Html::encode($logs->logis_name) . ' 】成功,冻结担保金【 ' . $logs->logis_bail . ' 】元,完成送货可获得佣金【 ' . $logs->logis_fee . ' 】元';
+                            $content = '担保【 ' . Html::encode($logs->logis_name) . ' 】成功,冻结担保金【 ' . round($logs->logis_bail,2) . ' 】元,完成送货可获得佣金【 ' . round($logs->logis_fee,2) . ' 】元';
                         }
                     }
                 }
