@@ -7,6 +7,7 @@ use app\modules\wechat\components\WechatCheck;
 use app\modules\wechat\services\ClickService;
 use common\models\Logistics;
 use PDO;
+use yii\helpers\Html;
 
 /*
  * To change this template, choose Tools | Templates
@@ -87,7 +88,7 @@ class WeixinEventService {
                         }
                         $content = $result['remark'];
                         if ($result['status'] == 1) {
-                            $content = '担保成功！';
+                            $content = '担保！【 ' . Html::encode($logs->logis_name) . ' 】成功,冻结担保金【 ' . $logs->logis_bail . ' 】元,完成送货可获得佣金【 ' . $logs->logis_fee . ' 】元';
                         }
                     }
                 }
