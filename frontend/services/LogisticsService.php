@@ -75,7 +75,11 @@ class LogisticsService {
                 $result = ['status' => 0, 'remark' => '系统繁忙，暂时无法处理'];
             }
             $error = $result['remark'];
-            $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/index/index'), 'backtitle' => '返回');
+            $msgtitle = '错误的操作';
+            if ($error['status'] == 1) {
+                $msgtitle = '担保成功！';
+            }
+            $notices = array('type' => 2, 'msgtitle' => $msgtitle, 'message' => $error, 'backurl' => Url::toRoute('/member/index/index'), 'backtitle' => '返回');
             \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
             $con->redirect(Url::toRoute('/public/notices'));
             \Yii::$app->end();

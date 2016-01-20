@@ -110,7 +110,7 @@ class WechatCheck extends Component {
                 'sub_button' => array(
                     array("type" => 'click', "name" => "我的资金", "key" => "weixin_usemoney"),
                     array("type" => 'click', "name" => "快速分享", "key" => "weixin_sharp"),
-                    array("type" => 'click', "name" => "代理推广", "key" => "weixin_alias"),
+                    array("type" => 'scancode_waitmsg', "name" => "扫一扫", "key" => "weixin_scancode", "sub_button" => []),
                 )
             )
         )
