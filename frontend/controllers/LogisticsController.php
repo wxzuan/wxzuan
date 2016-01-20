@@ -69,16 +69,18 @@ class LogisticsController extends \common\controllers\BaseController {
                                 'model' => $model,
                     ]);
                 }
-            } else if ($model->save()) {
-                $error = '添加成功,请添加物品图片';
-                $pid = Yii::$app->db->getLastInsertID();
-                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/logistics/selectimg/' . $pid), 'backtitle' => '选择物品图片');
-                Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
-                $this->redirect(Url::toRoute('/public/notices'));
             } else {
-                return $this->render('publishlogistics', [
-                            'model' => $model,
-                ]);
+                $pid = $model->save();
+                if ($pid) {
+                    $error = '添加成功,请添加物品图片';
+                    $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/logistics/selectimg/' . $pid), 'backtitle' => '选择物品图片');
+                    Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+                    $this->redirect(Url::toRoute('/public/notices'));
+                } else {
+                    return $this->render('publishlogistics', [
+                                'model' => $model,
+                    ]);
+                }
             }
         } else {
             return $this->render('publishlogistics', [
@@ -215,7 +217,7 @@ class LogisticsController extends \common\controllers\BaseController {
             echo '<p>不允许签订自己的物品</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
             Yii::$app->end();
         } else {
-            echo '<p><h3>请扫描对方微信二维码进一步沟通</h3><br/><em>不真实图片为虚假信息</em><br/><img style="margin:0 auto;" src="'.$logis->user->card_pic2.'"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+            echo '<p><h3>请扫描对方微信二维码进一步沟通</h3><br/><em>不真实图片为虚假信息</em><br/><img style="margin:0 auto;" src="' . $logis->user->card_pic2 . '"/></p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
             Yii::$app->end();
         }
     }
@@ -235,7 +237,7 @@ class LogisticsController extends \common\controllers\BaseController {
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index', 'publishlogistics', 'book','books', 'vouch', 'showmymoney'],
+                        'actions' => ['index', 'publishlogistics', 'book', 'books', 'vouch', 'showmymoney'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

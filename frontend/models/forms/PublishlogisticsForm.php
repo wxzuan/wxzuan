@@ -152,7 +152,7 @@ class PublishlogisticsForm extends Model {
             $logisct_id = \Yii::$app->db->lastInsertID;
             $result = LogisticsService::lockLogisticsFee($this->publis_user_id, $logisct_id);
             if ($result['status'] == 1) {
-                return true;
+                return $logisct_id;
             } else {
                 $this->addError('logis_name', $result['remark']);
                 return FALSE;
