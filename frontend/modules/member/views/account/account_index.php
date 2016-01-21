@@ -51,7 +51,7 @@ $accountlogs = AccountService::findAccountlog($data);
         </div>
         <div class="text-center">
             <?php
-            echo LinkPager::widget(['pagination' => $accountlogs['pages']]);
+            echo LinkPager::widget(['pagination' => $accountlogs['pages'],'maxButtonCount'=>5]);
             ?>
         </div>
         <script type="text/javascript">
