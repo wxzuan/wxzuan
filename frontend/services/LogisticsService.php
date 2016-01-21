@@ -39,7 +39,7 @@ class LogisticsService {
         $logs = Logistics::findOne($logis_id);
         if ($weixinuser->user_id != $logs->to_user_id) {
             $content = '不允许处理别人的订单';
-        } elseif (!$logs || $logs->bail_lock != 0) {
+        } elseif (!$logs || $logs->bail_lock != 1) {
             $content = '该信息不存在或者已经被接单。';
         } else {
             //解密数据
