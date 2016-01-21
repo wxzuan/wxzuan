@@ -25,6 +25,90 @@ use app\modules\member\controllers\LogisticsController;
 class LogisticsService {
 
     /**
+     * 
+     * @param type $object
+     * @param \frontend\services\User $weixinuser
+     * @param type $data
+     * @return string
+     */
+    public static function fitGetCode($object, User $weixinuser, $data) {
+        $logis_id = $data[1];
+        $token = urldecode($data[2]);
+        //判断这个ID是否已经被处理过了
+        $logs = Logistics::findOne($logis_id);
+        if (!$logs || $logs->bail_lock != 0) {
+            $content = '该信息不存在或者已经被接单。';
+        } else {
+            //解密数据
+            $jsonstring = \Yii::$app->security->decryptByKey($token, $logs->hash_key);
+            $fitdata = json_decode($jsonstring);
+            if ($fitdata->tokenstring != $logs->hash_key) {
+                $content = '密钥对应不上，不能进行操作。';
+            } else {
+                try {
+                    $addip = '0.0.0.0';
+                    $conn = \Yii::$app->db;
+                    $command = $conn->createCommand('call p_finish_logis(:logis_id,:in_addip,@out_status,@out_remark)');
+                    $command->bindParam(":logis_id", $logis_id, PDO::PARAM_INT);
+                    $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
+                    $command->execute();
+                    $result = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+                } catch (Exception $e) {
+                    $result = ['status' => 0, 'remark' => '系统繁忙，暂时无法处理'];
+                }
+                $content = $result['remark'];
+                if ($result['status'] == 1) {
+                    $content = '成功收取【 ' . Html::encode($logs->logis_name) . ' 】';
+                }
+            }
+        }
+        return $content;
+    }
+
+    /**
+     * 
+     * @param type $object
+     * @param \frontend\services\User $weixinuser
+     * @param type $data
+     * @return string
+     */
+    public static function fitOutCode($object, User $weixinuser, $data) {
+        $logis_id = $data[1];
+        $token = urldecode($data[2]);
+        //判断这个ID是否已经被处理过了
+        $logs = Logistics::findOne($logis_id);
+        if (!$logs || $logs->bail_lock != 0) {
+            $content = '该信息不存在或者已经被接单。';
+        } else {
+            //解密数据
+            $jsonstring = \Yii::$app->security->decryptByKey($token, $logs->hash_key);
+            $fitdata = json_decode($jsonstring);
+            if ($fitdata->tokenstring != $logs->hash_key) {
+                $content = '密钥对应不上，不能进行操作。';
+            } else {
+                $user_id = $weixinuser->user_id;
+                try {
+                    $addip = '0.0.0.0';
+                    $conn = \Yii::$app->db;
+                    $command = $conn->createCommand('call p_lock_logis_Bail(:in_user_id,:logis_id,:in_addip,@out_status,@out_remark)');
+                    $command->bindParam(":in_user_id", $user_id, PDO::PARAM_INT);
+                    $command->bindParam(":logis_id", $logis_id, PDO::PARAM_INT);
+                    $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
+                    $command->execute();
+                    $result = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+                } catch (Exception $e) {
+                    $result = ['status' => 0, 'remark' => '系统繁忙，暂时无法处理'];
+                }
+                $content = $result['remark'];
+                if ($result['status'] == 1) {
+                    $content = '担保【 ' . Html::encode($logs->logis_name) . ' 】成功,冻结担保金【 ' . round($logs->logis_bail, 2) . ' 】元,完成送货可获得佣金【 ' . round($logs->logis_fee, 2) . ' 】元';
+                }
+            }
+        }
+        return $content;
+    }
+
+    /**
      * 处理订单问题
      * @param \app\modules\member\controllers\LogisticsController $con
      * @param type $param_get
@@ -106,6 +190,15 @@ class LogisticsService {
                 Logistics::updateAll(['hash_key' => $tokenString], "publis_user_id=:user_id AND bail_lock=0 and id=:id", [':user_id' => $user->user_id, ':id' => $data['id']]);
                 Yii::$app->session->setFlash('userbookingstring', $setFlashString);
                 echo '<p><h3>请扫描二维码以确认收货</h3><img style="margin:0 auto;" src="' . Url::toRoute('/qrcode/bookcode') . '"/></p><button type="button" class="btn btn-danger pull-right" data-dismiss="modal">关闭</button>';
+                Yii::$app->end();
+                break;
+            case 'getcode':
+                #生成唯一标识TOOKENID
+                $tokenString = \Yii::$app->security->generateRandomString();
+                $setFlashString = ['user_id' => $user->user_id, 'id' => $data['id'], 'tokenstring' => $tokenString];
+                Logistics::updateAll(['hash_key' => $tokenString], "to_user_id=:user_id AND bail_lock=1 and id=:id", [':user_id' => $user->user_id, ':id' => $data['id']]);
+                Yii::$app->session->setFlash('userbookingstring', $setFlashString);
+                echo '<p><h3>请扫描二维码以确认收货</h3><img style="margin:0 auto;" src="' . Url::toRoute('/qrcode/getcode') . '"/></p><button type="button" class="btn btn-danger pull-right" data-dismiss="modal">关闭</button>';
                 Yii::$app->end();
                 break;
             default : break;

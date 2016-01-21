@@ -38,8 +38,20 @@ use Yii;
  */
 class Logistics extends \yii\db\ActiveRecord {
 
+    public function showFitGiftButton(){
+       $returnString = "";
+        switch ($this->fee_lock) {
+            case 1:
+                if ($this->bail_lock == 1) {
+                    $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/index/getcode/' . $this->id . '.html" title="信息提示">收取物品</span>';
+                }
+                break;
+            default :
+        }
+        return $returnString; 
+    }
     /**
-     * 获得物品处理状态
+     * 获得物品发货状态
      * @return string
      */
     public function showFitButton() {
@@ -52,8 +64,6 @@ class Logistics extends \yii\db\ActiveRecord {
             case 1:
                 if ($this->bail_lock == 0) {
                     $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/index/outcode/' . $this->id . '.html" title="信息提示">出货</span>';
-                } else {
-                    $returnString.='<span id="fit_gift_' . $this->id . '" class="btn btn-sm btn-danger showModalButton pull-right" value="/member/logistics/fitlogis/' . $this->id . '.html" title="信息提示">撤消</span>';
                 }
                 break;
             default :

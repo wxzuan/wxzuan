@@ -8,6 +8,7 @@ use app\modules\wechat\services\ClickService;
 use common\models\Logistics;
 use PDO;
 use yii\helpers\Html;
+use frontend\services\LogisticsService;
 
 /*
  * To change this template, choose Tools | Templates
@@ -58,39 +59,16 @@ class WeixinEventService {
             #解码
             #获得ID
             $data = explode(",", $string);
-            if (is_numeric($data[0]) && isset($data[1]) && !empty($data[1])) {
+            if (is_numeric($data[0]) && isset($data[1]) && is_numeric($data[1]) && isset($data[2]) && !empty($data[2])) {
                 #获得货物数据
-                $logis_id = $data[0];
-                $token = urldecode($data[1]);
-                //判断这个ID是否已经被处理过了
-                $logs = Logistics::findOne($logis_id);
-                if (!$logs || $logs->bail_lock != 0) {
-                    $content = '该信息不存在或者已经被接单。';
-                } else {
-                    //解密数据
-                    $jsonstring = \Yii::$app->security->decryptByKey($token, $logs->hash_key);
-                    $fitdata = json_decode($jsonstring);
-                    if ($fitdata->tokenstring != $logs->hash_key) {
-                        $content = '密钥对应不上，不能进行操作。';
-                    } else {
-                        $user_id = $weixinuser->user_id;
-                        try {
-                            $addip = '0.0.0.0';
-                            $conn = \Yii::$app->db;
-                            $command = $conn->createCommand('call p_lock_logis_Bail(:in_user_id,:logis_id,:in_addip,@out_status,@out_remark)');
-                            $command->bindParam(":in_user_id", $user_id, PDO::PARAM_INT);
-                            $command->bindParam(":logis_id", $logis_id, PDO::PARAM_INT);
-                            $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
-                            $command->execute();
-                            $result = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
-                        } catch (Exception $e) {
-                            $result = ['status' => 0, 'remark' => '系统繁忙，暂时无法处理'];
-                        }
-                        $content = $result['remark'];
-                        if ($result['status'] == 1) {
-                            $content = '担保【 ' . Html::encode($logs->logis_name) . ' 】成功,冻结担保金【 ' . round($logs->logis_bail,2) . ' 】元,完成送货可获得佣金【 ' . round($logs->logis_fee,2) . ' 】元';
-                        }
-                    }
+                switch ($data[0]) {
+                    case 0:
+                        $content = LogisticsService::fitOutCode($object, $weixinuser, $data);
+                        break;
+                    case 1:
+                        $content = LogisticsService::fitGetCode($object, $weixinuser, $data);
+                        break;
+                    default :$content = '该信息不存在或者已经被接单。';
                 }
             }
         }

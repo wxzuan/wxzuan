@@ -41,7 +41,7 @@ $logisLists = LogisticsService::findMyGifts($data);
                 <div class="container">
                     <div class="panel panel-danger">
                         <div class="panel-heading">
-                            <?= $oneItem->showFitButton(0) ?>
+                            <?= $oneItem->showFitGiftButton(0) ?>
                         </div>
                         <div class="panel-body">
                             <p class="panel-p">
