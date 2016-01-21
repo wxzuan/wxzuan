@@ -54,13 +54,13 @@ class WeixinEventService {
     public static function fitScancode_waitmsg($object, User $weixinuser) {
         $scanType = $object->ScanCodeInfo->ScanType;
         $content = " 扫描结果：" . $object->ScanCodeInfo->ScanResult;
-//        if ($scanType == 'qrcode') {
-//            $string = $object->ScanCodeInfo->ScanResult;
-//            #解码
-//            #获得ID
-//            $data = explode(",", $string);
-//            if (is_numeric($data[0]) && isset($data[1]) && is_numeric($data[1]) && isset($data[2]) && !empty($data[2])) {
-//                #获得货物数据
+        if ($scanType == 'qrcode') {
+            $string = $object->ScanCodeInfo->ScanResult;
+            #解码
+            #获得ID
+            $data = explode(",", $string);
+            if (is_numeric($data[0]) && isset($data[1]) && is_numeric($data[1]) && isset($data[2]) && !empty($data[2])) {
+                #获得货物数据
 //                switch ($data[0]) {
 //                    case 0:
 //                        $content = LogisticsService::fitOutCode($weixinuser, $data);
@@ -70,8 +70,9 @@ class WeixinEventService {
 //                        break;
 //                    default :$content = '该信息不存在或者已经被接单。';
 //                }
-//            }
-//        }
+                $content=$data[0];
+            }
+        }
         WechatCheck::_transmitText($object, $content);
     }
 
