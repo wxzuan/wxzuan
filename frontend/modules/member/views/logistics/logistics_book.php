@@ -18,7 +18,7 @@ if (isset($get['type'])) {
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/lanmu/bannar_logis.jpg" alt="img">
 </div>
-<?= $this->render('@app/modules/member/views/layouts/mem_logis_Menu.php'); ?>
+<?= $this->render('@app/modules/member/views/logistics/mem_logis_Menu.php'); ?>
 <?php
 $data = ['user_id' => $user_id, 'limit' => 10];
 $logisLists = LogisticsService::findMyBooks($data);
