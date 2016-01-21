@@ -61,7 +61,7 @@ class WeixinEventService {
             $data = explode(",", $string);
             if (is_numeric($data[0]) && isset($data[1]) && is_numeric($data[1]) && isset($data[2]) && !empty($data[2])) {
                 #获得货物数据
-                $acType=  intval($data[0]);
+                $acType = intval($data[0]);
                 switch ($acType) {
                     case 0:
                         $content = LogisticsService::fitOutCode($weixinuser, $data);
@@ -71,7 +71,6 @@ class WeixinEventService {
                         break;
                     default :$content = '该信息不存在或者已经被接单。';
                 }
-                $content=$data[0];
             }
         }
         WechatCheck::_transmitText($object, $content);
