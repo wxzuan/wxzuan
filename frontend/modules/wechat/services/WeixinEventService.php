@@ -61,15 +61,16 @@ class WeixinEventService {
             $data = explode(",", $string);
             if (is_numeric($data[0]) && isset($data[1]) && is_numeric($data[1]) && isset($data[2]) && !empty($data[2])) {
                 #获得货物数据
-//                switch ($data[0]) {
-//                    case 0:
-//                        $content = LogisticsService::fitOutCode($weixinuser, $data);
-//                        break;
-//                    case 1:
-//                        $content = LogisticsService::fitGetCode($weixinuser, $data);
-//                        break;
-//                    default :$content = '该信息不存在或者已经被接单。';
-//                }
+                $acType=  intval($data[0]);
+                switch ($acType) {
+                    case 0:
+                        $content = LogisticsService::fitOutCode($weixinuser, $data);
+                        break;
+                    case 1:
+                        $content = LogisticsService::fitGetCode($weixinuser, $data);
+                        break;
+                    default :$content = '该信息不存在或者已经被接单。';
+                }
                 $content=$data[0];
             }
         }
