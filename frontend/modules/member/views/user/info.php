@@ -77,16 +77,16 @@ $form = ActiveForm::begin([
     </div>
 </div>
 <div class="container no-bottom container-b">
-    <?= Html::submitButton('修改信息', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
+    <?= Html::submitButton('保存', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
 <?php
 echo $this->render('addressdiv');
 ?>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
 <?php
-$user=User::find()->where("user_id=:user_id",[':user_id'=>$model->user_id])->one();
+$user = User::find()->where("user_id=:user_id", [':user_id' => $model->user_id])->one();
 if ($user->province) {
     ?>
             $(".qys_common_provice").val(<?php echo $user->province; ?>);
@@ -112,22 +112,22 @@ if ($user->area) {
 <?php } ?>
 
         $("#area_div").html(newarea);
-        $(".qys_common_provice").bind('change', function () {
-            var province = $(".qys_common_provice").find("option").not(function () {
+        $(".qys_common_provice").bind('change', function() {
+            var province = $(".qys_common_provice").find("option").not(function() {
                 return !this.selected;
             }).val();
             $("#qys_address_show").append(newcity);
             newcity = $(".qys_common_city_" + province);
             $("#city_div").html(newcity);
-            var city = $("#city_div").children('select').find("option").not(function () {
+            var city = $("#city_div").children('select').find("option").not(function() {
                 return !this.selected;
             }).val();
             $("#qys_address_show").append(newarea);
             newarea = $(".qys_common_area_" + city);
             $("#area_div").html(newarea);
         });
-        $("#city_div").children('select').bind('change', function () {
-            var city = $("#city_div").children('select').find("option").not(function () {
+        $("#city_div").children('select').bind('change', function() {
+            var city = $("#city_div").children('select').find("option").not(function() {
                 return !this.selected;
             }).val();
             $("#qys_address_show").append(newarea);

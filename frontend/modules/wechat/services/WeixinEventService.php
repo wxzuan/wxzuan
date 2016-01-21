@@ -63,10 +63,10 @@ class WeixinEventService {
                 #获得货物数据
                 switch ($data[0]) {
                     case 0:
-                        $content = LogisticsService::fitOutCode($object, $weixinuser, $data);
+                        $content = LogisticsService::fitOutCode($weixinuser, $data);
                         break;
                     case 1:
-                        $content = LogisticsService::fitGetCode($object, $weixinuser, $data);
+                        $content = LogisticsService::fitGetCode($weixinuser, $data);
                         break;
                     default :$content = '该信息不存在或者已经被接单。';
                 }

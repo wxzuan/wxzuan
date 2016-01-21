@@ -31,12 +31,14 @@ class LogisticsService {
      * @param type $data
      * @return string
      */
-    public static function fitGetCode($object, User $weixinuser, $data) {
+    public static function fitGetCode(User $weixinuser, $data) {
         $logis_id = $data[1];
         $token = urldecode($data[2]);
         //判断这个ID是否已经被处理过了
         $logs = Logistics::findOne($logis_id);
-        if (!$logs || $logs->bail_lock != 0) {
+        if ($weixinuser->user_id != $logs->to_user_id) {
+            $content = '不允许处理别人的订单';
+        } elseif (!$logs || $logs->bail_lock != 0) {
             $content = '该信息不存在或者已经被接单。';
         } else {
             //解密数据
@@ -72,7 +74,7 @@ class LogisticsService {
      * @param type $data
      * @return string
      */
-    public static function fitOutCode($object, User $weixinuser, $data) {
+    public static function fitOutCode(User $weixinuser, $data) {
         $logis_id = $data[1];
         $token = urldecode($data[2]);
         //判断这个ID是否已经被处理过了
