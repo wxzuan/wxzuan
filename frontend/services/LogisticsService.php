@@ -21,6 +21,7 @@ use \Yii;
 use \PDO;
 use yii\helpers\Url;
 use app\modules\member\controllers\LogisticsController;
+use common\models\User;
 
 class LogisticsService {
 
