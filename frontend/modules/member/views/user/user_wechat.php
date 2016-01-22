@@ -57,7 +57,7 @@ $form = ActiveForm::begin([
     <div class="text-center">
         <?php
         if ($models):
-            echo LinkPager::widget(['pagination' => $pages]);
+            echo LinkPager::widget(['pagination' => $pages,'maxButtonCount'=>5]);
         endif;
         ?>
     </div>
