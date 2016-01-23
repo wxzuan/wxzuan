@@ -10,6 +10,8 @@ use common\models\UserProductAddress;
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
 </div>
+<?= $this->render('@app/modules/member/views/layouts/l_member_header.php', ['icons' => ['product-content' => Url::toRoute('/member/index/index'), 'facebook-content' => Url::toRoute('/product/index')]]); ?>
+
 <?php
 $form = ActiveForm::begin([
             'action' => ['/member/index/shippingaddress'],
@@ -67,7 +69,7 @@ $form = ActiveForm::begin([
     </div>
 </div>
 <div class="container no-bottom container-b">
-    <?= Html::submitButton('修改收货地址', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
+    <?= Html::submitButton('保存', ['class' => 'buttonWrap button button-red contactSubmitButton', 'name' => 'submit-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
 <?php

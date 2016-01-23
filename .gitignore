@@ -35,3 +35,4 @@ phpunit.phar
 !/frontend/web/assets/
 /frontend/web/date/qrcode/
 /frontend/modules/wechat/controllers/
+/common/controllers/

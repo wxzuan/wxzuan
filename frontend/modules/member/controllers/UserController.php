@@ -28,7 +28,7 @@ class UserController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['info', 'changeimg', 'index', 'wechat','wechatchangeimg'],
+                        'actions' => ['info', 'changeimg', 'index', 'wechat', 'wechatchangeimg'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -42,6 +42,7 @@ class UserController extends \common\controllers\BaseController {
             ],
         ];
     }
+
     public function actionWechat() {
         $user = \Yii::$app->user->getIdentity();
         $post = \Yii::$app->request->post();
@@ -81,6 +82,7 @@ class UserController extends \common\controllers\BaseController {
         $user = \Yii::$app->user->getIdentity();
         return $this->render('user_wechatchangeimg', ['model' => $user]);
     }
+
     public function actionIndex() {
         $user = \Yii::$app->user->getIdentity();
         $post = \Yii::$app->request->post();
@@ -120,6 +122,7 @@ class UserController extends \common\controllers\BaseController {
         $user = \Yii::$app->user->getIdentity();
         return $this->render('user_changeimg', ['model' => $user]);
     }
+
     /**
      * 用户基本信息
      * @return type
@@ -147,4 +150,5 @@ class UserController extends \common\controllers\BaseController {
             return $this->render('info', ['model' => $model]);
         }
     }
+
 }

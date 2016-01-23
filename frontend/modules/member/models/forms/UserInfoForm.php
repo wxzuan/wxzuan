@@ -25,10 +25,10 @@ class UserInfoForm extends Model {
      * @return boolean
      */
     public function update(User $user) {
-        $username=$user->username;
+        $pre_username=$user->username;
         $user->setAttributes($this->attributes);
-        if($user->username!=$user->wangwang){
-            $user->setAttribute("username", $username);
+        if($pre_username!=$user->wangwang){
+            $user->setAttribute("username", $pre_username);
         }
         return $user->update();
     }

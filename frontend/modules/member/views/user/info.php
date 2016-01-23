@@ -11,13 +11,21 @@ use yii\helpers\Url;
 <div class="container no-bottom">
     <img class="responsive-image" src="/images/misc/help_server.png" alt="img">
 </div>
-<?= $this->render('@app/modules/member/views/layouts/l_member_header.php', ['icons' => ['product-content' => Url::toRoute('/product/index'), 'facebook-content' => Url::toRoute('/product/index')]]); ?>
+<?= $this->render('@app/modules/member/views/layouts/l_member_header.php', ['icons' => ['product-content' => Url::toRoute('/member/index/index'), 'facebook-content' => Url::toRoute('/product/index')]]); ?>
 <?php
 $form = ActiveForm::begin([
             'action' => ['/member/user/info'],
             'method' => 'post',
         ]);
 ?>
+<?php if ($model->errors): ?>
+    <div class="container">
+        <p style='color:red;'>
+            <?php $errorstring = implode("<br/>", $model->errors) ?>
+            <?= $errorstring ?>
+        </p>
+    </div>  
+<?php endif; ?>
 <div class="container">
     <div class="toggle-1">
         <a href="#" class="deploy-toggle-2 toggle-1-active">用户名<span class="float-right color-bule">查看</span></a>
@@ -84,7 +92,7 @@ $form = ActiveForm::begin([
 echo $this->render('addressdiv');
 ?>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
 <?php
 $user = User::find()->where("user_id=:user_id", [':user_id' => $model->user_id])->one();
 if ($user->province) {
@@ -112,22 +120,22 @@ if ($user->area) {
 <?php } ?>
 
         $("#area_div").html(newarea);
-        $(".qys_common_provice").bind('change', function() {
-            var province = $(".qys_common_provice").find("option").not(function() {
+        $(".qys_common_provice").bind('change', function () {
+            var province = $(".qys_common_provice").find("option").not(function () {
                 return !this.selected;
             }).val();
             $("#qys_address_show").append(newcity);
             newcity = $(".qys_common_city_" + province);
             $("#city_div").html(newcity);
-            var city = $("#city_div").children('select').find("option").not(function() {
+            var city = $("#city_div").children('select').find("option").not(function () {
                 return !this.selected;
             }).val();
             $("#qys_address_show").append(newarea);
             newarea = $(".qys_common_area_" + city);
             $("#area_div").html(newarea);
         });
-        $("#city_div").children('select').bind('change', function() {
-            var city = $("#city_div").children('select').find("option").not(function() {
+        $("#city_div").children('select').bind('change', function () {
+            var city = $("#city_div").children('select').find("option").not(function () {
                 return !this.selected;
             }).val();
             $("#qys_address_show").append(newarea);
