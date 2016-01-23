@@ -14,7 +14,7 @@ AppAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <meta name="keyword" content="赚赚,赚赚乐,转转,转转乐,收益平台,服务平台"/>
         <meta name="description" content="赚赚乐是寻想网络科技旗下开发的一款服务于大众的平台，平台允许用户发布买卖信息，物流信息来得到自己想要的服务。平台还推出理财服务,让用户的资金得以升值，赚赚,赚赚乐,转转,转转乐,收益平台,服务平台。"/>
-        <meta/>
+        <meta name="baidu-site-verification" content="mhudtj3nJP" />
         <?php $this->head() ?>
     </head>
     <body>
