@@ -52,6 +52,14 @@ class AccountController extends \common\controllers\BaseController {
     }
 
     /**
+     * 取消提现
+     */
+    public function actionCancelcash() {
+        echo 11;
+        \Yii::$app->end();
+    }
+
+    /**
      * 提现操作
      * @return type
      */
@@ -120,11 +128,11 @@ class AccountController extends \common\controllers\BaseController {
         $user_id = \Yii::$app->user->getId();
         #获得用户的可用资金
         $p_param = \Yii::$app->request->get();
-        if (!isset($p_param['id'])||!isset($p_param['type'])) {
+        if (!isset($p_param['id']) || !isset($p_param['type'])) {
             echo 1;
             Yii::$app->end();
         }
-        $gift = ViewGifts::find()->where("id=:id AND user_id=:user_id AND ac_type=:type AND LENGTH(fittime)<5", [':id' => $p_param['id'], ':user_id' => $user_id,':type'=>$p_param['type']])->one();
+        $gift = ViewGifts::find()->where("id=:id AND user_id=:user_id AND ac_type=:type AND LENGTH(fittime)<5", [':id' => $p_param['id'], ':user_id' => $user_id, ':type' => $p_param['type']])->one();
         if (!isset($gift)) {
             echo 1;
             \Yii::$app->end();

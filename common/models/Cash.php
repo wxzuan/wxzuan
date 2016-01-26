@@ -44,7 +44,7 @@ class Cash extends \yii\db\ActiveRecord {
     public function getStatusRemark() {
         $resturnString = '';
         switch ($this->status) {
-            case 0:$resturnString = '待处理';
+            case 0:$resturnString = '待处理&nbsp;<span id="fit_cashcancel_' . $this->id . '" class="showModalButton pull-right" value="/member/account/cancelcash/' . $this->id . '.html" title="信息提示">取消提现</span>';
                 break;
             case 1:$resturnString = '已成功';
                 break;
