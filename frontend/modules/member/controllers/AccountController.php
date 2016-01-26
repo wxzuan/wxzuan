@@ -84,7 +84,7 @@ class AccountController extends \common\controllers\BaseController {
                 'message' => $fit['remark'],
                 'backurl' => Url::toRoute('/member/account/tixian'),
                 'backtitle' => '返回',
-                'tourl' => Url::toRoute('/member/account/index/index'),
+                'tourl' => Url::toRoute('/member/account/index'),
                 'totitle' => '会员中心'
             );
             \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
