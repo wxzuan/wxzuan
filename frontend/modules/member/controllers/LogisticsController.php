@@ -91,24 +91,24 @@ class LogisticsController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionRate() {
-        $p_param = Yii::$app->request->get();
+        $p_param = \Yii::$app->request->get();
         if (isset($p_param['id'])) {
             echo '<p>该功能未开放</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
-            Yii::$app->end();
+            \Yii::$app->end();
         }
         $model = new SearchProcessForm();
 
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
+        if (\Yii::$app->request->isAjax && $model->load(\Yii::$app->request->post())) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
 
             $this->refresh();
             if ($resultR) {
-                Yii::$app->session->setFlash('success', '更新成功');
+                \Yii::$app->session->setFlash('success', '更新成功');
                 $this->redirect('/public/notices.html');
-                Yii::$app->end();
+                \Yii::$app->end();
             }
         } else {
             return $this->render('product_rate', ['model' => $model]);
@@ -120,8 +120,8 @@ class LogisticsController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionSelectimg() {
-        $p_param = Yii::$app->request->get();
-        $user_id = Yii::$app->user->getId();
+        $p_param = \Yii::$app->request->get();
+        $user_id = \Yii::$app->user->getId();
         if (isset($p_param['id'])) {
             $oneLogistics = Logistics::find()->where("id=:id", [':id' => $p_param['id']])->one();
             if ($oneLogistics) {
@@ -137,9 +137,9 @@ class LogisticsController extends \common\controllers\BaseController {
                             if ($oneLogistics->update()) {
                                 $error = '更改成功';
                                 $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/member/logistics/index'), 'backtitle' => '返回');
-                                Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+                                \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
                                 $this->redirect(Url::toRoute('/public/notices'));
-                                Yii::$app->end();
+                                \Yii::$app->end();
                             }
                         }
                     }
@@ -151,12 +151,12 @@ class LogisticsController extends \common\controllers\BaseController {
                         ->limit($pages->limit)
                         ->all();
                 return $this->render('logistics_selectimg', ['model' => $oneLogistics, 'models' => $models, 'pages' => $pages]);
-                Yii::$app->end();
+                \Yii::$app->end();
             }
         }
         $error = '不存在此信息';
         $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/logistics/index'), 'backtitle' => '返回');
-        Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+        \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
         $this->redirect(Url::toRoute('/public/notices'));
     }
 
@@ -165,17 +165,17 @@ class LogisticsController extends \common\controllers\BaseController {
      * @return type
      */
     public function actionChangeimg() {
-        $p_param = Yii::$app->request->get();
+        $p_param = \Yii::$app->request->get();
         if (isset($p_param['id'])) {
             $oneLogistics = Logistics::find()->where("id=:id", [':id' => $p_param['id']])->one();
             if ($oneLogistics) {
                 return $this->render('logistics_changeimg', ['model' => $oneLogistics]);
-                Yii::$app->end();
+                \Yii::$app->end();
             }
         }
         $error = '不存在此物品';
         $notices = array('type' => 2, 'msgtitle' => '错误的操作', 'message' => $error, 'backurl' => Url::toRoute('/member/logistics/index'), 'backtitle' => '返回');
-        Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+        \Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
         $this->redirect(Url::toRoute('/public/notices'));
     }
 
@@ -186,15 +186,15 @@ class LogisticsController extends \common\controllers\BaseController {
     public function actionCancelsellproduct() {
         $user_id = \Yii::$app->user->getId();
         #获得用户的可用资金
-        $p_param = Yii::$app->request->get();
+        $p_param = \Yii::$app->request->get();
         if (!isset($p_param['id'])) {
             echo 1;
-            Yii::$app->end();
+            \Yii::$app->end();
         }
         $order = ProductOrder::find()->where("order_id=:id AND p_user_id=:user_id ", [':id' => $p_param['id'], ':user_id' => $user_id])->one();
         if (!isset($order)) {
             echo 1;
-            Yii::$app->end();
+            \Yii::$app->end();
         }
         if (isset($p_param['sure']) && $p_param['sure'] == 1) {
 
@@ -226,21 +226,21 @@ class LogisticsController extends \common\controllers\BaseController {
     public function actionSuresellproduct() {
         $user_id = \Yii::$app->user->getId();
         #获得用户的可用资金
-        $p_param = Yii::$app->request->get();
+        $p_param = \Yii::$app->request->get();
         if (!isset($p_param['id'])) {
             echo 1;
-            Yii::$app->end();
+            \Yii::$app->end();
         }
         $order = ProductOrder::find()->where("order_id=:id AND p_user_id=:user_id ", [':id' => $p_param['id'], ':user_id' => $user_id])->one();
         if (!isset($order)) {
             echo 1;
-            Yii::$app->end();
+            \Yii::$app->end();
         }
         if (isset($p_param['sure']) && $p_param['sure'] == 1) {
             $in_p_user_id = $order->p_user_id;
             $order_id = $order->order_id;
             #调有存储过程冻结资金并生成订单
-            $conn = Yii::$app->db;
+            $conn = \Yii::$app->db;
             $trance = $conn->beginTransaction();
             try {
 
@@ -267,15 +267,15 @@ class LogisticsController extends \common\controllers\BaseController {
     public function actionSuccessbuy() {
         $user_id = \Yii::$app->user->getId();
         #获得用户的可用资金
-        $p_param = Yii::$app->request->get();
+        $p_param = \Yii::$app->request->get();
         if (!isset($p_param['id'])) {
             echo 1;
-            Yii::$app->end();
+            \Yii::$app->end();
         }
         $order = ProductOrder::find()->where("order_id=:id AND user_id=:user_id ", [':id' => $p_param['id'], ':user_id' => $user_id])->one();
         if (!isset($order)) {
             echo 1;
-            Yii::$app->end();
+            \Yii::$app->end();
         }
         if (isset($p_param['sure']) && $p_param['sure'] == 1) {
 
@@ -284,7 +284,7 @@ class LogisticsController extends \common\controllers\BaseController {
                 $addip = \Yii::$app->request->userIP;
                 $in_p_user_id = $order->user_id;
                 $order_id = $order->order_id;
-                $conn = Yii::$app->db;
+                $conn = \Yii::$app->db;
                 $command = $conn->createCommand('call p_success_Product_Order(:in_p_user_id,:order_id,:in_addip,@out_status,@out_remark)');
                 $command->bindParam(":in_p_user_id", $in_p_user_id, PDO::PARAM_INT);
                 $command->bindParam(":order_id", $order_id, PDO::PARAM_INT);
