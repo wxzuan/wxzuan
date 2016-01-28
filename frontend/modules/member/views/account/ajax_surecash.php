@@ -22,7 +22,7 @@ else:
             echo '取消成功';
             ?>
             <script type="text/javascript">
-                $("#fit_cashcancel_<?= $order->order_id ?>").html('<button class="btn btn-default btn-sm">已经发货</button>');
+                $("#fit_cashcancel_<?= $order->id ?>").html('<button class="btn btn-default btn-sm">已经发货</button>');
             </script>
             <?php
         } else {
