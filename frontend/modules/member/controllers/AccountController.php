@@ -21,7 +21,7 @@ class AccountController extends \common\controllers\BaseController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'chongzhi', 'tixian', 'tixianlog', 'coupon', 'getgift'],
+                        'actions' => ['index', 'chongzhi', 'tixian', 'tixianlog', 'coupon', 'getgift','cancelcash'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
