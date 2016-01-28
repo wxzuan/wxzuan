@@ -69,7 +69,7 @@ class Cash extends \yii\db\ActiveRecord {
                 break;
             case 2:$resturnString = '已失败';
                 break;
-            case 2:$resturnString = '已提交';
+            case 4:$resturnString = '已取消';
                 break;
             default :$resturnString = '待处理';
         }
