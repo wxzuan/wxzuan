@@ -40,13 +40,14 @@ $accountlogs = AccountService::findCashlog($data);
                 <div class="container">
                     <div class="toggle-1">
                         <a href="#" data-pjax="0" class="deploy-toggle-1">
-                            <?= date('Y年m月d日H时i分s秒', $onelog->addtime) ?>提现<?= $onelog->total ?> 元 <?= $onelog->getStatusRemark() ?> 
+                            <?= date('Y年m月d日H时i分s秒', $onelog->addtime) ?>提现<?= $onelog->total ?> 元 
                         </a>
                         <div class="toggle-content">
                             <p>
                                 到帐资金：<?= $onelog->credited ?> 元 手续费：<?= $onelog->fee ?><br/>
                                 提现帐号：<?= '**' . substr($onelog->account, -4) ?>银行名称：<?= $onelog->bank_name ?>
-                                备注：<?= $onelog->verify_remark ?>
+                                备注：<?= $onelog->verify_remark ?><br/>
+                                <?= $onelog->getfitStatus() ?> 
                             </p>
                         </div>
                     </div>

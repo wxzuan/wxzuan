@@ -44,7 +44,7 @@ class Cash extends \yii\db\ActiveRecord {
     public function getStatusRemark() {
         $resturnString = '';
         switch ($this->status) {
-            case 0:$resturnString = '待处理&nbsp;<span id="fit_cashcancel_' . $this->id . '" class="showModalButton pull-right" value="/member/account/cancelcash/' . $this->id . '.html" title="信息提示">取消提现</span>';
+            case 0:$resturnString = '待处理';
                 break;
             case 1:$resturnString = '已成功';
                 break;
@@ -56,7 +56,25 @@ class Cash extends \yii\db\ActiveRecord {
         }
         return $resturnString;
     }
-
+    /**
+     * 获得提现状态
+     * return string
+     */
+    public function getfitStatus() {
+        $resturnString = '';
+        switch ($this->status) {
+            case 0:$resturnString = '<span id="fit_cashcancel_' . $this->id . '" class="btn btn-danger btn-sm showModalButton pull-right" value="/member/account/cancelcash/' . $this->id . '.html" title="信息提示">取消提现</span>';
+                break;
+            case 1:$resturnString = '已成功';
+                break;
+            case 2:$resturnString = '已失败';
+                break;
+            case 2:$resturnString = '已提交';
+                break;
+            default :$resturnString = '待处理';
+        }
+        return $resturnString;
+    }
     /**
      * @inheritdoc
      */
