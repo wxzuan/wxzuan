@@ -8,6 +8,7 @@ use frontend\models\forms\CashForm;
 use \PDO;
 use yii\helpers\Url;
 use common\models\tableviews\ViewGifts;
+use common\models\Cash;
 
 class AccountController extends \common\controllers\BaseController {
 
@@ -55,8 +56,38 @@ class AccountController extends \common\controllers\BaseController {
      * 取消提现
      */
     public function actionCancelcash() {
-        echo 11;
-        \Yii::$app->end();
+        $user_id = \Yii::$app->user->getId();
+        #获得用户的可用资金
+        $p_param = Yii::$app->request->get();
+        if (!isset($p_param['id'])) {
+            echo 1;
+            Yii::$app->end();
+        }
+        $order = Cash::find()->where("id=:id AND user_id=:user_id AND status=0 ", [':id' => $p_param['id'], ':user_id' => $user_id])->one();
+        if (!isset($order)) {
+            echo '<p>数据已经处理过。</p><button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>';
+            Yii::$app->end();
+        }
+        if (isset($p_param['sure']) && $p_param['sure'] == 1) {
+#调有存储过程取消提现
+            try {
+                $addip = \Yii::$app->request->userIP;
+                $in_p_user_id = $order->user_id;
+                $order_id = $order->id;
+                $conn = Yii::$app->db;
+                $command = $conn->createCommand('call p_Cancel_Cash(:in_p_user_id,:order_id,:in_addip,@out_status,@out_remark)');
+                $command->bindParam(":in_p_user_id", $in_p_user_id, PDO::PARAM_INT);
+                $command->bindParam(":order_id", $order_id, PDO::PARAM_INT);
+                $command->bindParam(":in_addip", $addip, PDO::PARAM_STR, 50);
+                $command->execute();
+                $fit = $conn->createCommand("select @out_status as status,@out_remark as remark")->queryOne();
+            } catch (Exception $e) {
+                $fit = ['remark' => '系统繁忙，暂时无法处理', 'status' => 0];
+            }
+        } else {
+            $fit = [];
+        }
+        return $this->renderAjax('ajax_surecash', ['order' => $order, 'p_param' => $p_param, 'fit' => $fit]);
     }
 
     /**

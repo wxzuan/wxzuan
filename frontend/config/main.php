@@ -44,6 +44,7 @@ return [
                 'member/product/cancelsellproduct/<id:\d+>' => 'member/product/cancelsellproduct',
                 'member/product/suresellproduct/<id:\d+>' => 'member/product/suresellproduct',
                 'member/account/getgift/<id:\d+>/<type:\d+>/' => 'member/account/getgift',
+                'member/account/cancelcash/<id:\d+>/' => 'member/account/cancelcash',
                 'member/product/selectimg/<id:\d+>' => 'member/product/selectimg',
                 'member/product/rate/<id:\d+>' => 'member/product/rate',
                 'member/product/changeimg/<id:\d+>' => 'member/product/changeimg',
