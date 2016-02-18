@@ -45,6 +45,10 @@ AppAsset::register($this);
             'url' => ['/public/activity'],
         ];
         $menuItems[] = [
+            'label' => '处理提现',
+            'url' => ['/cash/index'],
+        ];
+        $menuItems[] = [
             'label' => '注销：' . Yii::$app->user->identity->username ,
             'url' => ['/site/logout'],
             'linkOptions' => ['data-method' => 'post']

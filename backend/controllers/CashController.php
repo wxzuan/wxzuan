@@ -12,7 +12,7 @@ use backend\models\forms\PublishGiftForm;
 /**
  * Site controller
  */
-class PublicController extends Controller {
+class CashController extends Controller {
 
     /**
      * @inheritdoc
@@ -54,7 +54,7 @@ class PublicController extends Controller {
     }
 
     public function actionIndex() {
-        return $this->render('index');
+        return $this->render('cash_index');
     }
 
     /**
