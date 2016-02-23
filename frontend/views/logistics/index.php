@@ -11,12 +11,12 @@ use yii\widgets\ListView;
 <?= $this->render('@app/views/layouts/servicesMenu.php'); ?>
 <div class="content">
     <?php
-    $data = ['limit' => 5,'fee_lock'=>1];
+    $data = ['limit' => 5, 'fee_lock' => 1];
     $logisticsLists = LogisticsService::findLogisticss($data);
     if ($logisticsLists):
         echo ListView::widget([
             'dataProvider' => $logisticsLists,
-            'itemOptions' => ['class' => 'item'],
+            'itemOptions' => ['class' => 'item qys-item'],
             'itemView' => '_item_logistics_view',
             'pager' => ['class' => ScrollPager::className()]
         ]);

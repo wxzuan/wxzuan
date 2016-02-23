@@ -52,7 +52,7 @@ $user=\Yii::$app->user->getIdentity();
                     <?= $content ?>
                     <div class="container no-bottom" style="text-align: center;padding:15px 0px;">
                         <a href="<?= Url::toRoute('/index') ?>" class="button button-w button-white">返回首页</a>
-                        <a href="<?= Url::toRoute('/product/index') ?>" class="button button-w button-white">商品中心</a>
+                        <a href="<?= Url::toRoute('/product/index') ?>" class="button button-w button-white">服务中心</a>
                         <a href="<?= Url::toRoute('/help/index') ?>" class="button button-w button-white">帮助中心</a>
                         <a href="<?= Url::toRoute('/member/index/index') ?>" class="button button-w button-white">会员中心</a>
                     </div>
