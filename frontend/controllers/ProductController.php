@@ -26,6 +26,16 @@ class ProductController extends \common\controllers\BaseController {
      * 添加商品
      */
     public function actionAddproduct() {
+        
+        
+        $publishUser = \Yii::$app->user->getIdentity();
+        if (!$publishUser->province || !$publishUser->city || !$publishUser->address) {
+            $error = '您的地址没有完善，无法发布商品信息。';
+            $notices = array('type' => 2, 'msgtitle' => '地址不正确', 'message' => $error, 'backurl' => Url::toRoute('/member/index/userinfo'), 'backtitle' => '完善个人信息');
+            Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
+            $this->redirect(Url::toRoute('/public/notices'));
+        }
+        
         $model = new AddProductForm();
         $p_param = Yii::$app->request->get();
         $oneProduct = '';

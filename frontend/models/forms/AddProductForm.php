@@ -49,7 +49,19 @@ class AddProductForm extends Model {
      * 保存商品
      */
     public function save() {
+        #获得用户的地区信息用来提供浏览者的显示信息
+        $userinfo = \Yii::$app->user->getIdentity();
         $newProduct = new Product();
+        $newProduct->product_country = 0;
+        if (!empty($userinfo->province)) {
+            $newProduct->product_province = $userinfo->province;
+        }
+        if (!empty($userinfo->city)) {
+            $newProduct->product_city = $userinfo->city;
+        }
+        if (!empty($userinfo->area)) {
+            $newProduct->product_area = $userinfo->area;
+        }
         $newProduct->setAttributes($this->attributes);
         return $newProduct->save();
     }

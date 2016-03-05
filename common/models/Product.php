@@ -18,6 +18,10 @@ use Yii;
  * @property string $product_description
  * @property string $product_info
  * @property integer $product_num
+ * @property integer $product_country
+ * @property integer $product_province
+ * @property integer $product_city
+ * @property integer $product_area
  * @property integer $product_status
  * @property integer $product_addtime
  * @property string $product_addip
@@ -47,7 +51,7 @@ class Product extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['product_user_id', 'product_type', 'product_num', 'product_status', 'product_addtime'], 'integer'],
+            [['product_user_id', 'product_type', 'product_num', 'product_country', 'product_province', 'product_city', 'product_area', 'product_status', 'product_addtime'], 'integer'],
             [['product_name'], 'required'],
             [['product_price'], 'number'],
             [['product_info'], 'string'],
@@ -63,20 +67,24 @@ class Product extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'product_id' => 'Product ID',
-            'product_user_id' => 'Product User ID',
-            'product_type' => 'Product Type',
-            'product_name' => 'Product Name',
-            'product_s_img' => 'Product S Img',
-            'product_m_img' => 'Product M Img',
-            'product_b_img' => 'Product B Img',
-            'product_price' => 'Product Price',
-            'product_description' => 'Product Description',
-            'product_info' => 'Product Info',
-            'product_num' => 'Product Num',
-            'product_status' => 'Product Status',
-            'product_addtime' => 'Product Addtime',
-            'product_addip' => 'Product Addip',
+            'product_id' => '商品ID',
+            'product_user_id' => '商品提供者',
+            'product_type' => '产品类型',
+            'product_name' => '产品名称',
+            'product_s_img' => '产品小图',
+            'product_m_img' => '产品中图',
+            'product_b_img' => '产品大图',
+            'product_price' => '产品价格',
+            'product_description' => '商品描述',
+            'product_info' => '商品信息',
+            'product_num' => '商品数量',
+            'product_country' => '所在国家',
+            'product_province' => '所在省份',
+            'product_city' => '所在城市',
+            'product_area' => '所在区域',
+            'product_status' => '是否审核通过',
+            'product_addtime' => '商品上架时间',
+            'product_addip' => '商品添加IP',
         ];
     }
 
