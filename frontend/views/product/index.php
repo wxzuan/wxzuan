@@ -17,6 +17,7 @@ use yii\widgets\ListView;
         echo ListView::widget([
             'dataProvider' => $productlists,
             'itemOptions' => ['class' => 'item'],
+            'emptyText'=>'您所在的地区没有商品数据',
             'itemView' => '_item_product_view',
             'pager' => ['class' => ScrollPager::className()]
         ]);
