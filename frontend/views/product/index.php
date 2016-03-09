@@ -12,7 +12,7 @@ use yii\widgets\ListView;
 <div class="content">
     <?php
     $data = ['limit' => 5];
-    $productlists = ProductService::findProducts($data);
+    $productlists = ProductService::findProducts($data,true);
     if ($productlists):
         echo ListView::widget([
             'dataProvider' => $productlists,
