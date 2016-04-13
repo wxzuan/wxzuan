@@ -35,7 +35,7 @@ class CommentService {
         if (!isset($data['limit'])) {
             $data['limit'] = 5;
         }
-        $query = Comment::find()->Where('top_id=:top_id', [':top_id' => $data['top_id']])->orderBy(" id desc ")->limit($data['limit']);
+        $query = Comment::find()->Where('top_id=:top_id', [':top_id' => $data['top_id']])->orderBy(" id asc ")->limit($data['limit']);
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $data['limit']]);
         $models = $query->offset($pages->offset)

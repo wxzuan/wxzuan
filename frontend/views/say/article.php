@@ -49,13 +49,13 @@ $this->title = Html::encode($articleInfo->c_title);
                 foreach ($realyLists['models'] as $onelog) :
                     if ($onelog->user_id == $articleInfo->user_id):
                         ?>
-                        <em class="speach-right-title"><?= $articleInfo->user->username ?>:</em>
+                        <em class="speach-right-title"><?= $articleInfo->user->username ?> <?= $onelog->c_addtime ?>:</em>
                         <p class="speach-right blue-bubble"><?= Html::encode($onelog->c_content) ?></p>
                         <div class="clear"></div>
                         <?php
                     else:
                         ?>
-                        <em class="speach-left-title"><?= $onelog->user->username ?>:</em>
+                        <em class="speach-left-title"><?= $onelog->user->username ?> <?= $onelog->c_addtime ?>:</em>
                         <p class="speach-left"><?= Html::encode($onelog->c_content) ?></p>
                         <div class="clear"></div>
                     <?php
