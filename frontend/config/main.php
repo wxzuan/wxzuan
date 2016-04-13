@@ -30,6 +30,8 @@ return [
                 'product/showmymoney/<id:\d+>' => 'product/showmymoney',
                 'product/addproduct/<id:\d+>' => 'product/addproduct',
                 'product/buy/<id:\d+>' => 'product/buy',
+                'say/article/<id:\d+>' => 'say/article',
+                'say/repay/<id:\d+>' => 'say/repay',
                 'logistics/publishlogistics/<id:\d+>' => 'logistics/publishlogistics',
                 'logistics/detail/<id:\d+>' => 'logistics/detail',
                 'logistics/book/<id:\d+>' => 'logistics/book',

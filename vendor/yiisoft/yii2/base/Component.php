@@ -526,6 +526,7 @@ class Component extends Object
      */
     public function trigger($name, Event $event = null)
     {
+        
         $this->ensureBehaviors();
         if (!empty($this->_events[$name])) {
             if ($event === null) {

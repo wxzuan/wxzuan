@@ -41,3 +41,6 @@
 .qys-item a{color:#666;}
 .ias-trigger{margin-top:10px;}
 .qysModalTitle{color:red;font-weight:600;font-size:14px;}
+.qys_icon_list li{float: left;margin-right:10px;}
+.qys_tucao_title strong{top:30px;}
+.qys_tucao_title strong img{width:100%;height:100%;margin:0px;padding:0px;}

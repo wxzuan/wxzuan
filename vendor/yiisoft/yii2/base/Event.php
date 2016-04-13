@@ -167,6 +167,7 @@ class Event extends Object
         if (empty(self::$_events[$name])) {
             return;
         }
+        echo 11;exit;
         if ($event === null) {
             $event = new static;
         }
