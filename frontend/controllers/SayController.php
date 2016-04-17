@@ -48,7 +48,7 @@ class SayController extends \common\controllers\BaseController {
             if (!$articleInfo) {
                 $idTrue = FALSE;
             } else {
-                if ($articleInfo->is_public === 0 && (\Yii::$app->user->getId() !== $articleInfo->to_user_id || \Yii::$app->user->getId() !== $articleInfo->user_id)) {
+                if ($articleInfo->is_public === 0 && \Yii::$app->user->getId() !== $articleInfo->to_user_id && \Yii::$app->user->getId() !== $articleInfo->user_id) {
                     $idTrue = FALSE;
                 }
             }
