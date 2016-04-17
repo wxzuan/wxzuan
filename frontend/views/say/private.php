@@ -10,18 +10,14 @@ use yii\widgets\ListView;
 <?= $this->render('@app/views/layouts/main_header.php', ['icons' => ['product-content' => Url::toRoute('/say/saying'), 'twitter-content' => Url::toRoute('/index')]]); ?>
 <?= $this->render('@app/views/layouts/servicesMenu.php'); ?>
 <div class="content">
-    <?php
-    //获得个人私信数量
-    $priviteUserComent = CommentService::findOnePrivateC(\Yii::$app->user->getId());
-    ?>
     <ul class="icon-list qys_icon_list" style="margin:5px 0px;">
-        <li class="letter-list pull-right">私信：<a style="display: inline-table;cursor: pointer;" href="<?= Url::toRoute('/say/private') ?>"><?= $priviteUserComent ?></a></li>
+        <li class="letter-list pull-right">所有人：<a style="display: inline-table;cursor: pointer;" href="<?= Url::toRoute('/say/index') ?>">查看</a></li>
     </ul>
     <div style="clear: both;"></div>
 </div>
 <div class="content">
     <?php
-    $data = ['limit' => 5, 'is_public' => 1];
+    $data = ['limit' => 5, 'is_public' => 0];
     $logisticsLists = CommentService::findComments($data);
     if ($logisticsLists):
         echo ListView::widget([

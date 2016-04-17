@@ -5,11 +5,11 @@ use yii\helpers\Html;
 ?>
 <div class="container no-bottom">
     <div class="section-title qys_tucao_title">
-        <h4><a href="<?= Url::toRoute('/say/article/' . $model->id) ?>"><?= Html::encode($model->c_title) ?></a><span class="pull-right" style="margin-right: 20px;"><em style="color:#666;font-size: 12px;"><?= $model->c_addtime ?></em></span></h4>
+        <h4><a href="<?= Url::toRoute('/say/article/' . $model->id) ?>"><?= Html::encode(mb_substr($model->c_title,0,15,"UTF-8")) ?></a><span class="pull-right" style="margin-right: 20px;"><em style="color:#666;font-size: 12px;"><?= $model->c_addtime ?></em></span></h4>
         <ul class="icon-list qys_icon_list" style="margin:5px 0px;">
+            <li class="user-list"><?= $model->user->username  ?></li>
             <li class="bubble-list"><?= $model->c_nums ?></li>
             <li class="heart-list">0</li>
-
         </ul>
         <div style="clear: both;"></div>
         <p class="left-text">

@@ -28,6 +28,14 @@ class CommentService {
 
     /**
      * 
+     * @return type
+     */
+    public static function findOnePrivateC($user_id) {
+        return Comment::find()->where('to_user_id=:toUser AND is_public=0', [':toUser' => $user_id])->count();
+    }
+
+    /**
+     * 
      * @param int $data
      * @return \yii\data\ActiveDataProvider
      */
@@ -55,7 +63,7 @@ class CommentService {
         }
         $model = new Comment();
         $dataProvider = new ActiveDataProvider([
-            'query' => $model->find()->Where('is_public=1 and top_id=0 and c_type="article" ')->orderBy(" id desc ")->limit($data['limit']),
+            'query' => $model->find()->Where('is_public=:isp and top_id=0 and c_type="article" ',[':isp'=>$data['is_public']])->orderBy(" id desc ")->limit($data['limit']),
             'pagination' => [
                 'pagesize' => $data['limit'],
             ]

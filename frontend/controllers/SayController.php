@@ -47,6 +47,10 @@ class SayController extends \common\controllers\BaseController {
             $articleInfo = Comment::find()->where('id=:id', [':id' => $id])->one();
             if (!$articleInfo) {
                 $idTrue = FALSE;
+            } else {
+                if ($articleInfo->ispublic === 0 && \Yii::$app->user->getId() !== $articleInfo->to_user_id) {
+                    $idTrue = FALSE;
+                }
             }
         }
         if (!$idTrue) {
@@ -67,6 +71,14 @@ class SayController extends \common\controllers\BaseController {
     }
 
     /**
+     * 个人私用页面
+     * @return type
+     */
+    public function actionPrivate() {
+        return $this->render('private');
+    }
+
+    /**
      * 发布一个说说
      * @return type
      */
@@ -79,7 +91,7 @@ class SayController extends \common\controllers\BaseController {
             if ($pid) {
                 $error = '吐槽成功';
                 $this->refresh();
-                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/say/' . $pid), 'backtitle' => '查看吐槽');
+                $notices = array('type' => 2, 'msgtitle' => '操作成功', 'message' => $error, 'backurl' => Url::toRoute('/say/article/' . $pid), 'backtitle' => '查看吐槽');
                 Yii::$app->getSession()->setFlash('wechat_fail', array($notices));
                 $this->redirect(Url::toRoute('/public/notices'));
             } else {

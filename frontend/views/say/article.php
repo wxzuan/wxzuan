@@ -31,7 +31,7 @@ $this->title = Html::encode($articleInfo->c_title);
     <div class="decoration"></div>
     <?php
     $get = Yii::$app->request->get();
-    $data = ['top_id' => $articleInfo->id, 'limit' => 10, 'get' => $get];
+    $data = ['top_id' => $articleInfo->id, 'limit' => 5, 'get' => $get];
     $realyLists = CommentService::findRepays($data);
     ?>
     <div class="one-half-responsive last-column" style='border-top:none;'>
