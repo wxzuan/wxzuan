@@ -279,6 +279,7 @@ class WechatCheck extends Component {
 
             #判断是否用户已经登录
             $user = self::addOrLoginUser($postObj->FromUserName);
+            self::_transmitText($postObj, $user);
             if ($user === 3) {
                 $content = "您没有成为本平台成员，不能做这个操作。";
                 self::_transmitText($postObj, $content);
@@ -548,9 +549,10 @@ class WechatCheck extends Component {
             $newAccount = new Account();
             $newAccount->setAttributes($accountarray);
             $newAccount->save();
+            $user = User::find()->where("username=:username", [":username" => $weixinUser])->one();
+            return $user;
         }
-        $user = User::find()->where("username=:username", [":username" => $weixinUser])->one();
-        return $user;
+        return serialize($newuser->errors);
     }
 
     public static function addLog($content) {
