@@ -45,7 +45,7 @@ class PublicController extends \common\controllers\BaseController {
             $user_id = \Yii::$app->request->get('id');
             $stoken = \Yii::$app->request->get('stoken');
 //$user = Users::model()->find(" user_id=:id AND repstaken=:repstaken AND repsativetime>=:time", array(":id"=>$user_id,":repstaken" => $stoken, ":time" => $time));
- 
+ echo $user_id;exit;
             $user = User::find()->where(" user_id=:id", [":id" => $user_id])->one();
 //$user = User::model()->find(" user_id=:id", array(":id" => $user_id));
             if ($user) {
