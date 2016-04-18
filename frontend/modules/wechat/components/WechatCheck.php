@@ -279,8 +279,7 @@ class WechatCheck extends Component {
 
             #判断是否用户已经登录
             $user = self::addOrLoginUser($postObj->FromUserName);
-            self::_transmitText($postObj, $user);
-            if ($user === 3) {
+            if (is_integer($user)) {
                 $content = "您没有成为本平台成员，不能做这个操作。";
                 self::_transmitText($postObj, $content);
             }
