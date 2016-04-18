@@ -533,7 +533,7 @@ class WechatCheck extends Component {
 
     public static function addUser($weixinUser) {
         #注册新用户
-        return $weixinUser;
+        //return $weixinUser;
         $newuser = new User();
         $newuser->setAttribute('username', $weixinUser);
         $newuser->setAttribute('password', $newuser->generatePassword(self::generateRandString()));
