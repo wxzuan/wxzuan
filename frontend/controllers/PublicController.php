@@ -52,7 +52,7 @@ class PublicController extends \common\controllers\BaseController {
                 $loginform = new LoginForm();
                 $loginform->setAttributes([
                     'username' => $user->username,
-                    'password' => $user->privacy,
+                    'password' => $user->password,
                     'rememberMe' => true,
                 ]);
                 if ($loginform->login(2)) {
