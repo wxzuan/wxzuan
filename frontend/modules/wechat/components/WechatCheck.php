@@ -538,7 +538,7 @@ class WechatCheck extends Component {
         $newuser->setAttribute('username', $weixinUser);
         $newuser->setAttribute('password', $newuser->generatePassword(self::generateRandString()));
         $newuser->setAttribute('wangwang', $weixinUser);
-        return serialize($newuser->attributes);
+        return $newuser->username;
         if ($newuser->validate() && $newuser->save()) {
 
             $accountarray = array(
