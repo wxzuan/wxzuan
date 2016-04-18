@@ -84,8 +84,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
         return [
             [['type_id', 'super_type_id', 'credit', 'islock', 'real_status', 'card_type', 'email_status', 'phone_status', 'video_status', 'sex', 'qq', 'regativetime', 'repsativetime', 'logintime', 'addtime', 'uptime', 'lasttime'], 'integer'],
             [['username', 'password'], 'required'],
-            [['purview', 'username', 'nickname', 'password', 'paypassword', 'card_id', 'nation', 'realname', 'tel', 'phone', 'question', 'province', 'city', 'area', 'remind', 'privacy'], 'string', 'max' => 100],
-            [['card_pic1', 'card_pic2', 'email', 'litpic', 'wangwang', 'answer', 'birthday', 'address', 'regtaken', 'repstaken', 'addip', 'upip', 'lastip'], 'string', 'max' => 255],
+            [['purview',  'nickname', 'password', 'paypassword', 'card_id', 'nation', 'realname', 'tel', 'phone', 'question', 'province', 'city', 'area', 'remind', 'privacy'], 'string', 'max' => 100],
+            [['card_pic1', 'card_pic2', 'email', 'litpic', 'answer', 'birthday', 'address', 'regtaken', 'repstaken', 'addip', 'upip', 'lastip'], 'string', 'max' => 255],
             [['username'], 'unique']
         ];
     }

@@ -538,7 +538,6 @@ class WechatCheck extends Component {
         $newuser->setAttribute('username', $weixinUser);
         $newuser->setAttribute('password', $newuser->generatePassword(self::generateRandString()));
         $newuser->setAttribute('wangwang', $weixinUser);
-        return $newuser->username;
         if ($newuser->validate() && $newuser->save()) {
 
             $accountarray = array(
@@ -554,7 +553,7 @@ class WechatCheck extends Component {
             $user = User::find()->where("username=:username", [":username" => $weixinUser])->one();
             return $user;
         }
-        return serialize($newuser->errors);
+        return 3;
     }
 
     public static function addLog($content) {
