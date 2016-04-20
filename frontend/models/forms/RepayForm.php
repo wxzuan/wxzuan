@@ -61,7 +61,7 @@ class RepayForm extends Model {
         $newComent->setAttribute("c_nums", 0);
         $newComent->setAttribute("c_addtime", date('Y-m-d H:i:s'));
         if ($newComent->save()) {
-            $upComment->update(['c_nums' => $upComment->c_nums + 1]);
+            Comment::updateAllCounters(['c_nums' => 1], "id=:id", [':id' => $this->top_id]);
             return $this->top_id;
         } else {
             return FALSE;
