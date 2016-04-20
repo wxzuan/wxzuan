@@ -71,7 +71,7 @@ $this->title = Html::encode($articleInfo->c_title);
             <?php Pjax::end() ?>
         <?php else: ?>
 
-            <div class="container" style="min-height: 350px;">
+            <div class="container" style="min-height: 150px;">
                 <p>暂时没有回复记录</p>
             </div>
         <?php endif; ?>
